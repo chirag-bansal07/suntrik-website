@@ -3,27 +3,38 @@ import { motion } from 'framer-motion'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
 
 const contactInfo = [
-  { icon: '📍', label: 'Address', value: 'Suntrik Energy Pvt. Ltd., [City], [State], India' },
-  { icon: '📞', label: 'Phone', value: '+91 XXXXX XXXXX' },
-  { icon: '✉️', label: 'Email', value: 'info@suntrik.com' },
-  { icon: '🕐', label: 'Working Hours', value: 'Mon – Sat: 9:00 AM – 6:00 PM' },
+  { icon: '📍', label: 'Address', value: 'Suntrik Green Energy Pvt. Ltd., Haryana, India' },
+  { icon: '📞', label: 'Phone',   value: '+91 XXXXX XXXXX' },
+  { icon: '✉️', label: 'Email',   value: 'info@suntrik.com' },
+  { icon: '🌐', label: 'Website', value: 'www.suntrik.com' },
+  { icon: '🕐', label: 'Hours',   value: 'Mon – Sat: 9:00 AM – 6:00 PM' },
+]
+
+const serviceTypes = [
+  'Residential Rooftop (PM Surya Ghar)',
+  'Commercial / Industrial Rooftop',
+  'Ground-Mount / Utility',
+  'Agricultural Solar (PM-KUSUM)',
+  'O&M / AMC for Existing Plant',
+  'DPR / Advisory / Consultancy',
 ]
 
 export default function Contact() {
   const { ref, inView } = useScrollAnimation(0.08)
-  const [form, setForm] = useState({ name: '', email: '', phone: '', type: 'Residential', message: '' })
+  const [form, setForm] = useState({ name: '', email: '', phone: '', service: serviceTypes[0], capacity: '', message: '' })
   const [sent, setSent] = useState(false)
 
-  const handleChange = e => setForm(f => ({ ...f, [e.target.name]: e.target.value }))
-  const handleSubmit = e => {
+  const change = e => setForm(f => ({ ...f, [e.target.name]: e.target.value }))
+  const submit = e => {
     e.preventDefault()
-    // TODO: wire up form submission (Formspree, EmailJS, etc.)
+    // TODO: wire to Formspree / EmailJS / backend API
     setSent(true)
   }
 
   return (
     <section id="contact" style={{ background: 'var(--bg-base)', padding: '7rem 0' }}>
       <div className="container">
+        {/* Header */}
         <div ref={ref} style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
           <motion.span className="section-tag" style={{ justifyContent: 'center' }}
             initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5 }}>
@@ -37,53 +48,67 @@ export default function Contact() {
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, delay: 0.2 }}
-            style={{ color: 'var(--text-secondary)', maxWidth: 500, margin: '0 auto' }}
+            style={{ color: 'var(--text-secondary)', maxWidth: 520, margin: '0 auto' }}
           >
-            Get a free site assessment and customized solar proposal. Our experts will contact you within 24 hours.
+            Fill in the form and our team will reach out within 24 hours with a free feasibility assessment and a no-obligation quote.
           </motion.p>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: '4rem', alignItems: 'start' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.6fr', gap: '4rem', alignItems: 'start' }} className="contact-grid">
           {/* Contact info */}
           <motion.div
             initial={{ opacity: 0, x: -30 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.65, delay: 0.3 }}
           >
-            <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '1.25rem', fontWeight: 700, marginBottom: '2rem' }}>Contact Information</h3>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginBottom: '3rem' }}>
+            <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '1.2rem', fontWeight: 700, marginBottom: '1.75rem' }}>
+              Contact Suntrik
+            </h3>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.35rem', marginBottom: '2.5rem' }}>
               {contactInfo.map(c => (
                 <div key={c.label} style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
                   <div style={{
-                    width: 44, height: 44, borderRadius: 10, flexShrink: 0,
-                    background: 'rgba(255,107,26,0.12)', border: '1px solid rgba(255,107,26,0.2)',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.1rem',
-                  }}>
-                    {c.icon}
-                  </div>
+                    width: 42, height: 42, borderRadius: 10, flexShrink: 0,
+                    background: 'rgba(255,107,26,0.1)', border: '1px solid rgba(255,107,26,0.18)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1rem',
+                  }}>{c.icon}</div>
                   <div>
-                    <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 2 }}>{c.label}</div>
-                    <div style={{ fontWeight: 500, color: 'var(--text-primary)' }}>{c.value}</div>
+                    <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: 2 }}>{c.label}</div>
+                    <div style={{ fontWeight: 500, color: 'var(--text-primary)', fontSize: '0.9rem' }}>{c.value}</div>
                   </div>
                 </div>
               ))}
             </div>
 
-            {/* Social links */}
+            {/* Scheme badges */}
+            <div style={{ marginBottom: '2rem' }}>
+              <p style={{ fontSize: '0.72rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '0.75rem' }}>
+                Scheme-Ready Installer
+              </p>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+                {['PM Surya Ghar', 'PM-KUSUM', 'HAREDA Approved', 'MNRE Empanelled'].map(badge => (
+                  <span key={badge} style={{
+                    fontSize: '0.7rem', fontWeight: 600, padding: '0.3rem 0.8rem',
+                    background: 'rgba(255,107,26,0.1)', color: 'var(--brand-orange)',
+                    border: '1px solid rgba(255,107,26,0.2)', borderRadius: 100,
+                  }}>{badge}</span>
+                ))}
+              </div>
+            </div>
+
+            {/* Social */}
             <div>
-              <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '1rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Follow Us</p>
-              <div style={{ display: 'flex', gap: '0.75rem' }}>
-                {['LinkedIn', 'Facebook', 'Instagram', 'YouTube'].map(s => (
-                  <a key={s} href="#" style={{
-                    width: 40, height: 40, borderRadius: 8,
-                    border: '1px solid rgba(255,255,255,0.12)', background: 'rgba(255,255,255,0.04)',
+              <p style={{ fontSize: '0.72rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '0.75rem' }}>Follow Us</p>
+              <div style={{ display: 'flex', gap: '0.6rem' }}>
+                {[['in', 'LinkedIn'], ['fb', 'Facebook'], ['ig', 'Instagram'], ['yt', 'YouTube']].map(([s, label]) => (
+                  <a key={s} href="#" aria-label={label} style={{
+                    width: 38, height: 38, borderRadius: 8,
+                    border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.04)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontSize: '0.7rem', color: 'var(--text-secondary)', fontWeight: 600,
+                    fontSize: '0.68rem', color: 'var(--text-secondary)', fontWeight: 700,
                     transition: 'all 0.2s',
                   }}
                     onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--brand-orange)'; e.currentTarget.style.color = 'var(--brand-orange)' }}
-                    onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.12)'; e.currentTarget.style.color = 'var(--text-secondary)' }}
-                  >
-                    {s[0]}
-                  </a>
+                    onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.color = 'var(--text-secondary)' }}
+                  >{s.toUpperCase()}</a>
                 ))}
               </div>
             </div>
@@ -95,51 +120,46 @@ export default function Contact() {
           >
             {sent ? (
               <div style={{
-                textAlign: 'center', padding: '3rem', borderRadius: 12,
-                background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.25)',
+                textAlign: 'center', padding: '3.5rem 2rem', borderRadius: 12,
+                background: 'rgba(16,185,129,0.07)', border: '1px solid rgba(16,185,129,0.2)',
               }}>
-                <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>✅</div>
-                <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '1.5rem', color: '#10B981', marginBottom: '0.75rem' }}>Message Sent!</h3>
-                <p style={{ color: 'var(--text-secondary)' }}>Our team will get back to you within 24 hours.</p>
+                <div style={{ fontSize: '3.5rem', marginBottom: '1rem' }}>✅</div>
+                <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '1.5rem', color: '#10B981', marginBottom: '0.75rem' }}>Enquiry Sent!</h3>
+                <p style={{ color: 'var(--text-secondary)' }}>Our team will contact you within 24 hours with a free feasibility assessment.</p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+              <form onSubmit={submit} style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                  <FormField label="Full Name" name="name" value={form.name} onChange={handleChange} placeholder="Your name" required />
-                  <FormField label="Email" name="email" type="email" value={form.email} onChange={handleChange} placeholder="your@email.com" required />
+                  <Field label="Full Name"   name="name"  value={form.name}  onChange={change} placeholder="Your name"         required />
+                  <Field label="Email"       name="email" type="email" value={form.email} onChange={change} placeholder="you@example.com" required />
                 </div>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                  <FormField label="Phone" name="phone" type="tel" value={form.phone} onChange={handleChange} placeholder="+91 XXXXX XXXXX" />
-                  <div>
-                    <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '0.5rem', fontWeight: 500 }}>Project Type</label>
-                    <select name="type" value={form.type} onChange={handleChange} style={{
-                      width: '100%', padding: '0.8rem 1rem', borderRadius: 6,
-                      background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.12)',
-                      color: 'var(--text-primary)', fontSize: '0.875rem', outline: 'none',
-                      cursor: 'pointer',
-                    }}>
-                      {['Residential', 'Commercial', 'Industrial', 'Utility-Scale', 'Other'].map(t => <option key={t} value={t}>{t}</option>)}
-                    </select>
-                  </div>
+                  <Field label="Phone" name="phone" type="tel" value={form.phone} onChange={change} placeholder="+91 XXXXX XXXXX" />
+                  <Field label="Approx. Capacity" name="capacity" value={form.capacity} onChange={change} placeholder="e.g. 10 kWp, 100 kWp…" />
                 </div>
+
+                {/* Service type */}
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '0.5rem', fontWeight: 500 }}>Message</label>
+                  <label style={labelStyle}>Service Required</label>
+                  <select name="service" value={form.service} onChange={change} style={inputStyle}>
+                    {serviceTypes.map(t => <option key={t} value={t}>{t}</option>)}
+                  </select>
+                </div>
+
+                {/* Message */}
+                <div>
+                  <label style={labelStyle}>Project Details</label>
                   <textarea
-                    name="message" value={form.message} onChange={handleChange}
-                    placeholder="Tell us about your project — location, roof size, current energy consumption..."
-                    rows={4} required
-                    style={{
-                      width: '100%', padding: '0.8rem 1rem', borderRadius: 6,
-                      background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.12)',
-                      color: 'var(--text-primary)', fontSize: '0.875rem', outline: 'none',
-                      resize: 'vertical', fontFamily: 'Inter, sans-serif', lineHeight: 1.6,
-                    }}
+                    name="message" value={form.message} onChange={change} rows={4} required
+                    placeholder="Location, roof type (RCC / metal sheet), current monthly electricity bill, any specific requirements…"
+                    style={{ ...inputStyle, resize: 'vertical', fontFamily: 'Inter, sans-serif', lineHeight: 1.6 }}
                     onFocus={e => e.target.style.borderColor = 'rgba(255,107,26,0.5)'}
-                    onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.12)'}
+                    onBlur={e  => e.target.style.borderColor = 'rgba(255,255,255,0.12)'}
                   />
                 </div>
-                <button type="submit" className="btn-primary" style={{ alignSelf: 'flex-start', marginTop: '0.5rem' }}>
-                  Send Message →
+
+                <button type="submit" className="btn-primary" style={{ alignSelf: 'flex-start', marginTop: '0.25rem' }}>
+                  Request Free Assessment →
                 </button>
               </form>
             )}
@@ -149,28 +169,31 @@ export default function Contact() {
 
       <style>{`
         @media (max-width: 768px) {
-          #contact .container > div:last-child { grid-template-columns: 1fr !important; gap: 2.5rem !important; }
+          .contact-grid { grid-template-columns: 1fr !important; gap: 2.5rem !important; }
         }
       `}</style>
     </section>
   )
 }
 
-function FormField({ label, name, type = 'text', value, onChange, placeholder, required }) {
+const labelStyle = { display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', marginBottom: '0.45rem', fontWeight: 500 }
+const inputStyle  = {
+  width: '100%', padding: '0.8rem 1rem', borderRadius: 6,
+  background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.12)',
+  color: 'var(--text-primary)', fontSize: '0.875rem', outline: 'none',
+  fontFamily: 'Inter, sans-serif', transition: 'border-color 0.2s',
+}
+
+function Field({ label, name, type = 'text', value, onChange, placeholder, required }) {
   return (
     <div>
-      <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '0.5rem', fontWeight: 500 }}>{label}</label>
+      <label style={labelStyle}>{label}</label>
       <input
         type={type} name={name} value={value} onChange={onChange}
         placeholder={placeholder} required={required}
-        style={{
-          width: '100%', padding: '0.8rem 1rem', borderRadius: 6,
-          background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.12)',
-          color: 'var(--text-primary)', fontSize: '0.875rem', outline: 'none',
-          fontFamily: 'Inter, sans-serif', transition: 'border-color 0.2s',
-        }}
+        style={inputStyle}
         onFocus={e => e.target.style.borderColor = 'rgba(255,107,26,0.5)'}
-        onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.12)'}
+        onBlur={e  => e.target.style.borderColor = 'rgba(255,255,255,0.12)'}
       />
     </div>
   )

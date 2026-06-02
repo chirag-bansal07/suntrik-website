@@ -1,28 +1,37 @@
 import { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
-import { gsap } from 'gsap'
 
 const stats = [
-  { value: 500, suffix: '+', label: 'Projects Completed', desc: 'Across residential, commercial & industrial sectors' },
-  { value: 50, suffix: 'MW+', label: 'Capacity Installed', desc: 'Total solar energy capacity commissioned' },
-  { value: 15, suffix: '+', label: 'Years of Experience', desc: 'Delivering clean energy solutions since 2009' },
-  { value: 20, suffix: '+', label: 'States Covered', desc: 'Pan-India presence with local support teams' },
+  { value: 8,    suffix: '+',    label: 'Years of Experience', desc: 'Solar EPC since 2018 across North India' },
+  { value: 500,  suffix: '+',    label: 'Projects Completed',  desc: 'Residential, commercial & industrial' },
+  { value: 10,   suffix: 'MW+',  label: 'Capacity Installed',  desc: 'Aggregate solar capacity commissioned' },
+  { value: 100,  suffix: '%',    label: 'DISCOM Approvals',    desc: 'Net-metering cleared, zero rejections' },
 ]
 
 function CountUp({ value, suffix, inView }) {
-  const numRef = useRef(null)
-  const hasRun = useRef(false)
+  const numRef  = useRef(null)
+  const hasRun  = useRef(false)
 
   useEffect(() => {
     if (inView && !hasRun.current && numRef.current) {
       hasRun.current = true
-      gsap.fromTo(
-        { v: 0 },
-        { v: value, duration: 2.2, ease: 'power2.out',
-          onUpdate() { if (numRef.current) numRef.current.textContent = Math.round(this.targets()[0].v) + suffix }
-        }
-      )
+      // Tween a DOM text node via a counter variable — works in all GSAP 3.x versions
+      let current = 0
+      const total = value
+      const duration = 2200 // ms
+      const start = performance.now()
+
+      const tick = (now) => {
+        const elapsed = now - start
+        const progress = Math.min(elapsed / duration, 1)
+        // ease out cubic
+        const eased = 1 - Math.pow(1 - progress, 3)
+        current = Math.round(eased * total)
+        if (numRef.current) numRef.current.textContent = current + suffix
+        if (progress < 1) requestAnimationFrame(tick)
+      }
+      requestAnimationFrame(tick)
     }
   }, [inView, value, suffix])
 
@@ -30,25 +39,23 @@ function CountUp({ value, suffix, inView }) {
 }
 
 export default function Stats() {
-  const { ref, inView } = useScrollAnimation(0.1)
+  const { ref, inView } = useScrollAnimation(0.12)
 
   return (
-    <section style={{
-      background: 'var(--gradient-sun)', padding: '5rem 0',
-      position: 'relative', overflow: 'hidden',
-    }}>
-      {/* Background pattern */}
+    <section style={{ background: 'var(--gradient-sun)', padding: '5rem 0', position: 'relative', overflow: 'hidden' }}>
+      {/* Subtle grid overlay */}
       <div style={{
-        position: 'absolute', inset: 0,
-        backgroundImage: `linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px)`,
-        backgroundSize: '50px 50px',
+        position: 'absolute', inset: 0, pointerEvents: 'none',
+        backgroundImage: `linear-gradient(rgba(255,255,255,0.07) 1px, transparent 1px),
+                          linear-gradient(90deg, rgba(255,255,255,0.07) 1px, transparent 1px)`,
+        backgroundSize: '48px 48px',
       }} />
 
       <div className="container" ref={ref} style={{ position: 'relative', zIndex: 1 }}>
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-          gap: '2rem',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+          gap: '2.5rem',
           textAlign: 'center',
         }}>
           {stats.map((s, i) => (
@@ -65,10 +72,10 @@ export default function Stats() {
               }}>
                 <CountUp value={s.value} suffix={s.suffix} inView={inView} />
               </div>
-              <div style={{ fontSize: '1rem', fontWeight: 700, color: 'rgba(255,255,255,0.95)', marginBottom: '0.4rem' }}>
+              <div style={{ fontSize: '1rem', fontWeight: 700, color: 'rgba(255,255,255,0.95)', marginBottom: '0.35rem' }}>
                 {s.label}
               </div>
-              <div style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.7)', lineHeight: 1.5 }}>
+              <div style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.68)', lineHeight: 1.5 }}>
                 {s.desc}
               </div>
             </motion.div>
