@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root {
+  /* Suntrik Brand Colors */
+  --brand-orange:  #FF6B1A;   /* Primary energy orange */
+  --brand-amber:   #FFB830;   /* Warm golden amber */
+  --brand-dark:    #0D0D0D;   /* Deep black */
+  --brand-navy:    #0A1628;   /* Dark navy */
+
+  /* Backgrounds */
+  --bg-deep:     #060A0F;
+  --bg-base:     #0A1020;
+  --bg-elevated: #111827;
+  --bg-surface:  #1A2435;
+  --bg-light:    #F8F9FB;     /* Light mode sections */
+  --bg-light-2:  #EEF1F7;
+
+  /* Accents */
+  --sun-primary:  #FF6B1A;
+  --sun-glow:     rgba(255,107,26,0.35);
+  --sun-amber:    #FFB830;
+  --sun-bright:   #FF8C42;
+
+  /* Text */
+  --text-primary:   #F0F4FF;
+  --text-secondary: #94A3B8;
+  --text-muted:     #64748B;
+  --text-dark:      #0F172A;
+  --text-dark-2:    #334155;
+
+  /* Borders */
+  --border-subtle: rgba(255,107,26,0.12);
+  --border-accent: rgba(255,107,26,0.4);
+  --border-light:  rgba(15,23,42,0.1);
+
+  /* Gradients */
+  --gradient-sun:    linear-gradient(135deg, #FF6B1A 0%, #FFB830 100%);
+  --gradient-dark:   linear-gradient(135deg, #0A1020 0%, #111827 100%);
+  --gradient-hero:   linear-gradient(160deg, #060A0F 0%, #0A1628 60%, #1a1200 100%);
+
+  /* Shadows */
+  --shadow-glow:   0 0 60px rgba(255,107,26,0.2), 0 0 120px rgba(255,184,48,0.1);
+  --shadow-card:   0 4px 32px rgba(0,0,0,0.3);
+  --shadow-btn:    0 8px 32px rgba(255,107,26,0.35);
+}
+
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; background: var(--bg-deep); }
+body {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  background: var(--bg-base);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+h1,h2,h3,h4,h5,h6 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+img,video,svg { display: block; max-width: 100%; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-deep); }
+::-webkit-scrollbar-thumb { background: var(--brand-orange); border-radius: 3px; }
+
+/* Selection */
+::selection { background: var(--brand-orange); color: #fff; }
+
+/* Layout */
+.container { max-width: 1320px; margin: 0 auto; padding: 0 2rem; }
+
+/* Section label */
+.section-tag {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--sun-primary);
+  margin-bottom: 1.25rem;
+}
+.section-tag::before {
+  content: ''; display: block; width: 28px; height: 2px;
+  background: var(--gradient-sun); border-radius: 1px;
+}
+
+/* Gradient text */
+.gradient-text {
+  background: var(--gradient-sun);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Buttons */
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  padding: 0.9rem 2rem; background: var(--gradient-sun);
+  color: #fff; font-weight: 700; font-size: 0.875rem;
+  letter-spacing: 0.05em; border-radius: 4px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: var(--shadow-btn);
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 48px rgba(255,107,26,0.5); }
+
+.btn-outline {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  padding: 0.9rem 2rem; background: transparent;
+  color: var(--text-primary); font-weight: 600; font-size: 0.875rem;
+  letter-spacing: 0.05em; border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 4px; transition: all 0.25s ease;
+}
+.btn-outline:hover { border-color: var(--brand-orange); color: var(--brand-orange); background: rgba(255,107,26,0.06); }
+
+/* Glass card */
+.glass-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(16px);
+  border-radius: 12px;
+}
+
+/* Light section */
+.section-light { background: var(--bg-light); color: var(--text-dark); }
+.section-light .section-tag { color: var(--sun-primary); }
+.section-light p { color: var(--text-dark-2); }
+
+/* Divider line */
+.divider { width: 60px; height: 3px; background: var(--gradient-sun); border-radius: 2px; margin: 1.5rem 0; }
+
+@media (max-width: 768px) {
+  .container { padding: 0 1.25rem; }
+}
