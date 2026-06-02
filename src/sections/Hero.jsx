@@ -1,17 +1,12 @@
 /**
- * Hero — Frame-extracted canvas playback
+ * Hero — Pre-extracted frame playback
  *
- * Why this is smooth:
- *   1. On mount, we seek a hidden <video> to every 1/24-th of a second,
- *      draw it to an offscreen canvas, and store the JPEG as an HTMLImageElement.
- *      This happens once — during loading.
- *   2. During scroll, we do:
- *         frame = frames[ Math.floor(progress * totalFrames) ]
- *         ctx.drawImage(frame, ...)
- *      drawImage is synchronous and runs on the GPU compositor thread.
- *      There is ZERO async seek latency — each scroll tick shows a new frame.
- *   3. scrub: true  → ScrollTrigger fires onUpdate every RAF, not every DOM event.
- *      Combined with instant canvas draws = perfectly smooth 1:1 scroll-to-frame.
+ * Frames live in public/hero-frames/ (generated once via `npm run extract-frames`).
+ * On page load we fetch manifest.json to know the count, then preload all
+ * JPEG images in parallel.  During scroll, ctx.drawImage(frames[idx]) is
+ * called — a synchronous GPU blit, zero seek latency, 1 unique frame per tick.
+ *
+ * No in-browser extraction, no "Preparing experience" on every reload.
  */
 
 import { useEffect, useRef, useState } from 'react'
@@ -21,17 +16,15 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
 // ── Constants ──────────────────────────────────────────────────────────────
-const SCRUB_SECONDS   = 8       // how many video seconds are scroll-driven
-const EXTRACT_FPS     = 24      // frames per second to extract  →  8×24 = 192 frames
-const EXTRACT_W       = 1280    // extraction width (height derived from video AR)
-const JPEG_QUALITY    = 0.80    // 0-1, higher = sharper frames, more memory
-const TEXT_START_PCT  = 0.82    // scroll progress where text begins sliding in
-// ──────────────────────────────────────────────────────────────────────────
+const FRAMES_PATH    = '/hero-frames'
+const TEXT_START_PCT = 0.82   // scroll progress where text begins sliding in
 
-/** Draw an image onto a canvas with CSS object-fit:cover behaviour */
+// ── Helpers ────────────────────────────────────────────────────────────────
+
+/** Draw an image onto canvas with CSS object-fit:cover behaviour */
 function drawCover(ctx, img, cw, ch) {
-  const iw = img.naturalWidth  || EXTRACT_W
-  const ih = img.naturalHeight || Math.round(EXTRACT_W * 9 / 16)
+  const iw = img.naturalWidth  || img.width  || 1280
+  const ih = img.naturalHeight || img.height || 720
   const ir = iw / ih
   const cr = cw / ch
   let sx = 0, sy = 0, sw = iw, sh = ih
@@ -40,13 +33,14 @@ function drawCover(ctx, img, cw, ch) {
   ctx.drawImage(img, sx, sy, sw, sh, 0, 0, cw, ch)
 }
 
+// ──────────────────────────────────────────────────────────────────────────
+
 export default function Hero() {
-  // ── Refs ────────────────────────────────────────────────────────────────
-  const wrapperRef  = useRef(null)
-  const canvasRef   = useRef(null)
-  const framesRef   = useRef([])      // stores every extracted HTMLImageElement
-  const curIdxRef   = useRef(0)       // current frame index (for resize redraws)
-  const textTlRef   = useRef(null)
+  // ── Refs ──────────────────────────────────────────────────────────────
+  const wrapperRef = useRef(null)
+  const canvasRef  = useRef(null)
+  const framesRef  = useRef([])     // array of loaded HTMLImageElements
+  const curIdxRef  = useRef(0)      // last drawn frame index
 
   const tagRef   = useRef(null)
   const h1Ref    = useRef(null)
@@ -54,83 +48,71 @@ export default function Hero() {
   const btnsRef  = useRef(null)
   const statsRef = useRef(null)
 
-  // ── State ───────────────────────────────────────────────────────────────
+  // ── State ─────────────────────────────────────────────────────────────
   const [loadPct, setLoadPct] = useState(0)
   const [ready,   setReady  ] = useState(false)
 
-  // ════════════════════════════════════════════════════════════════════════
-  // PHASE 1 — Frame extraction
-  //   Runs once on mount. Seeks the video frame by frame, encodes each to
-  //   JPEG via an offscreen canvas, and stores it as an Image element.
-  // ════════════════════════════════════════════════════════════════════════
+  // ════════════════════════════════════════════════════════════════════
+  // PHASE 1 — Load pre-extracted frames from public/hero-frames/
+  // ════════════════════════════════════════════════════════════════════
   useEffect(() => {
-    // Guard: if frames were already extracted (e.g. HMR re-mount), skip
-    if (framesRef.current.length > 0) { setReady(true); return }
+    let cancelled = false
 
-    const offscreen = document.createElement('canvas')
-    const octx      = offscreen.getContext('2d', { willReadFrequently: true })
-    const video     = document.createElement('video')
-    const extracted = []
-    let   fi        = 0   // current frame index during extraction
-    let   total     = 0   // total frames to extract (set once metadata loads)
+    fetch(`${FRAMES_PATH}/manifest.json`)
+      .then(r => {
+        if (!r.ok) throw new Error('manifest.json not found — run: npm run extract-frames')
+        return r.json()
+      })
+      .then(({ count }) => {
+        if (cancelled) return
 
-    video.src        = '/hero-reel.mp4'
-    video.muted      = true
-    video.playsInline = true
-    video.preload    = 'auto'
+        const imgs   = new Array(count)
+        let   loaded = 0
 
-    const captureNext = () => {
-      if (fi >= total) {
-        framesRef.current = extracted
-        setReady(true)
-        return
-      }
+        const onLoad = () => {
+          if (cancelled) return
+          loaded++
+          setLoadPct(Math.round((loaded / count) * 100))
+          if (loaded === count) {
+            framesRef.current = imgs
+            setReady(true)
+          }
+        }
 
-      // Register one-time seeked listener, then seek to target time
-      video.addEventListener('seeked', function onSeeked() {
-        // Draw video frame to offscreen canvas
-        octx.drawImage(video, 0, 0, offscreen.width, offscreen.height)
+        for (let i = 0; i < count; i++) {
+          const img = new Image()
+          img.onload  = onLoad
+          img.onerror = onLoad   // count errors so we still reach 100%
+          img.src = `${FRAMES_PATH}/frame-${String(i + 1).padStart(4, '0')}.jpg`
+          imgs[i] = img
+        }
+      })
+      .catch(err => {
+        console.error('[Hero]', err.message)
+        // Graceful fallback: skip canvas, page still renders
+        if (!cancelled) setReady(true)
+      })
 
-        // Encode as JPEG data URL → create Image element
-        const img = new Image()
-        img.src   = offscreen.toDataURL('image/jpeg', JPEG_QUALITY)
-        extracted.push(img)
-
-        setLoadPct(Math.round(((fi + 1) / total) * 100))
-        fi++
-        captureNext()   // ← recurse for next frame
-      }, { once: true })
-
-      video.currentTime = fi / EXTRACT_FPS
-    }
-
-    video.addEventListener('loadedmetadata', () => {
-      const extractH   = Math.round(EXTRACT_W * video.videoHeight / video.videoWidth)
-      offscreen.width  = EXTRACT_W
-      offscreen.height = extractH
-
-      total = Math.round(Math.min(video.duration, SCRUB_SECONDS) * EXTRACT_FPS)
-      captureNext()
-    }, { once: true })
-
-    video.load()
-    // No cleanup needed — data URLs are GC'd when extracted array is replaced
+    return () => { cancelled = true }
   }, [])
 
-  // ════════════════════════════════════════════════════════════════════════
-  // PHASE 2 — ScrollTrigger + canvas render
-  //   Runs once `ready` flips to true (all frames in memory).
-  //   Each scroll tick maps progress → frame index → ctx.drawImage()
-  // ════════════════════════════════════════════════════════════════════════
+  // ════════════════════════════════════════════════════════════════════
+  // PHASE 2 — Wire ScrollTrigger + canvas once all frames are ready
+  //
+  // Uses gsap.context() so that .revert() unwinds ScrollTrigger's
+  // pin-spacer DOM mutations BEFORE React runs its own removeChild —
+  // preventing the "not a child of this node" error on HMR / unmount.
+  // ════════════════════════════════════════════════════════════════════
   useEffect(() => {
     if (!ready) return
 
     const canvas  = canvasRef.current
-    const ctx     = canvas.getContext('2d')
+    const ctx     = canvas?.getContext('2d')
     const wrapper = wrapperRef.current
     const frames  = framesRef.current
+    if (!canvas || !ctx || !wrapper || !frames.length) return
 
-    // ── Size canvas to the viewport & redraw on resize ──────────────────
+    // ── Canvas sizing (managed outside GSAP context) ────────────────
     const syncSize = () => {
       canvas.width  = window.innerWidth
       canvas.height = window.innerHeight
@@ -140,146 +122,130 @@ export default function Hero() {
     syncSize()
     window.addEventListener('resize', syncSize, { passive: true })
 
-    // Draw frame 0 immediately (before any scroll)
-    const drawFrame = (img) => {
-      if (img?.complete) drawCover(ctx, img, canvas.width, canvas.height)
-      else if (img)      img.onload = () => drawCover(ctx, img, canvas.width, canvas.height)
-    }
-    drawFrame(frames[0])
+    // Draw frame 0 immediately
+    const f0 = frames[0]
+    if (f0?.complete) drawCover(ctx, f0, canvas.width, canvas.height)
+    else if (f0) f0.onload = () => drawCover(ctx, f0, canvas.width, canvas.height)
 
-    // ── Text initial state (off-screen right) ───────────────────────────
-    const textEls = [tagRef, h1Ref, subRef, btnsRef, statsRef]
-      .map(r => r.current).filter(Boolean)
-    gsap.set(textEls, { x: 115, autoAlpha: 0 })
+    // ── All GSAP work inside a context ──────────────────────────────
+    // gsap.context().revert() reverts pin-spacers + inline styles in
+    // the right order, before React's virtual DOM cleanup fires.
+    const gc = gsap.context(() => {
+      const textEls = [tagRef, h1Ref, subRef, btnsRef, statsRef]
+        .map(r => r.current).filter(Boolean)
 
-    // ── Text reveal timeline (paused — we scrub its progress manually) ──
-    const textTl = gsap.timeline({ paused: true })
-    textEls.forEach((el, i) => {
-      textTl.fromTo(
-        el,
-        { x: 115, autoAlpha: 0 },
-        { x: 0,   autoAlpha: 1, ease: 'power3.out', duration: 0.5 },
-        i * 0.13,  // stagger start time within the paused timeline
-      )
-    })
-    textTlRef.current = textTl
+      gsap.set(textEls, { x: 115, autoAlpha: 0 })
 
-    // ── ScrollTrigger ────────────────────────────────────────────────────
-    const st = ScrollTrigger.create({
-      trigger:         wrapper,
-      start:           'top top',
-      end:             '+=280%',
-      pin:             true,
-      pinSpacing:      true,
-      anticipatePin:   1,
-      scrub:           true,   // ← immediate (no lag), fires on every RAF tick
-      invalidateOnRefresh: true,
+      const textTl = gsap.timeline({ paused: true })
+      textEls.forEach((el, i) => {
+        textTl.fromTo(
+          el,
+          { x: 115, autoAlpha: 0 },
+          { x: 0, autoAlpha: 1, ease: 'power3.out', duration: 0.5 },
+          i * 0.13,
+        )
+      })
 
-      onUpdate(self) {
-        const p      = self.progress            // 0 → 1
-        const total  = frames.length
+      ScrollTrigger.create({
+        trigger:         wrapper,
+        start:           'top top',
+        end:             '+=280%',
+        pin:             true,
+        pinSpacing:      true,
+        anticipatePin:   1,
+        scrub:           true,
+        invalidateOnRefresh: true,
 
-        // ── 1. Frame ─────────────────────────────────────────────────────
-        const idx = Math.min(Math.floor(p * total), total - 1)
-        if (idx !== curIdxRef.current) {
-          curIdxRef.current = idx
-          const frame = frames[idx]
-          if (frame?.complete) drawCover(ctx, frame, canvas.width, canvas.height)
-        }
+        onUpdate(self) {
+          const p   = self.progress
+          const len = frames.length
+          const idx = Math.min(Math.floor(p * len), len - 1)
 
-        // ── 2. Text ───────────────────────────────────────────────────────
-        // Map scroll progress [TEXT_START_PCT → 1.0] to textTl [0 → 1]
-        if (p >= TEXT_START_PCT) {
-          textTl.progress(
-            Math.min((p - TEXT_START_PCT) / (1 - TEXT_START_PCT), 1),
-          )
-        } else if (p < TEXT_START_PCT - 0.02) {
-          textTl.progress(0)
-        }
-      },
+          if (idx !== curIdxRef.current) {
+            curIdxRef.current = idx
+            const frame = frames[idx]
+            if (frame?.complete) drawCover(ctx, frame, canvas.width, canvas.height)
+          }
 
-      // Ensure text is fully visible once pin releases (safety net)
-      onLeave() { textTl.progress(1) },
-    })
+          if (p >= TEXT_START_PCT) {
+            textTl.progress(Math.min((p - TEXT_START_PCT) / (1 - TEXT_START_PCT), 1))
+          } else if (p < TEXT_START_PCT - 0.02) {
+            textTl.progress(0)
+          }
+        },
+
+        onLeave() { textTl.progress(1) },
+      })
+    }, wrapper)  // scoped to wrapper element
 
     return () => {
-      st.kill()
-      textTl.kill()
+      gc.revert()   // ← unwinds pin-spacer BEFORE React's removeChild
       window.removeEventListener('resize', syncSize)
     }
   }, [ready])
 
-  // ════════════════════════════════════════════════════════════════════════
+  // ════════════════════════════════════════════════════════════════════
   // JSX
-  // ════════════════════════════════════════════════════════════════════════
+  // ════════════════════════════════════════════════════════════════════
   return (
     <section
       id="hero"
       ref={wrapperRef}
       style={{ position: 'relative', width: '100%', height: '100vh', overflow: 'hidden', background: '#060A0F' }}
     >
-      {/* ── Loading overlay ─────────────────────────────────────────────── */}
+      {/* ── Loading overlay (only shown while frames are downloading) ── */}
       {!ready && (
         <div style={{
           position: 'absolute', inset: 0, zIndex: 20,
           display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
           background: '#060A0F', gap: '1.75rem',
         }}>
-          {/* Logo pulse */}
           <div style={{
-            width: 64, height: 64, borderRadius: '50%',
+            width: 60, height: 60, borderRadius: '50%',
             background: 'var(--gradient-sun)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: '1.6rem', fontWeight: 900, color: '#fff',
+            fontSize: '1.5rem', fontWeight: 900, color: '#fff',
             animation: 'logoPulse 1.6s ease-in-out infinite',
             boxShadow: '0 0 40px rgba(255,107,26,0.4)',
           }}>S</div>
 
-          {/* Progress bar */}
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.7rem' }}>
             <div style={{ width: 220, height: 3, background: 'rgba(255,255,255,0.08)', borderRadius: 2, overflow: 'hidden' }}>
               <div style={{
                 height: '100%', borderRadius: 2,
                 background: 'var(--gradient-sun)',
-                width: `${loadPct}%`,
-                transition: 'width 0.25s ease',
+                width: `${loadPct}%`, transition: 'width 0.2s ease',
               }} />
             </div>
-            <div style={{
-              fontSize: '0.72rem', letterSpacing: '0.2em',
-              textTransform: 'uppercase', color: 'var(--text-muted)',
-            }}>
-              Preparing experience · {loadPct}%
-            </div>
+            <span style={{ fontSize: '0.7rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--text-muted)' }}>
+              Loading · {loadPct}%
+            </span>
           </div>
         </div>
       )}
 
-      {/* ── Canvas — every scroll tick draws a new frame here ───────────── */}
+      {/* ── Canvas — each scroll tick draws one pre-extracted frame ──── */}
       <canvas
         ref={canvasRef}
         style={{
-          position: 'absolute', inset: 0,
-          width: '100%', height: '100%',
-          zIndex: 0,
-          opacity:    ready ? 1 : 0,
-          transition: 'opacity 0.7s ease',
+          position: 'absolute', inset: 0, width: '100%', height: '100%',
+          zIndex: 0, opacity: ready ? 1 : 0, transition: 'opacity 0.6s ease',
         }}
       />
 
-      {/* ── Gradient overlay ─────────────────────────────────────────────── */}
+      {/* ── Gradient overlay ─────────────────────────────────────────── */}
       <div style={{
         position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none',
         background: 'linear-gradient(118deg, rgba(6,10,15,0.80) 0%, rgba(6,10,15,0.25) 55%, rgba(6,10,15,0.55) 100%)',
       }} />
 
-      {/* ── Scroll hint ──────────────────────────────────────────────────── */}
+      {/* ── Scroll hint ──────────────────────────────────────────────── */}
       <div style={{
         position: 'absolute', bottom: '2.5rem', left: '50%',
         transform: 'translateX(-50%)', zIndex: 3,
         display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.4rem',
         pointerEvents: 'none',
-        opacity: ready ? 1 : 0, transition: 'opacity 0.5s ease 0.5s',
+        opacity: ready ? 1 : 0, transition: 'opacity 0.5s ease 0.3s',
       }}>
         <span style={{ fontSize: '0.62rem', letterSpacing: '0.28em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)' }}>
           Scroll
@@ -291,7 +257,7 @@ export default function Hero() {
         }} />
       </div>
 
-      {/* ── Text block — revealed by textTl during the last 18% of scroll ── */}
+      {/* ── Text block ───────────────────────────────────────────────── */}
       <div style={{
         position: 'absolute', inset: 0, zIndex: 2,
         display: 'flex', alignItems: 'center', padding: '0 2rem',
@@ -325,7 +291,8 @@ export default function Hero() {
 
             <div ref={btnsRef} style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginBottom: '3.25rem' }}>
               <a href="#services" className="btn-primary">Our Services</a>
-              <a href="#contact"  className="btn-outline" style={{ borderColor: 'rgba(255,255,255,0.3)', color: '#fff' }}>
+              <a href="#contact"  className="btn-outline"
+                style={{ borderColor: 'rgba(255,255,255,0.3)', color: '#fff' }}>
                 Get Free Assessment
               </a>
             </div>
@@ -359,7 +326,6 @@ export default function Hero() {
           </div>
         </div>
       </div>
-
     </section>
   )
 }
