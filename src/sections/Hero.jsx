@@ -9,7 +9,7 @@
  * No in-browser extraction, no "Preparing experience" on every reload.
  */
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { gsap }          from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -17,14 +17,12 @@ gsap.registerPlugin(ScrollTrigger)
 
 // ── Constants ──────────────────────────────────────────────────────────────
 const FRAMES_PATH    = '/hero-frames'
-const TEXT_START_PCT = 0.82   // scroll progress where text begins sliding in
+const TEXT_START_PCT = 0.82
 
 // ── Helpers ────────────────────────────────────────────────────────────────
-
-/** Draw an image onto canvas with CSS object-fit:cover behaviour */
 function drawCover(ctx, img, cw, ch) {
-  const iw = img.naturalWidth  || img.width  || 1280
-  const ih = img.naturalHeight || img.height || 720
+  const iw = img.naturalWidth  || 1280
+  const ih = img.naturalHeight || 720
   const ir = iw / ih
   const cr = cw / ch
   let sx = 0, sy = 0, sw = iw, sh = ih
@@ -36,11 +34,10 @@ function drawCover(ctx, img, cw, ch) {
 // ──────────────────────────────────────────────────────────────────────────
 
 export default function Hero() {
-  // ── Refs ──────────────────────────────────────────────────────────────
   const wrapperRef = useRef(null)
   const canvasRef  = useRef(null)
-  const framesRef  = useRef([])     // array of loaded HTMLImageElements
-  const curIdxRef  = useRef(0)      // last drawn frame index
+  const framesRef  = useRef([])   // sparse array — slots fill as images decode
+  const curIdxRef  = useRef(0)
 
   const tagRef   = useRef(null)
   const h1Ref    = useRef(null)
@@ -48,88 +45,51 @@ export default function Hero() {
   const btnsRef  = useRef(null)
   const statsRef = useRef(null)
 
-  // ── State ─────────────────────────────────────────────────────────────
-  const [loadPct, setLoadPct] = useState(0)
-  const [ready,   setReady  ] = useState(false)
-
   // ════════════════════════════════════════════════════════════════════
-  // PHASE 1 — Load pre-extracted frames from public/hero-frames/
+  // Single effect — canvas + ScrollTrigger mount immediately,
+  // frames stream in the background; no loading state, no overlay.
   // ════════════════════════════════════════════════════════════════════
   useEffect(() => {
-    let cancelled = false
-
-    fetch(`${FRAMES_PATH}/manifest.json`)
-      .then(r => {
-        if (!r.ok) throw new Error('manifest.json not found — run: npm run extract-frames')
-        return r.json()
-      })
-      .then(({ count }) => {
-        if (cancelled) return
-
-        const imgs   = new Array(count)
-        let   loaded = 0
-
-        const onLoad = () => {
-          if (cancelled) return
-          loaded++
-          setLoadPct(Math.round((loaded / count) * 100))
-          if (loaded === count) {
-            framesRef.current = imgs
-            setReady(true)
-          }
-        }
-
-        for (let i = 0; i < count; i++) {
-          const img = new Image()
-          img.onload  = onLoad
-          img.onerror = onLoad   // count errors so we still reach 100%
-          img.src = `${FRAMES_PATH}/frame-${String(i + 1).padStart(4, '0')}.jpg`
-          imgs[i] = img
-        }
-      })
-      .catch(err => {
-        console.error('[Hero]', err.message)
-        // Graceful fallback: skip canvas, page still renders
-        if (!cancelled) setReady(true)
-      })
-
-    return () => { cancelled = true }
-  }, [])
-
-  // ════════════════════════════════════════════════════════════════════
-  // PHASE 2 — Wire ScrollTrigger + canvas once all frames are ready
-  //
-  // Uses gsap.context() so that .revert() unwinds ScrollTrigger's
-  // pin-spacer DOM mutations BEFORE React runs its own removeChild —
-  // preventing the "not a child of this node" error on HMR / unmount.
-  // ════════════════════════════════════════════════════════════════════
-  useEffect(() => {
-    if (!ready) return
-
     const canvas  = canvasRef.current
     const ctx     = canvas?.getContext('2d')
     const wrapper = wrapperRef.current
-    const frames  = framesRef.current
-    if (!canvas || !ctx || !wrapper || !frames.length) return
+    if (!canvas || !ctx || !wrapper) return
 
-    // ── Canvas sizing (managed outside GSAP context) ────────────────
+    let cancelled = false
+
+    // ── 1. Size canvas to viewport ──────────────────────────────────
     const syncSize = () => {
       canvas.width  = window.innerWidth
       canvas.height = window.innerHeight
-      const f = frames[curIdxRef.current]
+      const f = framesRef.current[curIdxRef.current]
       if (f?.complete) drawCover(ctx, f, canvas.width, canvas.height)
     }
     syncSize()
     window.addEventListener('resize', syncSize, { passive: true })
 
-    // Draw frame 0 immediately
-    const f0 = frames[0]
-    if (f0?.complete) drawCover(ctx, f0, canvas.width, canvas.height)
-    else if (f0) f0.onload = () => drawCover(ctx, f0, canvas.width, canvas.height)
+    // ── 2. Stream frames from disk — draw each one as it arrives ────
+    fetch(`${FRAMES_PATH}/manifest.json`)
+      .then(r => r.ok ? r.json() : Promise.reject('Run: npm run extract-frames'))
+      .then(({ count }) => {
+        if (cancelled) return
+        const imgs = new Array(count)
+        framesRef.current = imgs
 
-    // ── All GSAP work inside a context ──────────────────────────────
-    // gsap.context().revert() reverts pin-spacers + inline styles in
-    // the right order, before React's virtual DOM cleanup fires.
+        for (let i = 0; i < count; i++) {
+          const img = new Image()
+          img.onload = () => {
+            if (cancelled) return
+            imgs[i] = img
+            // Draw frame 0 as soon as it lands — instant first-paint
+            if (i === 0) drawCover(ctx, img, canvas.width, canvas.height)
+          }
+          img.src = `${FRAMES_PATH}/frame-${String(i + 1).padStart(4, '0')}.jpg`
+          imgs[i] = img   // store immediately so index is always defined
+        }
+      })
+      .catch(err => console.error('[Hero frames]', err))
+
+    // ── 3. GSAP context — ScrollTrigger + text ──────────────────────
     const gc = gsap.context(() => {
       const textEls = [tagRef, h1Ref, subRef, btnsRef, statsRef]
         .map(r => r.current).filter(Boolean)
@@ -157,9 +117,11 @@ export default function Hero() {
         invalidateOnRefresh: true,
 
         onUpdate(self) {
+          const frames = framesRef.current
+          if (!frames.length) return
+
           const p   = self.progress
-          const len = frames.length
-          const idx = Math.min(Math.floor(p * len), len - 1)
+          const idx = Math.min(Math.floor(p * frames.length), frames.length - 1)
 
           if (idx !== curIdxRef.current) {
             curIdxRef.current = idx
@@ -176,13 +138,14 @@ export default function Hero() {
 
         onLeave() { textTl.progress(1) },
       })
-    }, wrapper)  // scoped to wrapper element
+    }, wrapper)
 
     return () => {
-      gc.revert()   // ← unwinds pin-spacer BEFORE React's removeChild
+      cancelled = true
+      gc.revert()
       window.removeEventListener('resize', syncSize)
     }
-  }, [ready])
+  }, [])
 
   // ════════════════════════════════════════════════════════════════════
   // JSX
@@ -193,44 +156,10 @@ export default function Hero() {
       ref={wrapperRef}
       style={{ position: 'relative', width: '100%', height: '100vh', overflow: 'hidden', background: '#060A0F' }}
     >
-      {/* ── Loading overlay (only shown while frames are downloading) ── */}
-      {!ready && (
-        <div style={{
-          position: 'absolute', inset: 0, zIndex: 20,
-          display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-          background: '#060A0F', gap: '1.75rem',
-        }}>
-          <div style={{
-            width: 60, height: 60, borderRadius: '50%',
-            background: 'var(--gradient-sun)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: '1.5rem', fontWeight: 900, color: '#fff',
-            animation: 'logoPulse 1.6s ease-in-out infinite',
-            boxShadow: '0 0 40px rgba(255,107,26,0.4)',
-          }}>S</div>
-
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.7rem' }}>
-            <div style={{ width: 220, height: 3, background: 'rgba(255,255,255,0.08)', borderRadius: 2, overflow: 'hidden' }}>
-              <div style={{
-                height: '100%', borderRadius: 2,
-                background: 'var(--gradient-sun)',
-                width: `${loadPct}%`, transition: 'width 0.2s ease',
-              }} />
-            </div>
-            <span style={{ fontSize: '0.7rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--text-muted)' }}>
-              Loading · {loadPct}%
-            </span>
-          </div>
-        </div>
-      )}
-
       {/* ── Canvas — each scroll tick draws one pre-extracted frame ──── */}
       <canvas
         ref={canvasRef}
-        style={{
-          position: 'absolute', inset: 0, width: '100%', height: '100%',
-          zIndex: 0, opacity: ready ? 1 : 0, transition: 'opacity 0.6s ease',
-        }}
+        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', zIndex: 0 }}
       />
 
       {/* ── Gradient overlay ─────────────────────────────────────────── */}
@@ -245,7 +174,6 @@ export default function Hero() {
         transform: 'translateX(-50%)', zIndex: 3,
         display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.4rem',
         pointerEvents: 'none',
-        opacity: ready ? 1 : 0, transition: 'opacity 0.5s ease 0.3s',
       }}>
         <span style={{ fontSize: '0.62rem', letterSpacing: '0.28em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)' }}>
           Scroll
