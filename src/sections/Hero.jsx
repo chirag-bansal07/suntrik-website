@@ -104,16 +104,33 @@ export default function Hero() {
         { enter: 0.76, exit: 0.90 },   // stats strip
       ]
 
-      // Initial state — everything off-screen to the right
-      textEls.forEach(el => gsap.set(el, { x: 115, autoAlpha: 0 }))
+      // ── Initial state: off-screen right, visible (opacity only, NO
+      //    autoAlpha — that sets visibility:hidden which quickSetter
+      //    can't reliably restore on every tick)
+      textEls.forEach(el => {
+        gsap.set(el, { x: 115, opacity: 0, visibility: 'visible' })
+      })
 
-      // quickSetter: the GSAP-recommended way to set a property on every
-      // RAF tick without the overhead of creating a new tween each time.
-      const setX     = textEls.map(el => gsap.quickSetter(el, 'x', 'px'))
-      const setAlpha = textEls.map(el => gsap.quickSetter(el, 'autoAlpha'))
+      // quickSetter for x and opacity — fastest per-frame property update
+      const setX  = textEls.map(el => gsap.quickSetter(el, 'x',       'px'))
+      const setOp = textEls.map(el => gsap.quickSetter(el, 'opacity'))
 
-      // Ease-out cubic — applied manually so we can drive it from scroll
-      const easeOut3 = t => t === 0 ? 0 : t >= 1 ? 1 : 1 - Math.pow(1 - t, 3)
+      // Ease-out cubic applied manually from local scroll progress
+      const easeOut3 = t => t <= 0 ? 0 : t >= 1 ? 1 : 1 - Math.pow(1 - t, 3)
+
+      // Shared update function used by both onUpdate and onLeave
+      const updateText = (p) => {
+        WINDOWS.forEach(({ enter, exit }, i) => {
+          if (!setX[i]) return
+          const localP =
+            p <= enter ? 0
+            : p >= exit ? 1
+            : (p - enter) / (exit - enter)
+          const eased = easeOut3(localP)
+          setX[i] (115 * (1 - eased))
+          setOp[i](eased)
+        })
+      }
 
       ScrollTrigger.create({
         trigger:         wrapper,
@@ -126,10 +143,11 @@ export default function Hero() {
         invalidateOnRefresh: true,
 
         onUpdate(self) {
-          // ── Frame ──────────────────────────────────────────────────
+          const p = self.progress
+
+          // ── Frame ────────────────────────────────────────────────
           const frames = framesRef.current
           if (frames.length) {
-            const p   = self.progress
             const idx = Math.min(Math.floor(p * frames.length), frames.length - 1)
             if (idx !== curIdxRef.current) {
               curIdxRef.current = idx
@@ -138,28 +156,13 @@ export default function Hero() {
             }
           }
 
-          // ── Text — each line animates in within its own scroll window ─
-          const p = self.progress
-          textEls.forEach((_, i) => {
-            const { enter, exit } = WINDOWS[i] ?? {}
-            if (!enter && enter !== 0) return
-
-            // localP: 0 before window, 0→1 within window, 1 after
-            const localP =
-              p < enter ? 0
-              : p > exit ? 1
-              : (p - enter) / (exit - enter)
-
-            const eased = easeOut3(localP)
-            setX[i](115 * (1 - eased))
-            setAlpha[i](eased)
-          })
+          // ── Text ─────────────────────────────────────────────────
+          updateText(p)
         },
 
-        // Guarantee everything is fully on-screen once pin releases
-        onLeave() {
-          textEls.forEach((_, i) => { setX[i](0); setAlpha[i](1) })
-        },
+        // Pin releases — force everything to fully-visible final state
+        onLeave()     { updateText(1) },
+        onLeaveBack() { updateText(0) },
       })
     }, wrapper)
 
