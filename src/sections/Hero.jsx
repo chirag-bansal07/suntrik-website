@@ -16,8 +16,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
 // ── Constants ──────────────────────────────────────────────────────────────
-const FRAMES_PATH    = '/hero-frames'
-const TEXT_START_PCT = 0.82
+const FRAMES_PATH = '/hero-frames'
 
 // ── Helpers ────────────────────────────────────────────────────────────────
 function drawCover(ctx, img, cw, ch) {
@@ -89,22 +88,32 @@ export default function Hero() {
       })
       .catch(err => console.error('[Hero frames]', err))
 
-    // ── 3. GSAP context — ScrollTrigger + text ──────────────────────
+    // ── 3. GSAP context — ScrollTrigger + staggered text ───────────
     const gc = gsap.context(() => {
       const textEls = [tagRef, h1Ref, subRef, btnsRef, statsRef]
         .map(r => r.current).filter(Boolean)
 
-      gsap.set(textEls, { x: 115, autoAlpha: 0 })
+      // Each element's scroll window: [enter, exit]
+      // Spread evenly across the full pin range so each line appears
+      // one-by-one as the user scrolls through the video.
+      const WINDOWS = [
+        { enter: 0.06, exit: 0.20 },   // section tag
+        { enter: 0.22, exit: 0.40 },   // h1 headline
+        { enter: 0.42, exit: 0.58 },   // paragraph
+        { enter: 0.60, exit: 0.74 },   // buttons
+        { enter: 0.76, exit: 0.90 },   // stats strip
+      ]
 
-      const textTl = gsap.timeline({ paused: true })
-      textEls.forEach((el, i) => {
-        textTl.fromTo(
-          el,
-          { x: 115, autoAlpha: 0 },
-          { x: 0, autoAlpha: 1, ease: 'power3.out', duration: 0.5 },
-          i * 0.13,
-        )
-      })
+      // Initial state — everything off-screen to the right
+      textEls.forEach(el => gsap.set(el, { x: 115, autoAlpha: 0 }))
+
+      // quickSetter: the GSAP-recommended way to set a property on every
+      // RAF tick without the overhead of creating a new tween each time.
+      const setX     = textEls.map(el => gsap.quickSetter(el, 'x', 'px'))
+      const setAlpha = textEls.map(el => gsap.quickSetter(el, 'autoAlpha'))
+
+      // Ease-out cubic — applied manually so we can drive it from scroll
+      const easeOut3 = t => t === 0 ? 0 : t >= 1 ? 1 : 1 - Math.pow(1 - t, 3)
 
       ScrollTrigger.create({
         trigger:         wrapper,
@@ -117,26 +126,40 @@ export default function Hero() {
         invalidateOnRefresh: true,
 
         onUpdate(self) {
+          // ── Frame ──────────────────────────────────────────────────
           const frames = framesRef.current
-          if (!frames.length) return
-
-          const p   = self.progress
-          const idx = Math.min(Math.floor(p * frames.length), frames.length - 1)
-
-          if (idx !== curIdxRef.current) {
-            curIdxRef.current = idx
-            const frame = frames[idx]
-            if (frame?.complete) drawCover(ctx, frame, canvas.width, canvas.height)
+          if (frames.length) {
+            const p   = self.progress
+            const idx = Math.min(Math.floor(p * frames.length), frames.length - 1)
+            if (idx !== curIdxRef.current) {
+              curIdxRef.current = idx
+              const frame = frames[idx]
+              if (frame?.complete) drawCover(ctx, frame, canvas.width, canvas.height)
+            }
           }
 
-          if (p >= TEXT_START_PCT) {
-            textTl.progress(Math.min((p - TEXT_START_PCT) / (1 - TEXT_START_PCT), 1))
-          } else if (p < TEXT_START_PCT - 0.02) {
-            textTl.progress(0)
-          }
+          // ── Text — each line animates in within its own scroll window ─
+          const p = self.progress
+          textEls.forEach((_, i) => {
+            const { enter, exit } = WINDOWS[i] ?? {}
+            if (!enter && enter !== 0) return
+
+            // localP: 0 before window, 0→1 within window, 1 after
+            const localP =
+              p < enter ? 0
+              : p > exit ? 1
+              : (p - enter) / (exit - enter)
+
+            const eased = easeOut3(localP)
+            setX[i](115 * (1 - eased))
+            setAlpha[i](eased)
+          })
         },
 
-        onLeave() { textTl.progress(1) },
+        // Guarantee everything is fully on-screen once pin releases
+        onLeave() {
+          textEls.forEach((_, i) => { setX[i](0); setAlpha[i](1) })
+        },
       })
     }, wrapper)
 
