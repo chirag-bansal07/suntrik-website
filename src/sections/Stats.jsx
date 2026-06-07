@@ -1,87 +1,229 @@
+/**
+ * Stats — Accomplishments section
+ * Dark background with grain overlay, dramatic animated counters,
+ * glowing radial highlights, and a "live" capacity ring visual.
+ */
+
 import { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
 
-const stats = [
-  { value: 8,    suffix: '+',    label: 'Years of Experience', desc: 'Solar EPC since 2018 across North India' },
-  { value: 500,  suffix: '+',    label: 'Projects Completed',  desc: 'Residential, commercial & industrial' },
-  { value: 10,   suffix: 'MW+',  label: 'Capacity Installed',  desc: 'Aggregate solar capacity commissioned' },
-  { value: 100,  suffix: '%',    label: 'DISCOM Approvals',    desc: 'Net-metering cleared, zero rejections' },
+const STATS = [
+  {
+    value: 8,   suffix: '+',   label: 'Years of Experience',  sub: 'Solar EPC since 2018',       icon: '📅',
+    progress: 0.32,  // relative visual weight
+  },
+  {
+    value: 500, suffix: '+',   label: 'Projects Delivered',   sub: 'Residential to utility-scale', icon: '⚡',
+    progress: 1.0,
+  },
+  {
+    value: 10,  suffix: ' MW+', label: 'Capacity Installed',   sub: 'Cumulative across North India', icon: '☀️',
+    progress: 0.78,
+  },
+  {
+    value: 100, suffix: '%',   label: 'DISCOM Approvals',     sub: 'Zero net-metering rejections', icon: '✅',
+    progress: 1.0,
+  },
 ]
 
+// ── CountUp hook ─────────────────────────────────────────────────────────
 function CountUp({ value, suffix, inView }) {
-  const numRef  = useRef(null)
-  const hasRun  = useRef(false)
+  const ref    = useRef(null)
+  const hasRun = useRef(false)
 
   useEffect(() => {
-    if (inView && !hasRun.current && numRef.current) {
-      hasRun.current = true
-      // Tween a DOM text node via a counter variable — works in all GSAP 3.x versions
-      let current = 0
-      const total = value
-      const duration = 2200 // ms
-      const start = performance.now()
+    if (!inView || hasRun.current || !ref.current) return
+    hasRun.current = true
 
-      const tick = (now) => {
-        const elapsed = now - start
-        const progress = Math.min(elapsed / duration, 1)
-        // ease out cubic
-        const eased = 1 - Math.pow(1 - progress, 3)
-        current = Math.round(eased * total)
-        if (numRef.current) numRef.current.textContent = current + suffix
-        if (progress < 1) requestAnimationFrame(tick)
-      }
-      requestAnimationFrame(tick)
+    const duration = 2400
+    const start    = performance.now()
+
+    const tick = (now) => {
+      const t = Math.min((now - start) / duration, 1)
+      const e = 1 - Math.pow(1 - t, 4)  // ease-out quartic
+      if (ref.current) ref.current.textContent = Math.round(e * value) + suffix
+      if (t < 1) requestAnimationFrame(tick)
     }
+    requestAnimationFrame(tick)
   }, [inView, value, suffix])
 
-  return <span ref={numRef}>0{suffix}</span>
+  return <span ref={ref}>0{suffix}</span>
+}
+
+// ── Animated radial progress ring ─────────────────────────────────────────
+function Ring({ progress, inView, color = 'url(#rg)' }) {
+  const r = 42
+  const circ = 2 * Math.PI * r
+  return (
+    <svg width="100" height="100" viewBox="0 0 100 100" style={{ position: 'absolute', inset: 0 }}>
+      <defs>
+        <linearGradient id="rg" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#FF6B1A"/>
+          <stop offset="100%" stopColor="#FFB830"/>
+        </linearGradient>
+      </defs>
+      {/* Track */}
+      <circle cx="50" cy="50" r={r} fill="none" stroke="rgba(255,107,26,0.1)" strokeWidth="4"/>
+      {/* Progress */}
+      <motion.circle
+        cx="50" cy="50" r={r} fill="none"
+        stroke={color} strokeWidth="4"
+        strokeLinecap="round"
+        strokeDasharray={circ}
+        initial={{ strokeDashoffset: circ }}
+        animate={inView ? { strokeDashoffset: circ * (1 - progress) } : { strokeDashoffset: circ }}
+        transition={{ duration: 2, ease: 'easeOut', delay: 0.3 }}
+        style={{ transform: 'rotate(-90deg)', transformOrigin: 'center' }}
+      />
+    </svg>
+  )
 }
 
 export default function Stats() {
   const { ref, inView } = useScrollAnimation(0.12)
 
   return (
-    <section style={{ background: 'var(--gradient-sun)', padding: '5rem 0', position: 'relative', overflow: 'hidden' }}>
-      {/* Subtle grid overlay */}
+    <section style={{
+      position: 'relative', overflow: 'hidden',
+      background: '#030609',
+      padding: '8rem 0',
+    }}>
+      {/* Grain texture overlay */}
       <div style={{
-        position: 'absolute', inset: 0, pointerEvents: 'none',
-        backgroundImage: `linear-gradient(rgba(255,255,255,0.07) 1px, transparent 1px),
-                          linear-gradient(90deg, rgba(255,255,255,0.07) 1px, transparent 1px)`,
-        backgroundSize: '48px 48px',
+        position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none', opacity: 0.35,
+        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.15'/%3E%3C/svg%3E")`,
+        backgroundSize: '200px 200px',
       }} />
 
-      <div className="container" ref={ref} style={{ position: 'relative', zIndex: 1 }}>
+      {/* Radial glows */}
+      <div style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none' }}>
         <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
-          gap: '2.5rem',
-          textAlign: 'center',
-        }}>
-          {stats.map((s, i) => (
+          position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)',
+          width: 900, height: 400,
+          background: 'radial-gradient(ellipse at center, rgba(255,107,26,0.12) 0%, transparent 65%)',
+          filter: 'blur(60px)',
+        }} />
+      </div>
+
+      {/* Large watermark text */}
+      <div style={{
+        position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none',
+        display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden',
+      }}>
+        <div style={{
+          fontFamily: 'Space Grotesk, sans-serif', fontWeight: 900,
+          fontSize: 'clamp(8rem, 20vw, 18rem)', lineHeight: 1,
+          color: 'rgba(255,107,26,0.025)', userSelect: 'none', whiteSpace: 'nowrap',
+          letterSpacing: '-0.05em',
+        }}>IMPACT</div>
+      </div>
+
+      <div className="container" style={{ position: 'relative', zIndex: 1 }}>
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 28 }} animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7 }}
+          style={{ textAlign: 'center', marginBottom: '4.5rem' }}
+        >
+          <span className="section-tag" style={{ justifyContent: 'center' }}>Our Accomplishments</span>
+          <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', marginBottom: '0.75rem' }}>
+            {new Date().getFullYear() - 2018}+ Years of Solar <span className="gradient-text">Impact</span>
+          </h2>
+          <p style={{ color: 'var(--text-secondary)', maxWidth: 480, margin: '0 auto', lineHeight: 1.8 }}>
+            Numbers that reflect real projects delivered, real subsidies navigated, and real energy savings created for North India.
+          </p>
+        </motion.div>
+
+        {/* Stats grid */}
+        <div
+          ref={ref}
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+            gap: '0',
+          }}
+        >
+          {STATS.map((s, i) => (
             <motion.div
               key={s.label}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 40 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.65, delay: i * 0.12, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.7, delay: i * 0.13, ease: [0.16, 1, 0.3, 1] }}
+              style={{
+                display: 'flex', flexDirection: 'column', alignItems: 'center',
+                textAlign: 'center', padding: '2.5rem 2rem',
+                borderRight: i < STATS.length - 1 ? '1px solid rgba(255,107,26,0.08)' : 'none',
+                position: 'relative',
+              }}
+              className="stat-cell"
             >
+              {/* Ring */}
+              <div style={{ position: 'relative', width: 100, height: 100, marginBottom: '1.5rem' }}>
+                <Ring progress={s.progress} inView={inView} />
+                {/* Icon in centre */}
+                <div style={{
+                  position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontSize: '1.6rem',
+                }}>{s.icon}</div>
+              </div>
+
+              {/* Number */}
               <div style={{
-                fontSize: 'clamp(2.5rem, 5vw, 3.5rem)',
-                fontWeight: 900, fontFamily: 'Space Grotesk, sans-serif',
-                color: '#fff', lineHeight: 1, marginBottom: '0.5rem',
+                fontSize: 'clamp(2.8rem, 5vw, 3.8rem)', fontWeight: 900,
+                fontFamily: 'Space Grotesk, sans-serif',
+                background: 'var(--gradient-sun)',
+                WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
+                lineHeight: 1, marginBottom: '0.5rem',
               }}>
                 <CountUp value={s.value} suffix={s.suffix} inView={inView} />
               </div>
-              <div style={{ fontSize: '1rem', fontWeight: 700, color: 'rgba(255,255,255,0.95)', marginBottom: '0.35rem' }}>
-                {s.label}
-              </div>
-              <div style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.68)', lineHeight: 1.5 }}>
-                {s.desc}
-              </div>
+
+              <div style={{ fontSize: '1rem', fontWeight: 700, marginBottom: '0.3rem' }}>{s.label}</div>
+              <div style={{ fontSize: '0.77rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>{s.sub}</div>
+
+              {/* Glow spot */}
+              <div style={{
+                position: 'absolute', bottom: 0, left: '50%', transform: 'translateX(-50%)',
+                width: 60, height: 2, borderRadius: 1,
+                background: 'var(--gradient-sun)', opacity: 0.5,
+              }} />
             </motion.div>
           ))}
         </div>
+
+        {/* Bottom bar */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.65, delay: 0.5 }}
+          style={{
+            marginTop: '5rem', padding: '2rem 2.5rem', borderRadius: 14,
+            background: 'linear-gradient(90deg, rgba(255,107,26,0.08), rgba(255,184,48,0.05))',
+            border: '1px solid rgba(255,107,26,0.15)',
+            display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+            gap: '2rem', flexWrap: 'wrap',
+          }}
+        >
+          <div>
+            <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 800, fontSize: '1.1rem', marginBottom: '0.3rem' }}>
+              Every number here is a real project, a real family, a real farm.
+            </div>
+            <div style={{ color: 'var(--text-secondary)', fontSize: '0.875rem' }}>
+              No estimates. Suntrik's EPC track record spans residential clusters to multi-MW industrial plants across Haryana.
+            </div>
+          </div>
+          <a href="#projects" className="btn-primary" style={{ flexShrink: 0 }}>
+            See Our Projects →
+          </a>
+        </motion.div>
       </div>
+
+      <style>{`
+        @media(max-width:640px){
+          .stat-cell { border-right:none !important; border-bottom:1px solid rgba(255,107,26,0.08); }
+          .stat-cell:last-child { border-bottom:none; }
+        }
+      `}</style>
     </section>
   )
 }

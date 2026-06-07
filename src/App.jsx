@@ -6,6 +6,7 @@ import Navbar from './components/Navbar'
 import Hero from './sections/Hero'
 import About from './sections/About'
 import Services from './sections/Services'
+import Schemes from './sections/Schemes'
 import WhyUs from './sections/WhyUs'
 import Stats from './sections/Stats'
 import Projects from './sections/Projects'
@@ -42,9 +43,10 @@ export default function App() {
         <Hero />
         <About />
         <Services />
-        <WhyUs />
-        <Stats />
+        <Schemes />
         <Projects />
+        <Stats />
+        <WhyUs />
         <Testimonials />
         <Contact />
       </main>
