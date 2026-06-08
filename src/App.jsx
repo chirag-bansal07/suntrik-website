@@ -10,6 +10,7 @@ import Schemes from './sections/Schemes'
 import WhyUs from './sections/WhyUs'
 import Stats from './sections/Stats'
 import Projects from './sections/Projects'
+import Savings from './sections/Savings'
 import Testimonials from './sections/Testimonials'
 import Contact from './sections/Contact'
 import Footer from './components/Footer'
@@ -47,6 +48,7 @@ export default function App() {
         <Projects />
         <Stats />
         <WhyUs />
+        <Savings />
         <Testimonials />
         <Contact />
       </main>

@@ -256,10 +256,10 @@ export default function Hero() {
               paddingTop: '1.75rem', borderTop: '1px solid rgba(255,255,255,0.1)',
             }}>
               {[
-                { value: '8+',    label: 'Years of Experience' },
-                { value: '500+',  label: 'Projects Completed'  },
-                { value: '10MW+', label: 'Capacity Installed'  },
-                { value: '24/7',  label: 'O&M Support'         },
+                { value: '10+',    label: 'Years of Experience' },
+                { value: '1,000+', label: 'Happy Clients'       },
+                { value: '150MW+', label: 'Capacity Installed'  },
+                { value: '24/7',   label: 'O&M Support'         },
               ].map(s => (
                 <div key={s.label}>
                   <div style={{

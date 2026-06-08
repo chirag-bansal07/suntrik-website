@@ -10,19 +10,19 @@ import { useScrollAnimation } from '../hooks/useScrollAnimation'
 
 const STATS = [
   {
-    value: 8,   suffix: '+',   label: 'Years of Experience',  sub: 'Solar EPC since 2018',       icon: '📅',
-    progress: 0.32,  // relative visual weight
+    value: 10,   suffix: '+',    label: 'Years of Experience',  sub: 'Solar EPC since 2018',            icon: '📅',
+    progress: 0.42,
   },
   {
-    value: 500, suffix: '+',   label: 'Projects Delivered',   sub: 'Residential to utility-scale', icon: '⚡',
+    value: 1000, suffix: '+',    label: 'Happy Clients',        sub: 'Homes, farms & industries served', icon: '⚡',
     progress: 1.0,
   },
   {
-    value: 10,  suffix: ' MW+', label: 'Capacity Installed',   sub: 'Cumulative across North India', icon: '☀️',
-    progress: 0.78,
+    value: 150,  suffix: ' MW+', label: 'Capacity Installed',   sub: 'Cumulative across North India',    icon: '☀️',
+    progress: 0.88,
   },
   {
-    value: 100, suffix: '%',   label: 'DISCOM Approvals',     sub: 'Zero net-metering rejections', icon: '✅',
+    value: 100,  suffix: '%',    label: 'DISCOM Approvals',     sub: 'Zero net-metering rejections',     icon: '✅',
     progress: 1.0,
   },
 ]
@@ -209,7 +209,7 @@ export default function Stats() {
               Every number here is a real project, a real family, a real farm.
             </div>
             <div style={{ color: 'var(--text-secondary)', fontSize: '0.875rem' }}>
-              No estimates. Suntrik's EPC track record spans residential clusters to multi-MW industrial plants across Haryana.
+              No estimates. 150 MW+ across 1,000+ clients — residential clusters, industrial plants, and 85 MWp+ of PM-KUSUM across Rajasthan &amp; Haryana.
             </div>
           </div>
           <a href="#projects" className="btn-primary" style={{ flexShrink: 0 }}>

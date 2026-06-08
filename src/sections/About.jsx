@@ -11,30 +11,32 @@ const PILLARS = [
   {
     icon: '⚡',
     title: 'NISE-Certified Engineering',
-    desc: 'Every system designed and installed by National Institute of Solar Energy certified professionals — mandatory for all MNRE-subsidised projects.',
+    desc: 'Every system designed and installed by NISE-certified professionals — mandatory for MNRE-subsidised projects. B.Tech engineers with PVsyst & AutoCAD design expertise.',
   },
   {
-    icon: '📍',
-    title: 'Haryana & North India Experts',
-    desc: 'Deep knowledge of HAREDA, local DISCOM net-metering rules, grid infrastructure and state-specific subsidies that out-of-state vendors miss.',
+    icon: '🏭',
+    title: 'Vertically Integrated Group',
+    desc: 'Suntrik Group owns SunMount (mounting structures) and Solar One Energy (distribution). Shorter supply chains, faster delivery, better quality control end-to-end.',
   },
   {
     icon: '🔗',
     title: 'True Single-Vendor EPC',
-    desc: 'Survey, design, procurement, construction, and O&M — one contract, one team, zero inter-vendor coordination risk from day one to year 25.',
+    desc: 'Survey, engineering, procurement, construction, and O&M — one contract, one team. Zero vendor finger-pointing. One SLA from day one to year 25.',
   },
   {
     icon: '🏛️',
     title: 'Scheme Navigation Experts',
-    desc: 'PM-KUSUM and PM Surya Ghar specialists who handle every paper, portal, and approval so you receive your full government entitlement.',
+    desc: 'PM-KUSUM (85 MWp+ executing) and PM Surya Ghar specialists. We manage every portal submission, inspection, and disbursement so you receive your full entitlement.',
   },
 ]
 
 const MILESTONES = [
-  { year: '2018', event: 'Founded as Suntrik Solutions, first rooftop EPC in Haryana' },
-  { year: '2021', event: 'First megawatt of aggregate capacity commissioned' },
-  { year: '2023', event: 'PM-KUSUM empanelment — HAREDA approved installer' },
-  { year: '2024', event: 'Incorporated as Suntrik Green Energy Pvt. Ltd.' },
+  { year: '2018', event: 'Founded as Suntrik Solutions — Solar EPC for residential & commercial segments' },
+  { year: '2019', event: 'Expanded into Industrial Solar EPC; large factory & warehouse rooftops' },
+  { year: '2021', event: 'First MW commissioned; launched SunMount — in-house mounting structure manufacturing' },
+  { year: '2023', event: 'Launched Solar One Energy (distribution arm); PM-KUSUM & HAREDA empanelment' },
+  { year: '2024', event: 'Incorporated as Suntrik Green Energy Pvt. Ltd.; Bajekan manufacturing plant operational' },
+  { year: '2025', event: '80 MWp PM-KUSUM orders under execution across Rajasthan & Haryana — active order book ₹150 Cr+' },
 ]
 
 const ORBIT_RINGS = [
@@ -164,10 +166,10 @@ export default function About() {
             }}>Our Numbers</h3>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.1rem' }}>
               {[
-                { v: `${yearsSince}+`, l: 'Years Experience',   s: 'Solar EPC since 2018' },
-                { v: '500+',           l: 'Projects Completed', s: 'Across North India' },
-                { v: '10 MW+',         l: 'Installed Capacity',  s: 'Residential to utility' },
-                { v: '100%',           l: 'DISCOM Approvals',   s: 'Zero net-metering rejections' },
+                { v: '10+',    l: 'Years Experience',   s: 'Solar EPC since 2018' },
+                { v: '1,000+', l: 'Happy Clients',      s: 'Homes, farms & industries' },
+                { v: '150MW+', l: 'Capacity Installed', s: 'Cumulative across North India' },
+                { v: '100%',   l: 'DISCOM Approvals',   s: 'Zero net-metering rejections' },
               ].map(s => (
                 <div key={s.l} style={{
                   padding: '1.2rem 1.35rem', borderRadius: 10,
