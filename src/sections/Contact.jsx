@@ -32,17 +32,17 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" style={{ background: 'var(--bg-base)', padding: '7rem 0' }}>
+    <section id="contact" style={{ background: 'var(--bg-base)', padding: 'clamp(2rem, 3vh, 3rem) 0', minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
       <div className="container">
         {/* Header */}
-        <div ref={ref} style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
+        <div ref={ref} style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
           <motion.span className="section-tag" style={{ justifyContent: 'center' }}
             initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5 }}>
             Get In Touch
           </motion.span>
           <motion.h2
             initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.65, delay: 0.1 }}
-            style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', marginBottom: '1rem' }}
+            style={{ fontSize: 'clamp(1.5rem, 3.2vw, 2.2rem)', marginBottom: '0.6rem' }}
           >
             Start Your <span className="gradient-text">Solar Journey</span>
           </motion.h2>
@@ -54,19 +54,19 @@ export default function Contact() {
           </motion.p>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.6fr', gap: '4rem', alignItems: 'start' }} className="contact-grid">
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.6fr', gap: '2.5rem', alignItems: 'start' }} className="contact-grid">
           {/* Contact info */}
           <motion.div
             initial={{ opacity: 0, x: -30 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.65, delay: 0.3 }}
           >
-            <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '1.2rem', fontWeight: 700, marginBottom: '1.75rem' }}>
+            <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '1.05rem', fontWeight: 700, marginBottom: '0.9rem' }}>
               Contact Suntrik
             </h3>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.35rem', marginBottom: '2.5rem' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem', marginBottom: '1.25rem' }}>
               {contactInfo.map(c => (
                 <div key={c.label} style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
                   <div style={{
-                    width: 42, height: 42, borderRadius: 10, flexShrink: 0,
+                    width: 36, height: 36, borderRadius: 8, flexShrink: 0,
                     background: 'rgba(255,107,26,0.1)', border: '1px solid rgba(255,107,26,0.18)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1rem',
                   }}>{c.icon}</div>
@@ -79,7 +79,7 @@ export default function Contact() {
             </div>
 
             {/* Scheme badges */}
-            <div style={{ marginBottom: '2rem' }}>
+            <div style={{ marginBottom: '1rem' }}>
               <p style={{ fontSize: '0.72rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '0.75rem' }}>
                 Scheme-Ready Installer
               </p>
@@ -128,7 +128,7 @@ export default function Contact() {
                 <p style={{ color: 'var(--text-secondary)' }}>Our team will contact you within 24 hours with a free feasibility assessment.</p>
               </div>
             ) : (
-              <form onSubmit={submit} style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
+              <form onSubmit={submit} style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                   <Field label="Full Name"   name="name"  value={form.name}  onChange={change} placeholder="Your name"         required />
                   <Field label="Email"       name="email" type="email" value={form.email} onChange={change} placeholder="you@example.com" required />
@@ -150,7 +150,7 @@ export default function Contact() {
                 <div>
                   <label style={labelStyle}>Project Details</label>
                   <textarea
-                    name="message" value={form.message} onChange={change} rows={4} required
+                    name="message" value={form.message} onChange={change} rows={3} required
                     placeholder="Location, roof type (RCC / metal sheet), current monthly electricity bill, any specific requirements…"
                     style={{ ...inputStyle, resize: 'vertical', fontFamily: 'Inter, sans-serif', lineHeight: 1.6 }}
                     onFocus={e => e.target.style.borderColor = 'rgba(255,107,26,0.5)'}

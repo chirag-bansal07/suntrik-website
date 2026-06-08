@@ -7,28 +7,6 @@ import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
 
-const PILLARS = [
-  {
-    icon: '⚡',
-    title: 'NISE-Certified Engineering',
-    desc: 'Every system designed and installed by NISE-certified professionals — mandatory for MNRE-subsidised projects. B.Tech engineers with PVsyst & AutoCAD design expertise.',
-  },
-  {
-    icon: '🏭',
-    title: 'Vertically Integrated Group',
-    desc: 'Suntrik Group owns SunMount (mounting structures) and Solar One Energy (distribution). Shorter supply chains, faster delivery, better quality control end-to-end.',
-  },
-  {
-    icon: '🔗',
-    title: 'True Single-Vendor EPC',
-    desc: 'Survey, engineering, procurement, construction, and O&M — one contract, one team. Zero vendor finger-pointing. One SLA from day one to year 25.',
-  },
-  {
-    icon: '🏛️',
-    title: 'Scheme Navigation Experts',
-    desc: 'PM-KUSUM (85 MWp+ executing) and PM Surya Ghar specialists. We manage every portal submission, inspection, and disbursement so you receive your full entitlement.',
-  },
-]
 
 const MILESTONES = [
   { year: '2018', event: 'Founded as Suntrik Solutions — Solar EPC for residential & commercial segments' },
@@ -51,9 +29,8 @@ export default function About() {
   const orbY  = useTransform(scrollYProgress, [0, 1], ['-8%',  '8%'])
   const textY = useTransform(scrollYProgress, [0, 1], ['3%', '-3%'])
 
-  const { ref: headRef,  inView: headIn  } = useScrollAnimation(0.1)
-  const { ref: midRef,   inView: midIn   } = useScrollAnimation(0.1)
-  const { ref: pilaRef,  inView: pilaIn  } = useScrollAnimation(0.1)
+  const { ref: headRef, inView: headIn } = useScrollAnimation(0.1)
+  const { ref: midRef,  inView: midIn  } = useScrollAnimation(0.1)
 
   const yearsSince = new Date().getFullYear() - 2018
 
@@ -64,7 +41,8 @@ export default function About() {
       style={{
         position: 'relative', overflow: 'hidden',
         background: 'linear-gradient(160deg, #060A0F 0%, #0B1525 55%, #060A0F 100%)',
-        padding: '9rem 0',
+        padding: 'clamp(2rem, 3vh, 3rem) 0',
+        minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center',
       }}
     >
       {/* ── Animated sun + orbit rings ── */}
@@ -114,7 +92,7 @@ export default function About() {
         {/* ── Section header ── */}
         <motion.div
           ref={headRef}
-          style={{ y: textY, maxWidth: 820, marginBottom: '5rem' }}
+          style={{ y: textY, maxWidth: 820, marginBottom: '1.5rem' }}
           initial={{ opacity: 0, y: 40 }}
           animate={headIn ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
@@ -122,21 +100,21 @@ export default function About() {
           <span className="section-tag" style={{ marginBottom: '1.5rem' }}>About Suntrik</span>
 
           <h2 style={{
-            fontSize: 'clamp(2.2rem, 5vw, 3.8rem)',
-            lineHeight: 1.09, fontWeight: 900, marginBottom: '1.75rem',
+            fontSize: 'clamp(1.7rem, 3.5vw, 2.8rem)',
+            lineHeight: 1.09, fontWeight: 900, marginBottom: '0.75rem',
           }}>
             North India's Trusted<br />
             <span className="gradient-text">Solar EPC Partner</span>
           </h2>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }} className="about-txt-cols">
-            <p style={{ color: 'var(--text-secondary)', lineHeight: 1.9, fontSize: '1rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.25rem' }} className="about-txt-cols">
+            <p style={{ color: 'var(--text-secondary)', lineHeight: 1.75, fontSize: '0.875rem' }}>
               Founded in <strong style={{ color: 'var(--text-primary)' }}>2018</strong> as Suntrik Solutions and
               incorporated in <strong style={{ color: 'var(--text-primary)' }}>2024</strong> as{' '}
               <strong style={{ color: 'var(--text-primary)' }}>Suntrik Green Energy Pvt. Ltd.</strong>, we have
               built {yearsSince}+ years of solar EPC expertise across Haryana and North India.
             </p>
-            <p style={{ color: 'var(--text-secondary)', lineHeight: 1.9, fontSize: '1rem' }}>
+            <p style={{ color: 'var(--text-secondary)', lineHeight: 1.75, fontSize: '0.875rem' }}>
               We serve residential homeowners, commercial establishments, industrial plants and farming
               communities — delivering full-cycle EPC with NISE-certified professionals, managing
               every government scheme, DISCOM approval, and net-metering connection on your behalf.
@@ -148,9 +126,8 @@ export default function About() {
         <div
           ref={midRef}
           style={{
-            display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3.5rem',
-            marginBottom: '5rem', paddingBottom: '5rem',
-            borderBottom: '1px solid rgba(255,107,26,0.1)',
+            display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem',
+            marginBottom: '0', paddingBottom: '0',
           }}
           className="about-mid-cols"
         >
@@ -161,10 +138,10 @@ export default function About() {
             transition={{ duration: 0.7, delay: 0.1 }}
           >
             <h3 style={{
-              fontSize: '0.72rem', color: 'var(--text-muted)', fontWeight: 600,
-              textTransform: 'uppercase', letterSpacing: '0.15em', marginBottom: '1.5rem',
+              fontSize: '0.66rem', color: 'var(--text-muted)', fontWeight: 600,
+              textTransform: 'uppercase', letterSpacing: '0.15em', marginBottom: '0.75rem',
             }}>Our Numbers</h3>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.1rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.65rem' }}>
               {[
                 { v: '10+',    l: 'Years Experience',   s: 'Solar EPC since 2018' },
                 { v: '1,000+', l: 'Happy Clients',      s: 'Homes, farms & industries' },
@@ -172,12 +149,12 @@ export default function About() {
                 { v: '100%',   l: 'DISCOM Approvals',   s: 'Zero net-metering rejections' },
               ].map(s => (
                 <div key={s.l} style={{
-                  padding: '1.2rem 1.35rem', borderRadius: 10,
+                  padding: '0.75rem 0.9rem', borderRadius: 10,
                   background: 'rgba(255,107,26,0.05)',
                   border: '1px solid rgba(255,107,26,0.12)',
                 }}>
                   <div style={{
-                    fontSize: '1.9rem', fontWeight: 900, fontFamily: 'Space Grotesk, sans-serif',
+                    fontSize: '1.5rem', fontWeight: 900, fontFamily: 'Space Grotesk, sans-serif',
                     background: 'var(--gradient-sun)',
                     WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
                     lineHeight: 1, marginBottom: '0.3rem',
@@ -196,8 +173,8 @@ export default function About() {
             transition={{ duration: 0.7, delay: 0.2 }}
           >
             <h3 style={{
-              fontSize: '0.72rem', color: 'var(--text-muted)', fontWeight: 600,
-              textTransform: 'uppercase', letterSpacing: '0.15em', marginBottom: '1.5rem',
+              fontSize: '0.66rem', color: 'var(--text-muted)', fontWeight: 600,
+              textTransform: 'uppercase', letterSpacing: '0.15em', marginBottom: '0.75rem',
             }}>Our Journey</h3>
             <div style={{ position: 'relative', paddingLeft: '2rem' }}>
               {/* Line */}
@@ -206,7 +183,7 @@ export default function About() {
                 background: 'linear-gradient(to bottom, #FF6B1A, #FFB830, rgba(255,184,48,0.1))',
                 borderRadius: 1,
               }} />
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.6rem' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                 {MILESTONES.map((m, i) => (
                   <motion.div
                     key={m.year}
@@ -239,56 +216,6 @@ export default function About() {
           </motion.div>
         </div>
 
-        {/* ── Foundation pillars ── */}
-        <div ref={pilaRef}>
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={pilaIn ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5 }}
-            style={{
-              fontSize: '0.72rem', color: 'var(--text-muted)', fontWeight: 600,
-              textTransform: 'uppercase', letterSpacing: '0.15em',
-              textAlign: 'center', marginBottom: '2.25rem',
-            }}
-          >Our Foundation</motion.p>
-
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(255px, 1fr))', gap: '1.2rem' }}>
-            {PILLARS.map((p, i) => (
-              <motion.div
-                key={p.title}
-                initial={{ opacity: 0, y: 28 }}
-                animate={pilaIn ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                whileHover={{ y: -4 }}
-                style={{
-                  padding: '1.8rem', borderRadius: 12,
-                  background: 'rgba(255,255,255,0.025)',
-                  border: '1px solid rgba(255,255,255,0.07)',
-                  cursor: 'default', transition: 'border-color 0.25s, background 0.25s',
-                  position: 'relative', overflow: 'hidden',
-                }}
-                onMouseEnter={e => {
-                  e.currentTarget.style.borderColor = 'rgba(255,107,26,0.28)'
-                  e.currentTarget.style.background  = 'rgba(255,107,26,0.04)'
-                }}
-                onMouseLeave={e => {
-                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)'
-                  e.currentTarget.style.background  = 'rgba(255,255,255,0.025)'
-                }}
-              >
-                {/* Corner accent */}
-                <div style={{
-                  position: 'absolute', top: 0, right: 0, width: 0, height: 0,
-                  borderStyle: 'solid', borderWidth: '0 36px 36px 0',
-                  borderColor: `transparent rgba(255,107,26,0.12) transparent transparent`,
-                }} />
-                <div style={{ fontSize: '1.7rem', marginBottom: '0.9rem' }}>{p.icon}</div>
-                <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: '0.97rem', marginBottom: '0.5rem' }}>{p.title}</div>
-                <div style={{ fontSize: '0.83rem', color: 'var(--text-secondary)', lineHeight: 1.72 }}>{p.desc}</div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
       </div>
 
       <style>{`

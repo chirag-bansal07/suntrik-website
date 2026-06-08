@@ -53,10 +53,10 @@ function CountUp({ value, suffix, inView }) {
 
 // ── Animated radial progress ring ─────────────────────────────────────────
 function Ring({ progress, inView, color = 'url(#rg)' }) {
-  const r = 42
+  const r = 34
   const circ = 2 * Math.PI * r
   return (
-    <svg width="100" height="100" viewBox="0 0 100 100" style={{ position: 'absolute', inset: 0 }}>
+    <svg width="80" height="80" viewBox="0 0 80 80" style={{ position: 'absolute', inset: 0 }}>
       <defs>
         <linearGradient id="rg" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stopColor="#FF6B1A"/>
@@ -64,11 +64,11 @@ function Ring({ progress, inView, color = 'url(#rg)' }) {
         </linearGradient>
       </defs>
       {/* Track */}
-      <circle cx="50" cy="50" r={r} fill="none" stroke="rgba(255,107,26,0.1)" strokeWidth="4"/>
+      <circle cx="40" cy="40" r={r} fill="none" stroke="rgba(255,107,26,0.1)" strokeWidth="3.5"/>
       {/* Progress */}
       <motion.circle
-        cx="50" cy="50" r={r} fill="none"
-        stroke={color} strokeWidth="4"
+        cx="40" cy="40" r={r} fill="none"
+        stroke={color} strokeWidth="3.5"
         strokeLinecap="round"
         strokeDasharray={circ}
         initial={{ strokeDashoffset: circ }}
@@ -87,7 +87,8 @@ export default function Stats() {
     <section style={{
       position: 'relative', overflow: 'hidden',
       background: '#030609',
-      padding: '8rem 0',
+      padding: 'clamp(2rem, 3vh, 3rem) 0',
+      minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center',
     }}>
       {/* Grain texture overlay */}
       <div style={{
@@ -124,10 +125,10 @@ export default function Stats() {
         <motion.div
           initial={{ opacity: 0, y: 28 }} animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
-          style={{ textAlign: 'center', marginBottom: '4.5rem' }}
+          style={{ textAlign: 'center', marginBottom: '1.75rem' }}
         >
           <span className="section-tag" style={{ justifyContent: 'center' }}>Our Accomplishments</span>
-          <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', marginBottom: '0.75rem' }}>
+          <h2 style={{ fontSize: 'clamp(1.5rem, 3.2vw, 2.2rem)', marginBottom: '0.5rem' }}>
             {new Date().getFullYear() - 2018}+ Years of Solar <span className="gradient-text">Impact</span>
           </h2>
           <p style={{ color: 'var(--text-secondary)', maxWidth: 480, margin: '0 auto', lineHeight: 1.8 }}>
@@ -152,14 +153,14 @@ export default function Stats() {
               transition={{ duration: 0.7, delay: i * 0.13, ease: [0.16, 1, 0.3, 1] }}
               style={{
                 display: 'flex', flexDirection: 'column', alignItems: 'center',
-                textAlign: 'center', padding: '2.5rem 2rem',
+                textAlign: 'center', padding: '1.25rem 1.5rem',
                 borderRight: i < STATS.length - 1 ? '1px solid rgba(255,107,26,0.08)' : 'none',
                 position: 'relative',
               }}
               className="stat-cell"
             >
               {/* Ring */}
-              <div style={{ position: 'relative', width: 100, height: 100, marginBottom: '1.5rem' }}>
+              <div style={{ position: 'relative', width: 80, height: 80, marginBottom: '0.75rem' }}>
                 <Ring progress={s.progress} inView={inView} />
                 {/* Icon in centre */}
                 <div style={{
@@ -170,7 +171,7 @@ export default function Stats() {
 
               {/* Number */}
               <div style={{
-                fontSize: 'clamp(2.8rem, 5vw, 3.8rem)', fontWeight: 900,
+                fontSize: 'clamp(2rem, 4vw, 2.8rem)', fontWeight: 900,
                 fontFamily: 'Space Grotesk, sans-serif',
                 background: 'var(--gradient-sun)',
                 WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
@@ -197,7 +198,7 @@ export default function Stats() {
           initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.65, delay: 0.5 }}
           style={{
-            marginTop: '5rem', padding: '2rem 2.5rem', borderRadius: 14,
+            marginTop: '1.75rem', padding: '1.25rem 2rem', borderRadius: 14,
             background: 'linear-gradient(90deg, rgba(255,107,26,0.08), rgba(255,184,48,0.05))',
             border: '1px solid rgba(255,107,26,0.15)',
             display: 'flex', justifyContent: 'space-between', alignItems: 'center',

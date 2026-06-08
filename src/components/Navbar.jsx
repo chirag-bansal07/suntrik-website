@@ -64,8 +64,8 @@ export default function Navbar() {
         }}>
 
           {/* ── Logo (left) ──────────────────────────────── */}
-          <a href="#hero" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
-            <SuntrikLogo width={96} />
+          <a href="#hero" style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', textDecoration: 'none', height: '100%' }}>
+            <SuntrikLogo width={115} className="nav-logo" />
           </a>
 
           {/* ── Centered nav links ───────────────────────── */}
@@ -91,7 +91,7 @@ export default function Navbar() {
               const isActive  = activeLink === l.href
               const isHovered = hovered   === l.href
               return (
-                <li key={l.label} style={{ position: 'relative', zIndex: 1 }}>
+                <li key={l.label} style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                   <a
                     href={l.href}
                     onMouseEnter={() => setHovered(l.href)}
@@ -104,24 +104,24 @@ export default function Navbar() {
                       borderRadius: 8,
                       background: isHovered ? 'rgba(255,107,26,0.1)' : 'transparent',
                       transition: 'color 0.18s, background 0.18s',
-                      position: 'relative',
                     }}
                   >
                     {l.label}
-                    {/* Active orange underline */}
-                    {isActive && (
-                      <motion.span
-                        layoutId="activeUnderline"
-                        style={{
-                          position: 'absolute', bottom: 2, left: '50%', transform: 'translateX(-50%)',
-                          height: 2, width: '60%', borderRadius: 1,
-                          background: 'var(--gradient-sun)',
-                          display: 'block',
-                        }}
-                        transition={{ type: 'spring', stiffness: 500, damping: 35 }}
-                      />
-                    )}
                   </a>
+                  {/* Active underline — sits beneath the link, perfectly centred */}
+                  {isActive && (
+                    <motion.span
+                      layoutId="activeUnderline"
+                      style={{
+                        position: 'absolute', bottom: -2,
+                        left: '20%', right: '20%',
+                        height: 2, borderRadius: 1,
+                        background: 'var(--gradient-sun)',
+                        display: 'block',
+                      }}
+                      transition={{ type: 'spring', stiffness: 500, damping: 35 }}
+                    />
+                  )}
                 </li>
               )
             })}
@@ -217,6 +217,12 @@ export default function Navbar() {
       </AnimatePresence>
 
       <style>{`
+        .nav-logo {
+          height: 64px;
+          width: auto !important;
+          max-width: 150px;
+          object-fit: contain;
+        }
         @media (max-width: 820px) {
           .desktop-nav { display: none !important; }
           .hamburger   { display: flex !important; }

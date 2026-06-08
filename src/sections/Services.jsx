@@ -81,7 +81,7 @@ const SERVICES = [
   {
     id: 1,
     icon: (
-      <svg width="34" height="34" viewBox="0 0 34 34" fill="none">
+      <svg width="26" height="26" viewBox="0 0 34 34" fill="none">
         <circle cx="17" cy="17" r="16" stroke="url(#sg1)" strokeWidth="1.4"/>
         <path d="M17 7v4M17 23v4M7 17h4M23 17h4M10.5 10.5l2.8 2.8M20.7 20.7l2.8 2.8M10.5 23.5l2.8-2.8M20.7 13.3l2.8-2.8"
           stroke="url(#sg1)" strokeWidth="1.4" strokeLinecap="round"/>
@@ -98,7 +98,7 @@ const SERVICES = [
   {
     id: 2,
     icon: (
-      <svg width="34" height="34" viewBox="0 0 34 34" fill="none">
+      <svg width="26" height="26" viewBox="0 0 34 34" fill="none">
         <rect x="3" y="3" width="28" height="28" rx="4" stroke="url(#sg2)" strokeWidth="1.4"/>
         <path d="M9 17h16M17 9v16" stroke="url(#sg2)" strokeWidth="1.4" strokeLinecap="round"/>
         <rect x="9" y="9" width="7" height="7" rx="1" fill="url(#sg2)" opacity="0.4"/>
@@ -115,7 +115,7 @@ const SERVICES = [
   {
     id: 3,
     icon: (
-      <svg width="34" height="34" viewBox="0 0 34 34" fill="none">
+      <svg width="26" height="26" viewBox="0 0 34 34" fill="none">
         <path d="M5 28l24-4M5 20l24-4M5 12l24-4" stroke="url(#sg3)" strokeWidth="1.4" strokeLinecap="round"/>
         <rect x="13" y="7" width="8" height="6" rx="1" stroke="url(#sg3)" strokeWidth="1.4"/>
         <defs><linearGradient id="sg3" x1="0" y1="0" x2="34" y2="34" gradientUnits="userSpaceOnUse">
@@ -130,7 +130,7 @@ const SERVICES = [
   {
     id: 4,
     icon: (
-      <svg width="34" height="34" viewBox="0 0 34 34" fill="none">
+      <svg width="26" height="26" viewBox="0 0 34 34" fill="none">
         <path d="M9 27V15l8-8 8 8v12H9z" stroke="url(#sg4)" strokeWidth="1.4" strokeLinejoin="round"/>
         <path d="M14 27v-6h6v6" stroke="url(#sg4)" strokeWidth="1.4" strokeLinejoin="round"/>
         <defs><linearGradient id="sg4" x1="0" y1="0" x2="34" y2="34" gradientUnits="userSpaceOnUse">
@@ -145,7 +145,7 @@ const SERVICES = [
   {
     id: 5,
     icon: (
-      <svg width="34" height="34" viewBox="0 0 34 34" fill="none">
+      <svg width="26" height="26" viewBox="0 0 34 34" fill="none">
         <circle cx="17" cy="17" r="10" stroke="url(#sg5)" strokeWidth="1.4"/>
         <path d="M17 11v6l4 2.5" stroke="url(#sg5)" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
         <path d="M5 5l4 4M29 5l-4 4" stroke="url(#sg5)" strokeWidth="1.4" strokeLinecap="round"/>
@@ -161,7 +161,7 @@ const SERVICES = [
   {
     id: 6,
     icon: (
-      <svg width="34" height="34" viewBox="0 0 34 34" fill="none">
+      <svg width="26" height="26" viewBox="0 0 34 34" fill="none">
         <rect x="3" y="21" width="6" height="10" rx="1" fill="url(#sg6)" opacity="0.45"/>
         <rect x="12" y="15" width="6" height="16" rx="1" fill="url(#sg6)" opacity="0.7"/>
         <rect x="21" y="9"  width="6" height="22" rx="1" fill="url(#sg6)"/>
@@ -210,7 +210,8 @@ export default function Services() {
       style={{
         position: 'relative', overflow: 'hidden',
         background: '#070B12',
-        padding: '9rem 0',
+        padding: 'clamp(2rem, 3vh, 3rem) 0',
+        minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center',
       }}
     >
       {/* ── Solar-panel grid background ── */}
@@ -238,14 +239,14 @@ export default function Services() {
       <div className="container" style={{ position: 'relative', zIndex: 1 }}>
 
         {/* ── Header ── */}
-        <div ref={headRef} style={{ textAlign: 'center', marginBottom: '4.5rem' }}>
+        <div ref={headRef} style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
           <motion.span
             className="section-tag" style={{ justifyContent: 'center' }}
             initial={{ opacity: 0, y: 20 }} animate={headIn ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5 }}
           >Our Services</motion.span>
           <motion.h2
             initial={{ opacity: 0, y: 28 }} animate={headIn ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.65, delay: 0.1 }}
-            style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', marginBottom: '1rem' }}
+            style={{ fontSize: 'clamp(1.5rem, 3.2vw, 2.2rem)', marginBottom: '0.6rem' }}
           >
             End-to-End <span className="gradient-text">Solar EPC</span>
           </motion.h2>
@@ -259,7 +260,7 @@ export default function Services() {
         </div>
 
         {/* ── EPC Process Flow ── */}
-        <div ref={processRef} style={{ marginBottom: '6rem' }}>
+        <div ref={processRef} style={{ marginBottom: '2rem' }}>
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={processIn ? { opacity: 1, y: 0 } : {}}
@@ -335,67 +336,49 @@ export default function Services() {
         <div style={{
           width: '100%', height: 1,
           background: 'linear-gradient(90deg, transparent, rgba(255,107,26,0.2), transparent)',
-          marginBottom: '4.5rem',
+          marginBottom: '1.5rem',
         }} />
 
-        {/* ── Service cards ── */}
+        {/* ── Service cards (compact) ── */}
         <div ref={cardsRef}>
           <motion.h3
             initial={{ opacity: 0, y: 16 }}
             animate={cardsIn ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5 }}
             style={{
-              textAlign: 'center', fontSize: '0.72rem', color: 'var(--text-muted)',
+              textAlign: 'center', fontSize: '0.66rem', color: 'var(--text-muted)',
               textTransform: 'uppercase', letterSpacing: '0.2em', fontWeight: 600,
-              marginBottom: '2.25rem',
+              marginBottom: '1rem',
             }}
           >What We Deliver</motion.h3>
 
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-            gap: '1.4rem',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
+            gap: '0.85rem',
           }}>
             {SERVICES.map((svc, i) => (
               <motion.div
                 key={svc.id}
-                initial={{ opacity: 0, y: 36 }}
+                initial={{ opacity: 0, y: 24 }}
                 animate={cardsIn ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.65, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-                whileHover={{ y: -5 }}
+                transition={{ duration: 0.55, delay: i * 0.06, ease: [0.16, 1, 0.3, 1] }}
+                whileHover={{ y: -3 }}
                 className="glass-card"
-                style={{ padding: '1.85rem', position: 'relative', overflow: 'hidden', cursor: 'default' }}
+                style={{ padding: '1rem 1.1rem', position: 'relative', overflow: 'hidden', cursor: 'default', display: 'flex', gap: '0.85rem', alignItems: 'flex-start' }}
                 onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(255,107,26,0.3)'}
                 onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'}
               >
-                {/* Watermark number */}
-                <span style={{
-                  position: 'absolute', top: '0.9rem', right: '1.1rem',
-                  fontFamily: 'Space Grotesk, sans-serif', fontWeight: 900,
-                  fontSize: '3.8rem', lineHeight: 1,
-                  color: 'rgba(255,107,26,0.05)', pointerEvents: 'none', userSelect: 'none',
-                }}>{String(i + 1).padStart(2, '0')}</span>
-
-                <div style={{ marginBottom: '1.2rem' }}>{svc.icon}</div>
-
-                <h3 style={{
-                  fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700,
-                  fontSize: '1.06rem', marginBottom: '0.7rem',
-                }}>{svc.title}</h3>
-
-                <p style={{ fontSize: '0.855rem', color: 'var(--text-secondary)', lineHeight: 1.75, marginBottom: '1.2rem' }}>
-                  {svc.desc}
-                </p>
-
-                <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                  {svc.points.map(pt => (
-                    <li key={pt} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', fontSize: '0.79rem', color: 'var(--text-muted)' }}>
-                      <span style={{ color: 'var(--brand-orange)', flexShrink: 0, marginTop: 1 }}>▸</span>
-                      {pt}
-                    </li>
-                  ))}
-                </ul>
-
+                <div style={{ flexShrink: 0, marginTop: 2 }}>{svc.icon}</div>
+                <div>
+                  <h3 style={{
+                    fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700,
+                    fontSize: '0.88rem', marginBottom: '0.3rem',
+                  }}>{svc.title}</h3>
+                  <p style={{ fontSize: '0.76rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+                    {svc.desc}
+                  </p>
+                </div>
                 <motion.div
                   initial={{ scaleX: 0 }} whileHover={{ scaleX: 1 }}
                   transition={{ duration: 0.3 }}
@@ -410,8 +393,8 @@ export default function Services() {
 
           <motion.div
             initial={{ opacity: 0, y: 20 }} animate={cardsIn ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            style={{ textAlign: 'center', marginTop: '3.5rem' }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            style={{ textAlign: 'center', marginTop: '1.5rem' }}
           >
             <a href="#contact" className="btn-primary">Request a Free Site Assessment →</a>
           </motion.div>

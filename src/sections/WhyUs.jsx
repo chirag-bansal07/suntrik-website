@@ -13,7 +13,7 @@ const FEATURES = [
     title: 'Single EPC Responsibility',
     desc: "Design, procurement, construction, and O&M — all under one contract. You deal with one team, one SLA, and one point of accountability for the full project lifetime. No vendor finger-pointing, no co-ordination overhead.",
     icon: (
-      <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+      <svg width="36" height="36" viewBox="0 0 48 48" fill="none">
         <path d="M24 8l14 8v16l-14 8L10 32V16L24 8z" stroke="url(#wg1)" strokeWidth="1.6" strokeLinejoin="round"/>
         <path d="M24 8v24M10 16l14 8M38 16l-14 8" stroke="url(#wg1)" strokeWidth="1.2" strokeLinecap="round"/>
         <circle cx="24" cy="32" r="3" fill="url(#wg1)"/>
@@ -31,7 +31,7 @@ const FEATURES = [
     title: 'NISE-Certified Engineering Team',
     desc: "Every installation is led by professionals certified by the National Institute of Solar Energy — the standard required for all MNRE-subsidised projects. Our engineers bring PVsyst simulation expertise and AutoCAD system design to every project.",
     icon: (
-      <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+      <svg width="36" height="36" viewBox="0 0 48 48" fill="none">
         <rect x="8" y="12" width="32" height="24" rx="4" stroke="url(#wg2)" strokeWidth="1.6"/>
         <path d="M18 22l4 4 8-8" stroke="url(#wg2)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
         <circle cx="24" cy="24" r="10" stroke="url(#wg2)" strokeWidth="1.2" strokeDasharray="3 2"/>
@@ -49,7 +49,7 @@ const FEATURES = [
     title: 'DISCOM & Net-Metering Mastery',
     desc: "We handle all paperwork, portal submissions, and co-ordination with your DISCOM for net-metering and grid interconnection. Our team knows the exact DHBVN / DHEVCL requirements and has a 100% approval rate across all submitted applications.",
     icon: (
-      <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+      <svg width="36" height="36" viewBox="0 0 48 48" fill="none">
         <path d="M8 24h32" stroke="url(#wg3)" strokeWidth="1.6" strokeLinecap="round" strokeDasharray="4 3"/>
         <circle cx="16" cy="24" r="5" stroke="url(#wg3)" strokeWidth="1.6"/>
         <circle cx="32" cy="24" r="5" stroke="url(#wg3)" strokeWidth="1.6"/>
@@ -68,7 +68,7 @@ const FEATURES = [
     title: 'PM Surya Ghar & PM-KUSUM Navigation',
     desc: "Our team is deeply versed in PM Surya Ghar Muft Bijli Yojana (residential subsidy) and PM-KUSUM (agricultural & rural solar). We handle registration, inspection, and disbursement — so clients receive maximum government benefit without the paperwork burden.",
     icon: (
-      <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+      <svg width="36" height="36" viewBox="0 0 48 48" fill="none">
         <path d="M24 6l4 12h12l-10 7 4 12-10-7-10 7 4-12L8 18h12L24 6z" stroke="url(#wg4)" strokeWidth="1.6" strokeLinejoin="round" fill="url(#wg4)" fillOpacity="0.1"/>
         <defs><linearGradient id="wg4" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
           <stop stopColor="#FF6B1A"/><stop offset="1" stopColor="#FFB830"/>
@@ -84,7 +84,7 @@ const FEATURES = [
     title: '25-Year Performance Assurance',
     desc: "We only procure Tier-1 MNRE-listed modules with 25-year linear power output warranty. Combined with our engineering discipline and bankable DPR standards, your investment is protected for the full asset life of the plant.",
     icon: (
-      <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+      <svg width="36" height="36" viewBox="0 0 48 48" fill="none">
         <path d="M24 6C14 6 8 14 8 22c0 11 16 20 16 20s16-9 16-20c0-8-6-16-16-16z" stroke="url(#wg5)" strokeWidth="1.6" fill="url(#wg5)" fillOpacity="0.1"/>
         <path d="M18 22l4 4 8-8" stroke="url(#wg5)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
         <defs><linearGradient id="wg5" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
@@ -101,7 +101,7 @@ const FEATURES = [
     title: '24/7 Remote Monitoring & O&M',
     desc: "Real-time performance dashboards and alert systems ensure our O&M team tracks every plant we build. Preventive maintenance schedules, remote fault detection, and rapid on-site response keeps your plant generating at peak yield.",
     icon: (
-      <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+      <svg width="36" height="36" viewBox="0 0 48 48" fill="none">
         <circle cx="24" cy="20" r="10" stroke="url(#wg6)" strokeWidth="1.6"/>
         <path d="M24 10v10l6 4" stroke="url(#wg6)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
         <path d="M8 38c0-6 7-10 16-10s16 4 16 10" stroke="url(#wg6)" strokeWidth="1.6" strokeLinecap="round"/>
@@ -132,7 +132,8 @@ export default function WhyUs() {
       style={{
         position: 'relative', overflow: 'hidden',
         background: 'linear-gradient(175deg, #0A1020 0%, #111827 50%, #0A1020 100%)',
-        padding: '9rem 0',
+        padding: 'clamp(2rem, 3vh, 3rem) 0',
+        minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center',
       }}
     >
       {/* Animated background grid */}
@@ -157,33 +158,34 @@ export default function WhyUs() {
 
       <div className="container" style={{ position: 'relative', zIndex: 1 }}>
         {/* Header */}
-        <div ref={headRef} style={{ textAlign: 'center', marginBottom: '5rem' }}>
+        <div ref={headRef} style={{ textAlign: 'center', marginBottom: '1.75rem' }}>
           <motion.span
             className="section-tag" style={{ justifyContent: 'center' }}
             initial={{ opacity: 0, y: 20 }} animate={headIn ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5 }}
           >Why Suntrik</motion.span>
           <motion.h2
             initial={{ opacity: 0, y: 28 }} animate={headIn ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.65, delay: 0.1 }}
-            style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', marginBottom: '1rem' }}
+            style={{ fontSize: 'clamp(1.6rem, 3.2vw, 2.5rem)', marginBottom: '0.55rem' }}
           >
             The Suntrik <span className="gradient-text">Difference</span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 18 }} animate={headIn ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, delay: 0.2 }}
-            style={{ color: 'var(--text-secondary)', maxWidth: 520, margin: '0 auto', lineHeight: 1.8 }}
+            style={{ color: 'var(--text-secondary)', maxWidth: 500, margin: '0 auto', lineHeight: 1.7, fontSize: '0.875rem' }}
           >
             We don't just install solar panels — we take full ownership of your plant's performance
             for its entire 25-year operating life.
           </motion.p>
         </div>
 
-        {/* Feature grid — 2 cols, 3 rows */}
+        {/* Feature grid — 3 cols × 2 rows */}
         <div
           ref={gridRef}
+          className="whyus-grid"
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))',
-            gap: '1.5rem',
+            gridTemplateColumns: 'repeat(3, 1fr)',
+            gap: '1rem',
           }}
         >
           {FEATURES.map((f, i) => (
@@ -192,13 +194,14 @@ export default function WhyUs() {
               initial={{ opacity: 0, y: 36 }}
               animate={gridIn ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.65, delay: i * 0.09, ease: [0.16, 1, 0.3, 1] }}
-              whileHover={{ y: -5 }}
+              whileHover={{ y: -4 }}
               style={{
-                padding: '2rem', borderRadius: 14,
+                padding: '1.25rem 1.35rem', borderRadius: 13,
                 background: 'rgba(255,255,255,0.03)',
                 border: '1px solid rgba(255,255,255,0.07)',
                 position: 'relative', overflow: 'hidden',
                 cursor: 'default', transition: 'border-color 0.25s, background 0.25s',
+                display: 'flex', gap: '1rem', alignItems: 'flex-start',
               }}
               onMouseEnter={e => {
                 e.currentTarget.style.borderColor = 'rgba(255,107,26,0.28)'
@@ -209,44 +212,37 @@ export default function WhyUs() {
                 e.currentTarget.style.background  = 'rgba(255,255,255,0.03)'
               }}
             >
-              {/* Number watermark */}
-              <div style={{
-                position: 'absolute', top: '1rem', right: '1.25rem',
-                fontFamily: 'Space Grotesk, sans-serif', fontWeight: 900,
-                fontSize: '3.2rem', lineHeight: 1,
-                color: 'rgba(255,107,26,0.06)', userSelect: 'none',
-              }}>{f.num}</div>
-
-              {/* Icon + stat row */}
-              <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '1.2rem' }}>
+              {/* Left: icon + stat */}
+              <div style={{ flexShrink: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.35rem', minWidth: 65 }}>
                 <div>{f.icon}</div>
-                <div style={{ textAlign: 'right' }}>
+                <div style={{ textAlign: 'center' }}>
                   <div style={{
-                    fontFamily: 'Space Grotesk, sans-serif', fontWeight: 900, fontSize: '1.3rem',
+                    fontFamily: 'Space Grotesk, sans-serif', fontWeight: 900, fontSize: '1.05rem',
                     background: 'var(--gradient-sun)',
                     WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
                     lineHeight: 1, marginBottom: 2,
                   }}>{f.stat}</div>
-                  <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)' }}>{f.statSub}</div>
+                  <div style={{ fontSize: '0.59rem', color: 'var(--text-muted)', lineHeight: 1.3, maxWidth: 62 }}>{f.statSub}</div>
                 </div>
               </div>
 
-              <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: '1.05rem', marginBottom: '0.7rem' }}>
-                {f.title}
-              </h3>
-
-              <p style={{ fontSize: '0.855rem', color: 'var(--text-secondary)', lineHeight: 1.78, marginBottom: '1.25rem' }}>
-                {f.desc}
-              </p>
-
-              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.38rem' }}>
-                {f.bullets.map(b => (
-                  <li key={b} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', fontSize: '0.78rem', color: 'var(--text-muted)' }}>
-                    <span style={{ color: 'var(--brand-orange)', flexShrink: 0, marginTop: 1 }}>▸</span>
-                    {b}
-                  </li>
-                ))}
-              </ul>
+              {/* Right: title + desc + bullets */}
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: '0.88rem', marginBottom: '0.4rem', lineHeight: 1.25 }}>
+                  {f.title}
+                </h3>
+                <p style={{ fontSize: '0.73rem', color: 'var(--text-secondary)', lineHeight: 1.62, marginBottom: '0.55rem' }}>
+                  {f.desc}
+                </p>
+                <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.26rem' }}>
+                  {f.bullets.map(b => (
+                    <li key={b} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.4rem', fontSize: '0.7rem', color: 'var(--text-muted)', lineHeight: 1.38 }}>
+                      <span style={{ color: 'var(--brand-orange)', flexShrink: 0 }}>▸</span>
+                      {b}
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
               {/* Hover bottom bar */}
               <motion.div
@@ -265,11 +261,19 @@ export default function WhyUs() {
         <motion.div
           initial={{ opacity: 0, y: 20 }} animate={gridIn ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.55 }}
-          style={{ textAlign: 'center', marginTop: '3.5rem' }}
+          style={{ textAlign: 'center', marginTop: '1.75rem' }}
         >
           <a href="#contact" className="btn-primary">Get Your Free Assessment →</a>
         </motion.div>
       </div>
+      <style>{`
+        @media(max-width:900px){
+          .whyus-grid { grid-template-columns: repeat(2,1fr) !important; }
+        }
+        @media(max-width:560px){
+          .whyus-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
     </section>
   )
 }

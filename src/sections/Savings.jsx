@@ -49,19 +49,35 @@ function Bar({ saving, maxSaving, kw, active, onClick }) {
         outline: 'none',
       }}
     >
-      <div style={{
-        fontSize: '0.6rem', fontWeight: 700, color: active ? 'var(--brand-orange)' : 'transparent',
-        transition: 'color 0.2s',
-      }}>
-        {fmt(saving)}
-      </div>
-      <div style={{ width: '100%', height: 180, display: 'flex', alignItems: 'flex-end' }}>
+      {/* Bar area — relative so label can anchor to bar top */}
+      <div style={{ width: '100%', height: 240, position: 'relative' }}>
+        {/* Value label — floats just above the bar */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: active ? 1 : 0, bottom: `calc(${pct}% + 6px)` }}
+          transition={{ duration: 0.35 }}
+          style={{
+            position: 'absolute', left: '50%', transform: 'translateX(-50%)',
+            bottom: `calc(${pct}% + 6px)`,
+            fontSize: '0.62rem', fontWeight: 700,
+            color: 'var(--brand-orange)',
+            whiteSpace: 'nowrap',
+            background: 'rgba(10,16,32,0.85)',
+            border: '1px solid rgba(255,107,26,0.3)',
+            borderRadius: 5, padding: '2px 6px',
+            pointerEvents: 'none',
+          }}
+        >
+          {fmt(saving)}
+        </motion.div>
+
+        {/* The bar itself — grows from bottom */}
         <motion.div
           initial={{ height: 0 }}
           animate={{ height: `${pct}%` }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           style={{
-            width: '100%',
+            position: 'absolute', bottom: 0, left: 0, right: 0,
             background: active
               ? 'var(--gradient-sun)'
               : 'linear-gradient(180deg, rgba(255,107,26,0.45), rgba(255,107,26,0.15))',
@@ -71,6 +87,8 @@ function Bar({ saving, maxSaving, kw, active, onClick }) {
           }}
         />
       </div>
+
+      {/* kW label below */}
       <div style={{
         fontSize: '0.65rem', fontWeight: 600,
         color: active ? 'var(--brand-orange)' : 'var(--text-muted)',
@@ -96,7 +114,8 @@ export default function Savings() {
       style={{
         position: 'relative', overflow: 'hidden',
         background: 'linear-gradient(170deg, #070d18 0%, #0d1625 50%, #060c17 100%)',
-        padding: '9rem 0',
+        padding: 'clamp(2rem, 3vh, 3rem) 0',
+        minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center',
       }}
     >
       {/* Background glow */}
@@ -126,10 +145,9 @@ export default function Savings() {
         }}>SAVINGS</div>
       </div>
 
+      {/* ── Header ─────────────────────────────────────── */}
       <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-
-        {/* ── Header ─────────────────────────────────────── */}
-        <div ref={headRef} style={{ textAlign: 'center', marginBottom: '4rem' }}>
+        <div ref={headRef} style={{ textAlign: 'center', marginBottom: '1.25rem' }}>
           <motion.span
             className="section-tag" style={{ justifyContent: 'center' }}
             initial={{ opacity: 0, y: 20 }} animate={headIn ? { opacity: 1, y: 0 } : {}}
@@ -139,7 +157,7 @@ export default function Savings() {
           <motion.h2
             initial={{ opacity: 0, y: 28 }} animate={headIn ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.65, delay: 0.1 }}
-            style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', marginBottom: '0.75rem' }}
+            style={{ fontSize: 'clamp(1.5rem, 3.2vw, 2.2rem)', marginBottom: '0.5rem' }}
           >
             How Much Can You <span className="gradient-text">Save?</span>
           </motion.h2>
@@ -153,213 +171,115 @@ export default function Savings() {
             Minimum estimated annual savings from your solar plant.
           </motion.p>
         </div>
+      </div>
 
-        <div ref={bodyRef}>
+      {/* ── Bar Chart + Cards ──────────────────────────────── */}
+      <div ref={bodyRef} style={{ position: 'relative', zIndex: 1, maxWidth: 1100, margin: '0 auto', width: '100%', padding: '0 2rem', boxSizing: 'border-box' }}>
 
-          {/* ── Bar Chart ──────────────────────────────────── */}
+        {/* Bar Chart */}
+        <motion.div
+          initial={{ opacity: 0, y: 32 }} animate={bodyIn ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.65, delay: 0.1 }}
+          style={{
+            background: 'rgba(255,255,255,0.025)',
+            border: '1px solid rgba(255,184,48,0.12)',
+            borderRadius: 14, padding: '1.25rem 2rem 1rem',
+            marginBottom: '1.25rem',
+          }}
+        >
+          <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '1rem', textAlign: 'right' }}>
+            Click a bar to see detailed breakdown
+          </div>
+          <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-end' }}>
+            {TABLE.map((r, i) => (
+              <Bar
+                key={r.kw}
+                kw={r.kw}
+                saving={r.saving}
+                maxSaving={maxSaving}
+                active={i === selected}
+                onClick={() => setSelected(i)}
+              />
+            ))}
+          </div>
+          <div style={{ height: 1, background: 'rgba(255,255,255,0.06)', margin: '0.2rem 0 0' }} />
+        </motion.div>
+
+        {/* ── Selected row breakdown — 3 × 2 grid ─────────── */}
+        <AnimatePresence mode="wait">
           <motion.div
-            initial={{ opacity: 0, y: 32 }} animate={bodyIn ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.65, delay: 0.1 }}
+            key={selected}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.35 }}
             style={{
-              background: 'rgba(255,255,255,0.025)',
-              border: '1px solid rgba(255,184,48,0.12)',
-              borderRadius: 18, padding: '2rem 2rem 1.5rem',
-              marginBottom: '2.5rem',
+              display: 'grid',
+              gridTemplateColumns: 'repeat(3, 1fr)',
+              gap: '1rem',
+              marginBottom: '1.5rem',
             }}
+            className="savings-cards"
           >
-            <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '1rem', textAlign: 'right' }}>
-              Click a bar to see detailed breakdown
-            </div>
-            <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-end' }}>
-              {TABLE.map((r, i) => (
-                <Bar
-                  key={r.kw}
-                  kw={r.kw}
-                  saving={r.saving}
-                  maxSaving={maxSaving}
-                  active={i === selected}
-                  onClick={() => setSelected(i)}
-                />
-              ))}
-            </div>
-            {/* X-axis line */}
-            <div style={{ height: 1, background: 'rgba(255,255,255,0.06)', margin: '0.2rem 0 0' }} />
-          </motion.div>
-
-          {/* ── Selected row breakdown ─────────────────────── */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={selected}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.35 }}
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-                gap: '1rem',
-                marginBottom: '3.5rem',
-              }}
-            >
-              {[
-                { label: 'Plant Size',             value: `${row.kw} kW`,           icon: '☀️' },
-                { label: 'Units Generated / Day',  value: `${row.uDay} units`,       icon: '⚡' },
-                { label: 'Units Generated / Year', value: `${row.uYear.toLocaleString('en-IN')} units`, icon: '📊' },
-                { label: 'Min Annual Savings',     value: fmt(row.saving),           icon: '💰' },
-                { label: 'Min Monthly Savings',    value: fmt(Math.round(row.saving / 12)), icon: '🗓️' },
-                { label: 'Payback Period',         value: '3–4 Years',               icon: '🏦' },
-              ].map(cell => (
-                <div key={cell.label} style={{
-                  background: 'rgba(255,184,48,0.05)',
-                  border: '1px solid rgba(255,184,48,0.12)',
-                  borderRadius: 12, padding: '1.4rem 1.6rem',
-                  textAlign: 'center',
-                }}>
-                  <div style={{ fontSize: '1.5rem', marginBottom: '0.4rem' }}>{cell.icon}</div>
+            {[
+              { label: 'Plant Size',             value: `${row.kw} kW`,                                  icon: '☀️', sub: 'Selected system capacity' },
+              { label: 'Units Generated / Day',  value: `${row.uDay} units`,                              icon: '⚡', sub: 'Average daily generation' },
+              { label: 'Units Generated / Year', value: `${row.uYear.toLocaleString('en-IN')} units`,     icon: '📊', sub: '340 sunny days × daily output' },
+              { label: 'Min Annual Savings',     value: fmt(row.saving),                                  icon: '💰', sub: 'At ₹7.50/unit avg tariff' },
+              { label: 'Min Monthly Savings',    value: fmt(Math.round(row.saving / 12)),                 icon: '🗓️', sub: 'Direct bill reduction' },
+              { label: 'Payback Period',         value: '3–4 Years',                                      icon: '🏦', sub: 'Then 21+ years free energy' },
+            ].map(cell => (
+              <div key={cell.label} style={{
+                background: 'rgba(255,184,48,0.05)',
+                border: '1px solid rgba(255,184,48,0.15)',
+                borderRadius: 12, padding: '1.5rem 1.75rem',
+                display: 'flex', alignItems: 'center', gap: '1.25rem',
+              }}>
+                {/* Icon */}
+                <div style={{
+                  width: 60, height: 60, borderRadius: 14, flexShrink: 0,
+                  background: 'rgba(255,184,48,0.1)',
+                  border: '1px solid rgba(255,184,48,0.2)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontSize: '2rem', lineHeight: 1,
+                }}>{cell.icon}</div>
+                {/* Text */}
+                <div>
                   <div style={{
                     fontFamily: 'Space Grotesk, sans-serif', fontWeight: 800,
-                    fontSize: '1.35rem', lineHeight: 1, marginBottom: '0.35rem',
+                    fontSize: '1.45rem', lineHeight: 1, marginBottom: '0.3rem',
                     background: 'var(--gradient-sun)',
                     WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
                   }}>{cell.value}</div>
-                  <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>{cell.label}</div>
+                  <div style={{ fontWeight: 600, fontSize: '0.85rem', color: 'var(--text-primary)', marginBottom: '0.2rem' }}>{cell.label}</div>
+                  <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', lineHeight: 1.4 }}>{cell.sub}</div>
                 </div>
-              ))}
-            </motion.div>
-          </AnimatePresence>
-
-          {/* ── Full table ─────────────────────────────────── */}
-          <motion.div
-            initial={{ opacity: 0, y: 28 }} animate={bodyIn ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.65, delay: 0.25 }}
-            style={{
-              background: 'rgba(255,255,255,0.02)',
-              border: '1px solid rgba(255,107,26,0.1)',
-              borderRadius: 16, overflow: 'hidden',
-              marginBottom: '4rem',
-            }}
-          >
-            <div style={{
-              padding: '1rem 1.5rem',
-              background: 'rgba(255,107,26,0.06)',
-              borderBottom: '1px solid rgba(255,107,26,0.1)',
-              display: 'grid',
-              gridTemplateColumns: '1fr 1fr 1fr 1fr',
-              gap: '1rem',
-            }}>
-              {['Plant Size (kW)', 'Units / Day', 'Units / Year', 'Min Savings / Year'].map(h => (
-                <div key={h} style={{
-                  fontSize: '0.72rem', fontWeight: 700, color: 'var(--brand-orange)',
-                  textTransform: 'uppercase', letterSpacing: '0.06em',
-                }}>{h}</div>
-              ))}
-            </div>
-
-            {TABLE.map((r, i) => (
-              <motion.div
-                key={r.kw}
-                onClick={() => setSelected(i)}
-                whileHover={{ background: 'rgba(255,107,26,0.06)' }}
-                style={{
-                  padding: '0.9rem 1.5rem',
-                  display: 'grid',
-                  gridTemplateColumns: '1fr 1fr 1fr 1fr',
-                  gap: '1rem',
-                  borderBottom: i < TABLE.length - 1 ? '1px solid rgba(255,255,255,0.04)' : 'none',
-                  background: i === selected ? 'rgba(255,107,26,0.08)' : 'transparent',
-                  cursor: 'pointer',
-                  transition: 'background 0.18s',
-                  borderLeft: i === selected ? '3px solid var(--brand-orange)' : '3px solid transparent',
-                }}
-              >
-                <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: '0.95rem', color: i === selected ? 'var(--brand-orange)' : 'var(--text-primary)' }}>
-                  {r.kw} kW
-                </div>
-                <div style={{ fontSize: '0.88rem', color: 'var(--text-secondary)' }}>{r.uDay} units</div>
-                <div style={{ fontSize: '0.88rem', color: 'var(--text-secondary)' }}>{r.uYear.toLocaleString('en-IN')} units</div>
-                <div style={{
-                  fontSize: '0.95rem', fontWeight: 700,
-                  background: 'var(--gradient-sun)',
-                  WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
-                }}>{fmt(r.saving)}</div>
-              </motion.div>
+              </div>
             ))}
-
-            <div style={{
-              padding: '0.85rem 1.5rem',
-              background: 'rgba(255,255,255,0.025)',
-              fontSize: '0.72rem', color: 'var(--text-muted)', lineHeight: 1.6,
-              borderTop: '1px solid rgba(255,255,255,0.05)',
-            }}>
-              * Based on 340 sunny days/year and average 4 units per kW installed per day.
-              Savings calculated at ₹7.5/unit average electricity tariff.
-              Actual savings may be higher depending on your DISCOM slab and usage pattern.
-            </div>
           </motion.div>
+        </AnimatePresence>
 
-          {/* ── Why Go Solar grid ──────────────────────────── */}
-          <motion.div
-            initial={{ opacity: 0, y: 28 }} animate={bodyIn ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.65, delay: 0.38 }}
-          >
-            <h3 style={{
-              fontFamily: 'Space Grotesk, sans-serif', fontWeight: 800,
-              fontSize: 'clamp(1.4rem, 2.5vw, 1.8rem)', textAlign: 'center',
-              marginBottom: '2.5rem',
-            }}>
-              Why Go Solar <span className="gradient-text">Now?</span>
-            </h3>
-
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
-              gap: '1.2rem',
-              marginBottom: '3rem',
-            }}>
-              {WHY_SOLAR.map((w, i) => (
-                <motion.div
-                  key={w.label}
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={bodyIn ? { opacity: 1, y: 0 } : {}}
-                  transition={{ delay: 0.38 + i * 0.07, duration: 0.5 }}
-                  whileHover={{ y: -4 }}
-                  style={{
-                    padding: '1.5rem',
-                    background: 'rgba(255,255,255,0.025)',
-                    border: '1px solid rgba(255,255,255,0.07)',
-                    borderRadius: 12,
-                    transition: 'border-color 0.2s',
-                  }}
-                  onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(255,107,26,0.25)'}
-                  onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)'}
-                >
-                  <div style={{ fontSize: '1.6rem', marginBottom: '0.7rem' }}>{w.icon}</div>
-                  <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: '0.95rem', marginBottom: '0.45rem' }}>
-                    {w.label}
-                  </div>
-                  <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', lineHeight: 1.72 }}>
-                    {w.desc}
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-
-            {/* CTA */}
-            <div style={{ textAlign: 'center' }}>
-              <p style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem', fontSize: '0.9rem' }}>
-                Get a site-specific savings estimate from our engineers — completely free.
-              </p>
-              <a href="#contact" className="btn-primary">
-                Get My Free Savings Report →
-              </a>
-            </div>
-          </motion.div>
-        </div>
+        {/* ── CTA ──────────────────────────────────────────── */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }} animate={bodyIn ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          style={{ textAlign: 'center' }}
+        >
+          <p style={{ color: 'var(--text-secondary)', marginBottom: '1.25rem', fontSize: '0.88rem' }}>
+            Get a site-specific savings estimate from our engineers — completely free.
+          </p>
+          <a href="#contact" className="btn-primary">
+            Get My Free Savings Report →
+          </a>
+        </motion.div>
       </div>
 
       <style>{`
-        @media (max-width: 600px) {
-          #savings table, #savings .bar-chart { overflow-x: auto; }
+        @media (max-width: 700px) {
+          .savings-cards { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+        @media (max-width: 480px) {
+          .savings-cards { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </section>

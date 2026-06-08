@@ -43,9 +43,9 @@ const testimonials = [
 
 function Stars({ count }) {
   return (
-    <div style={{ display: 'flex', gap: 3 }}>
+    <div style={{ display: 'flex', gap: 4 }}>
       {Array.from({ length: count }).map((_, i) => (
-        <span key={i} style={{ color: '#FFB830', fontSize: '1rem' }}>★</span>
+        <span key={i} style={{ color: '#FFB830', fontSize: '1.4rem' }}>★</span>
       ))}
     </div>
   )
@@ -70,17 +70,17 @@ export default function Testimonials() {
   }
 
   return (
-    <section style={{ background: 'var(--bg-light)', padding: '7rem 0' }}>
+    <section style={{ background: 'var(--bg-light)', padding: 'clamp(2rem, 3vh, 3rem) 0', minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
       <div className="container">
         {/* Header */}
-        <div ref={ref} style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
+        <div ref={ref} style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
           <motion.span className="section-tag" style={{ justifyContent: 'center' }}
             initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5 }}>
             Client Stories
           </motion.span>
           <motion.h2
             initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.65, delay: 0.1 }}
-            style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', color: 'var(--text-dark)' }}
+            style={{ fontSize: 'clamp(1.5rem, 3.2vw, 2.2rem)', color: 'var(--text-dark)' }}
           >
             Trusted by Homeowners,<br />
             <span className="gradient-text">Industries & Farmers</span>
@@ -90,12 +90,12 @@ export default function Testimonials() {
         {/* Carousel */}
         <motion.div
           initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7, delay: 0.2 }}
-          style={{ maxWidth: 800, margin: '0 auto', position: 'relative' }}
+          style={{ maxWidth: 960, margin: '0 auto', position: 'relative' }}
         >
           {/* Big quote */}
           <div style={{
-            position: 'absolute', top: -30, left: '50%', transform: 'translateX(-50%)',
-            fontSize: '7rem', color: 'rgba(255,107,26,0.1)',
+            position: 'absolute', top: -20, left: '50%', transform: 'translateX(-50%)',
+            fontSize: '8rem', color: 'rgba(255,107,26,0.08)',
             fontFamily: 'Georgia, serif', lineHeight: 1,
             userSelect: 'none', pointerEvents: 'none',
           }}>"</div>
@@ -108,37 +108,37 @@ export default function Testimonials() {
               exit={{ opacity: 0, x: -40 }}
               transition={{ duration: 0.4, ease: 'easeOut' }}
               style={{
-                background: '#fff', borderRadius: 16,
-                padding: 'clamp(2rem,4vw,2.75rem) clamp(1.5rem,5vw,3.5rem)',
-                boxShadow: '0 4px 48px rgba(0,0,0,0.07)',
-                border: '1px solid rgba(255,107,26,0.08)',
+                background: '#fff', borderRadius: 20,
+                padding: 'clamp(2.5rem,5vw,3.5rem) clamp(2rem,6vw,4.5rem)',
+                boxShadow: '0 8px 64px rgba(0,0,0,0.09)',
+                border: '1px solid rgba(255,107,26,0.1)',
                 textAlign: 'center',
               }}
             >
               <Stars count={testimonials[active].rating} />
 
               <p style={{
-                fontSize: 'clamp(0.95rem, 2vw, 1.1rem)',
-                lineHeight: 1.85, color: 'var(--text-dark-2)',
-                margin: '1.5rem 0', fontStyle: 'italic',
+                fontSize: 'clamp(1.05rem, 2vw, 1.25rem)',
+                lineHeight: 1.9, color: 'var(--text-dark-2)',
+                margin: '1.75rem 0 2rem', fontStyle: 'italic',
               }}>
                 "{testimonials[active].text}"
               </p>
 
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1.25rem' }}>
                 <div style={{
-                  width: 48, height: 48, borderRadius: '50%',
+                  width: 62, height: 62, borderRadius: '50%',
                   background: 'var(--gradient-sun)',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  color: '#fff', fontWeight: 800, fontSize: '0.9rem', flexShrink: 0,
+                  color: '#fff', fontWeight: 800, fontSize: '1.05rem', flexShrink: 0,
                 }}>
                   {testimonials[active].avatar}
                 </div>
                 <div style={{ textAlign: 'left' }}>
-                  <div style={{ fontWeight: 700, color: 'var(--text-dark)', fontFamily: 'Space Grotesk, sans-serif', fontSize: '0.95rem' }}>
+                  <div style={{ fontWeight: 700, color: 'var(--text-dark)', fontFamily: 'Space Grotesk, sans-serif', fontSize: '1.1rem' }}>
                     {testimonials[active].name}
                   </div>
-                  <div style={{ fontSize: '0.78rem', color: 'var(--text-dark-2)' }}>
+                  <div style={{ fontSize: '0.88rem', color: 'var(--text-dark-2)', marginTop: '0.2rem' }}>
                     {testimonials[active].role} · {testimonials[active].location}
                   </div>
                 </div>
@@ -147,21 +147,13 @@ export default function Testimonials() {
           </AnimatePresence>
 
           {/* Controls */}
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginTop: '2rem', alignItems: 'center' }}>
-            {[['‹', -1], ['›', 1]].map(([arrow, dir], idx) => (
-              idx === 1 ? (
-                <button key={arrow} onClick={() => go(dir)} style={navBtnStyle}
-                  onMouseEnter={e => { e.currentTarget.style.background = 'var(--brand-orange)'; e.currentTarget.style.color = '#fff' }}
-                  onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'var(--brand-orange)' }}>
-                  {arrow}
-                </button>
-              ) : (
-                <button key={arrow} onClick={() => go(dir)} style={navBtnStyle}
-                  onMouseEnter={e => { e.currentTarget.style.background = 'var(--brand-orange)'; e.currentTarget.style.color = '#fff' }}
-                  onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'var(--brand-orange)' }}>
-                  {arrow}
-                </button>
-              )
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginTop: '1.25rem', alignItems: 'center' }}>
+            {[['‹', -1], ['›', 1]].map(([arrow, dir]) => (
+              <button key={arrow} onClick={() => go(dir)} style={navBtnStyle}
+                onMouseEnter={e => { e.currentTarget.style.background = 'var(--brand-orange)'; e.currentTarget.style.color = '#fff' }}
+                onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'var(--brand-orange)' }}>
+                {arrow}
+              </button>
             ))}
           </div>
           <div style={{ display: 'flex', justifyContent: 'center', gap: '0.6rem', marginTop: '1rem' }}>
@@ -180,9 +172,9 @@ export default function Testimonials() {
 }
 
 const navBtnStyle = {
-  width: 44, height: 44, borderRadius: '50%',
+  width: 52, height: 52, borderRadius: '50%',
   border: '1px solid rgba(255,107,26,0.3)', background: 'transparent',
-  color: 'var(--brand-orange)', cursor: 'pointer', fontSize: '1.2rem',
+  color: 'var(--brand-orange)', cursor: 'pointer', fontSize: '1.5rem',
   display: 'flex', alignItems: 'center', justifyContent: 'center',
   transition: 'all 0.2s',
 }
