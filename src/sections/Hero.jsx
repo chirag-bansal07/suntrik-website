@@ -1,8 +1,12 @@
 /**
- * Hero — Video background with scroll-driven text reveal
+ * Hero — Pre-extracted frame playback
  *
- * Uses hero-reel.mp4 directly (autoplay loop) as the background.
- * Text elements animate in via GSAP ScrollTrigger scrub as before.
+ * Frames live in public/hero-frames/ (generated once via `npm run extract-frames`).
+ * On page load we fetch manifest.json to know the count, then preload all
+ * JPEG images in parallel.  During scroll, ctx.drawImage(frames[idx]) is
+ * called — a synchronous GPU blit, zero seek latency, 1 unique frame per tick.
+ *
+ * No in-browser extraction, no "Preparing experience" on every reload.
  */
 
 import { useEffect, useRef } from 'react'
@@ -11,8 +15,26 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
+// ── Constants ──────────────────────────────────────────────────────────────
+const FRAMES_PATH = '/hero-frames'
+
+// ── Helpers ────────────────────────────────────────────────────────────────
+function drawCover(ctx, img, cw, ch) {
+  const iw = img.naturalWidth  || 1280
+  const ih = img.naturalHeight || 720
+  const ir = iw / ih
+  const cr = cw / ch
+  let sx = 0, sy = 0, sw = iw, sh = ih
+  if (ir > cr) { sw = ih * cr;  sx = (iw - sw) / 2 }
+  else          { sh = iw / cr; sy = (ih - sh) / 2 }
+  ctx.drawImage(img, sx, sy, sw, sh, 0, 0, cw, ch)
+}
+
 export default function Hero() {
   const wrapperRef = useRef(null)
+  const canvasRef  = useRef(null)
+  const framesRef  = useRef([])
+  const curIdxRef  = useRef(0)
 
   const tagRef   = useRef(null)
   const h1Ref    = useRef(null)
@@ -21,9 +43,45 @@ export default function Hero() {
   const statsRef = useRef(null)
 
   useEffect(() => {
+    const canvas  = canvasRef.current
+    const ctx     = canvas?.getContext('2d')
     const wrapper = wrapperRef.current
-    if (!wrapper) return
+    if (!canvas || !ctx || !wrapper) return
 
+    let cancelled = false
+
+    // ── 1. Size canvas to viewport ──────────────────────────────────
+    const syncSize = () => {
+      canvas.width  = window.innerWidth
+      canvas.height = window.innerHeight
+      const f = framesRef.current[curIdxRef.current]
+      if (f?.complete) drawCover(ctx, f, canvas.width, canvas.height)
+    }
+    syncSize()
+    window.addEventListener('resize', syncSize, { passive: true })
+
+    // ── 2. Stream frames from disk — draw each one as it arrives ────
+    fetch(`${FRAMES_PATH}/manifest.json`)
+      .then(r => r.ok ? r.json() : Promise.reject('Run: npm run extract-frames'))
+      .then(({ count }) => {
+        if (cancelled) return
+        const imgs = new Array(count)
+        framesRef.current = imgs
+
+        for (let i = 0; i < count; i++) {
+          const img = new Image()
+          img.onload = () => {
+            if (cancelled) return
+            imgs[i] = img
+            if (i === 0) drawCover(ctx, img, canvas.width, canvas.height)
+          }
+          img.src = `${FRAMES_PATH}/frame-${String(i + 1).padStart(4, '0')}.jpg`
+          imgs[i] = img
+        }
+      })
+      .catch(err => console.error('[Hero frames]', err))
+
+    // ── 3. GSAP context — ScrollTrigger + staggered text ───────────
     const gc = gsap.context(() => {
       const textEls = [tagRef, h1Ref, subRef, btnsRef, statsRef]
         .map(r => r.current).filter(Boolean)
@@ -47,29 +105,50 @@ export default function Hero() {
       const updateText = (p) => {
         WINDOWS.forEach(({ enter, exit }, i) => {
           if (!setX[i]) return
-          const localP = p <= enter ? 0 : p >= exit ? 1 : (p - enter) / (exit - enter)
-          const eased  = easeOut3(localP)
+          const localP =
+            p <= enter ? 0
+            : p >= exit ? 1
+            : (p - enter) / (exit - enter)
+          const eased = easeOut3(localP)
           setX[i] (115 * (1 - eased))
           setOp[i](eased)
         })
       }
 
       ScrollTrigger.create({
-        trigger:  wrapper,
-        start:    'top top',
-        end:      '+=280%',
-        pin:      true,
+        trigger:         wrapper,
+        start:           'top top',
+        end:             '+=280%',
+        pin:             true,
         pinSpacing:      true,
         anticipatePin:   1,
         scrub:           true,
         invalidateOnRefresh: true,
-        onUpdate(self) { updateText(self.progress) },
-        onLeave()      { updateText(1) },
-        onLeaveBack()  { updateText(0) },
+
+        onUpdate(self) {
+          const p = self.progress
+          const frames = framesRef.current
+          if (frames.length) {
+            const idx = Math.min(Math.floor(p * frames.length), frames.length - 1)
+            if (idx !== curIdxRef.current) {
+              curIdxRef.current = idx
+              const frame = frames[idx]
+              if (frame?.complete) drawCover(ctx, frame, canvas.width, canvas.height)
+            }
+          }
+          updateText(p)
+        },
+
+        onLeave()     { updateText(1) },
+        onLeaveBack() { updateText(0) },
       })
     }, wrapper)
 
-    return () => gc.revert()
+    return () => {
+      cancelled = true
+      gc.revert()
+      window.removeEventListener('resize', syncSize)
+    }
   }, [])
 
   // ════════════════════════════════════════════════════════════════════
@@ -81,17 +160,11 @@ export default function Hero() {
       ref={wrapperRef}
       style={{ position: 'relative', width: '100%', height: '100vh', overflow: 'hidden', background: '#060A0F' }}
     >
-      {/* ── Video background ─────────────────────────────────────────── */}
-      <video
-        autoPlay muted loop playsInline
-        style={{
-          position: 'absolute', inset: 0,
-          width: '100%', height: '100%',
-          objectFit: 'cover', zIndex: 0,
-        }}
-      >
-        <source src="/hero-reel.mp4" type="video/mp4" />
-      </video>
+      {/* ── Canvas — each scroll tick draws one pre-extracted frame ──── */}
+      <canvas
+        ref={canvasRef}
+        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', zIndex: 0 }}
+      />
 
       {/* ── Gradient overlay ─────────────────────────────────────────── */}
       <div style={{

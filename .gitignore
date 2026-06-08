@@ -1,6 +1,3 @@
-# Generated hero frame images (run `npm run extract-frames` to regenerate)
-public/hero-frames/
-
 # Logs
 logs
 *.log
