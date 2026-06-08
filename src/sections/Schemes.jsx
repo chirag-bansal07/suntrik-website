@@ -8,43 +8,59 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
 
 // ── PM-KUSUM detail ───────────────────────────────────────────────────────
+const KUSUM_STATS = [
+  { val: '34,800 MW', label: 'Total Target Capacity' },
+  { val: '₹34,422 Cr', label: 'Central Financial Support' },
+  { val: '14 Lakh', label: 'Solar Pumps (Component B)' },
+  { val: '35 Lakh', label: 'Pump Solarisations (Component C)' },
+]
+
 const KUSUM_SUNTRIK_ROLE = [
-  'DPR preparation & HAREDA application',
+  'DPR preparation & HAREDA / RRECL / JDVVNL application',
   'Land suitability assessment & layout design',
   'MNRE Tier-1 component procurement',
-  'Complete turnkey installation',
-  'DISCOM connectivity & power purchase agreement',
-  'Subsidy disbursement co-ordination',
-  'Lifetime O&M & remote monitoring',
+  'Complete turnkey EPC installation',
+  'DISCOM grid connectivity & power purchase agreement',
+  'Central + State subsidy disbursement coordination',
+  '25-year O&M, remote monitoring & performance reporting',
 ]
 
 const KUSUM_COMPONENTS = [
   {
+    id: 'A',
+    label: 'Component A',
+    title: 'Decentralised Ground-Mounted Solar Plants',
+    target: '10,000 MW',
+    desc: 'Solar power plants of 500 kW–2 MW set up by farmers, FPOs, cooperatives or panchayats on barren/fallow land within 5 km of a substation. Power is sold to DISCOMs at a discovered tariff. Landowners earn lease rent + solar revenue.',
+    subsidy: 'Revenue Model',
+    detail: 'DISCOM incentive: 40p/kWh or ₹6.60 lakh/MW/yr (5 yrs). No upfront subsidy — farmer earns from land lease + power sale.',
+    who: 'Farmers, FPOs, Panchayats, Cooperatives, WUAs',
+    color: '#8B5CF6',
+    progress: '650 MW installed',
+  },
+  {
     id: 'B',
     label: 'Component B',
-    title: 'Standalone Solar Pumps',
-    desc: 'Replace diesel/electric pumps with solar-powered pumps (up to 7.5 HP) for irrigation — zero electricity cost.',
-    subsidy: '90%',
-    who: 'Individual farmers',
+    title: 'Standalone Solar Agriculture Pumps',
+    target: '14 Lakh Pumps',
+    desc: 'Replace diesel/grid pumps with standalone solar pumps (up to 15 HP) in off-grid or low-grid areas. No electricity bill ever — directly powered by the sun for irrigation.',
+    subsidy: 'Only 10% Farmer Share',
+    detail: '30% Central subsidy + 30% State subsidy + 30% bank loan = farmer pays only 10% out of pocket. Special states (NE, J&K, HP, Uttarakhand): 50% Central + 30% State.',
+    who: 'Individual farmers without reliable grid access',
     color: '#10B981',
+    progress: '9+ Lakh pumps installed',
   },
   {
     id: 'C',
     label: 'Component C',
-    title: 'Grid-Connected Agricultural Solar',
-    desc: 'Install ground-mount solar on barren/agricultural land and sell surplus power to DISCOM at fixed tariff for 25 years.',
-    subsidy: '60–90%',
-    who: 'Farmers with barren or agricultural land',
+    title: 'Solarisation of Grid-Connected Pumps',
+    target: '35 Lakh Pumps',
+    desc: 'Add solar panels to existing grid-connected pumps. The system generates 2× the pump\'s energy need — surplus power is sold back to the DISCOM, turning your pump into an income source.',
+    subsidy: '60% Direct Subsidy',
+    detail: '30% Central + 30% State subsidy. Farmer pays 40% (30% bank loan + 10% own). Feeder-level solarisation also available at ₹1.05 Cr/MW under CAPEX or RESCO mode.',
+    who: 'Farmers with existing grid-connected pumps',
     color: '#3B82F6',
-  },
-  {
-    id: 'A',
-    label: 'Component A',
-    title: 'Decentralised Solar Plants',
-    desc: 'Small solar power plants (up to 2 MW) connected to 33/11 kV sub-stations — revenue from power sale.',
-    subsidy: 'RESCO model',
-    who: 'Farmer groups, co-operatives, PRIs',
-    color: '#8B5CF6',
+    progress: '9+ Lakh pumps solarised',
   },
 ]
 
@@ -159,46 +175,62 @@ export default function Schemes() {
             background: 'linear-gradient(90deg, rgba(16,185,129,0.15) 0%, rgba(16,185,129,0.05) 100%)',
             borderBottom: '1px solid rgba(16,185,129,0.15)',
             padding: '2rem 2.5rem',
-            display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start',
-            flexWrap: 'wrap', gap: '1.5rem',
           }}>
-            <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.6rem' }}>
-                <span style={{
-                  fontSize: '0.68rem', fontWeight: 800, letterSpacing: '0.16em',
-                  textTransform: 'uppercase', color: '#10B981',
-                  background: 'rgba(16,185,129,0.12)', border: '1px solid rgba(16,185,129,0.25)',
-                  padding: '0.25rem 0.75rem', borderRadius: 100,
-                }}>Government of India Scheme</span>
-                <span style={{
-                  fontSize: '0.68rem', fontWeight: 800, letterSpacing: '0.12em',
-                  textTransform: 'uppercase', color: '#FFB830',
-                  background: 'rgba(255,184,48,0.1)', border: '1px solid rgba(255,184,48,0.2)',
-                  padding: '0.25rem 0.75rem', borderRadius: 100,
-                }}>Suntrik Specialisation</span>
+            {/* Top row */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1.5rem', marginBottom: '2rem' }}>
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.6rem', flexWrap: 'wrap' }}>
+                  <span style={{
+                    fontSize: '0.68rem', fontWeight: 800, letterSpacing: '0.16em',
+                    textTransform: 'uppercase', color: '#10B981',
+                    background: 'rgba(16,185,129,0.12)', border: '1px solid rgba(16,185,129,0.25)',
+                    padding: '0.25rem 0.75rem', borderRadius: 100,
+                  }}>Government of India · MNRE</span>
+                  <span style={{
+                    fontSize: '0.68rem', fontWeight: 800, letterSpacing: '0.12em',
+                    textTransform: 'uppercase', color: '#FFB830',
+                    background: 'rgba(255,184,48,0.1)', border: '1px solid rgba(255,184,48,0.2)',
+                    padding: '0.25rem 0.75rem', borderRadius: 100,
+                  }}>Suntrik Executing 85 MWp+</span>
+                  <span style={{
+                    fontSize: '0.68rem', fontWeight: 800, letterSpacing: '0.12em',
+                    textTransform: 'uppercase', color: '#94A3B8',
+                    background: 'rgba(148,163,184,0.08)', border: '1px solid rgba(148,163,184,0.18)',
+                    padding: '0.25rem 0.75rem', borderRadius: 100,
+                  }}>Extended to March 2026</span>
+                </div>
+                <h3 style={{
+                  fontFamily: 'Space Grotesk, sans-serif', fontWeight: 900,
+                  fontSize: 'clamp(1.4rem, 3vw, 2rem)', color: '#fff', marginBottom: '0.3rem',
+                }}>PM-KUSUM</h3>
+                <p style={{ color: 'var(--text-secondary)', fontSize: '0.88rem', lineHeight: 1.5 }}>
+                  Pradhan Mantri Kisan Urja Suraksha evam Utthaan Mahabhiyan
+                </p>
               </div>
-              <h3 style={{
-                fontFamily: 'Space Grotesk, sans-serif', fontWeight: 900,
-                fontSize: 'clamp(1.4rem, 3vw, 2rem)',
-                color: '#fff', marginBottom: '0.4rem',
-              }}>
-                PM-KUSUM
-              </h3>
-              <p style={{ color: 'var(--text-secondary)', fontSize: '0.88rem', lineHeight: 1.5 }}>
-                Pradhan Mantri Kisan Urja Suraksha evam Utthaan Mahabhiyan
-              </p>
+              <div style={{ textAlign: 'right' }}>
+                <div style={{
+                  fontSize: 'clamp(2.2rem, 4vw, 3.5rem)', fontWeight: 900,
+                  fontFamily: 'Space Grotesk, sans-serif',
+                  background: 'linear-gradient(135deg, #10B981, #34D399)',
+                  WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', lineHeight: 1,
+                }}>Only 10%</div>
+                <div style={{ color: 'var(--text-secondary)', fontSize: '0.82rem', marginTop: 4 }}>farmer out-of-pocket cost</div>
+              </div>
             </div>
-            <div style={{ textAlign: 'right' }}>
-              <div style={{
-                fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontWeight: 900,
-                fontFamily: 'Space Grotesk, sans-serif',
-                background: 'linear-gradient(135deg, #10B981, #34D399)',
-                WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
-                lineHeight: 1,
-              }}>Up to 90%</div>
-              <div style={{ color: 'var(--text-secondary)', fontSize: '0.82rem', marginTop: 4 }}>
-                Government subsidy for eligible farmers
-              </div>
+            {/* Scheme stats strip */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '1rem' }} className="kusum-stats">
+              {KUSUM_STATS.map(s => (
+                <div key={s.label} style={{
+                  background: 'rgba(16,185,129,0.07)', border: '1px solid rgba(16,185,129,0.15)',
+                  borderRadius: 10, padding: '0.85rem 1rem', textAlign: 'center',
+                }}>
+                  <div style={{
+                    fontFamily: 'Space Grotesk, sans-serif', fontWeight: 800, fontSize: '1.1rem',
+                    color: '#34D399', lineHeight: 1, marginBottom: '0.25rem',
+                  }}>{s.val}</div>
+                  <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', lineHeight: 1.3 }}>{s.label}</div>
+                </div>
+              ))}
             </div>
           </div>
 
@@ -222,26 +254,36 @@ export default function Schemes() {
                       position: 'relative', overflow: 'hidden',
                     }}
                   >
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.4rem' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
                       <div>
                         <span style={{ fontSize: '0.64rem', fontWeight: 700, color: c.color, textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-                          {c.label}
+                          {c.label} · Target: {c.target}
                         </span>
                         <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: '0.94rem', marginTop: 2 }}>
                           {c.title}
                         </div>
                       </div>
                       <div style={{
-                        fontSize: '1.1rem', fontWeight: 900, fontFamily: 'Space Grotesk, sans-serif',
-                        color: c.color, flexShrink: 0, marginLeft: '1rem',
+                        fontSize: '0.88rem', fontWeight: 900, fontFamily: 'Space Grotesk, sans-serif',
+                        color: c.color, flexShrink: 0, marginLeft: '1rem', textAlign: 'right',
                       }}>{c.subsidy}</div>
                     </div>
-                    <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '0.4rem' }}>
+                    <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', lineHeight: 1.65, marginBottom: '0.5rem' }}>
                       {c.desc}
                     </p>
-                    <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-                      <span style={{ color: c.color }}>●</span> {c.who}
-                    </span>
+                    <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', lineHeight: 1.6, marginBottom: '0.55rem', fontStyle: 'italic' }}>
+                      {c.detail}
+                    </p>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.4rem' }}>
+                      <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                        <span style={{ color: c.color }}>●</span> {c.who}
+                      </span>
+                      <span style={{
+                        fontSize: '0.65rem', fontWeight: 700, color: c.color,
+                        background: `${c.color}15`, border: `1px solid ${c.color}30`,
+                        padding: '0.15rem 0.55rem', borderRadius: 100,
+                      }}>✓ {c.progress}</span>
+                    </div>
                     <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: 3, background: c.color, borderRadius: '3px 0 0 3px' }} />
                   </motion.div>
                 ))}
@@ -429,6 +471,10 @@ export default function Schemes() {
         @media(max-width:900px){
           .kusum-inner  { grid-template-columns:1fr !important; }
           .sgh-grid     { grid-template-columns:1fr !important; }
+          .kusum-stats  { grid-template-columns:1fr 1fr !important; }
+        }
+        @media(max-width:480px){
+          .kusum-stats  { grid-template-columns:1fr !important; }
         }
       `}</style>
     </section>
