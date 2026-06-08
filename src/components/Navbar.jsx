@@ -65,7 +65,7 @@ export default function Navbar() {
 
           {/* ── Logo (left) ──────────────────────────────── */}
           <a href="#hero" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
-            <SuntrikLogo width={110} showText />
+            <SuntrikLogo width={48} />
           </a>
 
           {/* ── Centered nav links ───────────────────────── */}

@@ -19,7 +19,7 @@ export default function Footer() {
           <div>
             <div style={{ marginBottom: '1.25rem' }}>
               <a href="#hero" style={{ display: 'inline-block' }}>
-                <SuntrikLogo width={120} showText />
+                <SuntrikLogo width={80} />
               </a>
             </div>
 
