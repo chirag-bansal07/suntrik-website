@@ -12,8 +12,8 @@ const HOME_LINKS = [
 ]
 
 const SCHEME_LINKS = [
-  { label: '🌾 PM-KUSUM',      to: '/schemes/kusum',      desc: '90% subsidy for farmers' },
-  { label: '🏠 PM Surya Ghar', to: '/schemes/surya-ghar', desc: '₹78,000 subsidy for homes' },
+  { label: '🌾 PM-KUSUM',      shortLabel: 'PM-KUSUM',    to: '/schemes/kusum',      desc: '90% subsidy for farmers' },
+  { label: '🏠 PM Surya Ghar', shortLabel: 'Surya Ghar',  to: '/schemes/surya-ghar', desc: '₹78,000 subsidy for homes' },
 ]
 
 export default function Navbar({ page = false }) {
@@ -21,7 +21,6 @@ export default function Navbar({ page = false }) {
   const [open,        setOpen]        = useState(false)
   const [hovered,     setHovered]     = useState(null)
   const [activeLink,  setActiveLink]  = useState(null)
-  const [schemesOpen, setSchemesOpen] = useState(false)
   const hoverBgRef = useRef(null)
 
   /* ── scroll state ─────────────────────────────────────── */
@@ -121,51 +120,29 @@ export default function Navbar({ page = false }) {
               )
             })}
 
-            {/* Schemes dropdown */}
-            <li style={{ position: 'relative', zIndex: 1 }}
-              onMouseEnter={() => setSchemesOpen(true)}
-              onMouseLeave={() => setSchemesOpen(false)}
-            >
-              <button style={{
-                display: 'flex', alignItems: 'center', gap: '0.3rem',
-                padding: '0.45rem 1rem', fontSize: '0.875rem', fontWeight: 500,
-                color: schemesOpen ? '#fff' : 'rgba(255,255,255,0.65)',
-                background: schemesOpen ? 'rgba(255,107,26,0.1)' : 'transparent',
-                border: 'none', cursor: 'pointer', borderRadius: 8,
-                fontFamily: 'inherit', transition: 'color 0.18s, background 0.18s',
-              }}>
-                Schemes
-                <span style={{ fontSize: '0.65rem', transition: 'transform 0.2s', transform: schemesOpen ? 'rotate(180deg)' : 'none' }}>▾</span>
-              </button>
-              <AnimatePresence>
-                {schemesOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -6, scale: 0.97 }}
-                    animate={{ opacity: 1, y: 0,  scale: 1 }}
-                    exit={{    opacity: 0, y: -6, scale: 0.97 }}
-                    transition={{ duration: 0.15 }}
+            {/* Scheme direct tabs */}
+            {SCHEME_LINKS.map(s => {
+              const isHov = hovered === s.to
+              return (
+                <li key={s.to} style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                  <Link
+                    to={s.to}
+                    onMouseEnter={() => setHovered(s.to)}
+                    onMouseLeave={() => setHovered(null)}
                     style={{
-                      position: 'absolute', top: '100%', left: '50%', transform: 'translateX(-50%)',
-                      marginTop: '0.5rem', background: 'rgba(5,9,14,0.97)',
-                      border: '1px solid rgba(255,107,26,0.2)', borderRadius: 10,
-                      backdropFilter: 'blur(20px)', overflow: 'hidden', minWidth: 220,
-                      boxShadow: '0 12px 40px rgba(0,0,0,0.5)',
+                      display: 'block', padding: '0.45rem 1rem',
+                      fontSize: '0.875rem', fontWeight: 500,
+                      color: isHov ? '#fff' : 'rgba(255,255,255,0.65)',
+                      textDecoration: 'none', borderRadius: 8,
+                      background: isHov ? 'rgba(255,107,26,0.1)' : 'transparent',
+                      transition: 'color 0.18s, background 0.18s',
                     }}
                   >
-                    {SCHEME_LINKS.map(s => (
-                      <Link key={s.to} to={s.to}
-                        style={{ display: 'block', padding: '0.85rem 1.25rem', textDecoration: 'none', transition: 'background 0.15s' }}
-                        onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,107,26,0.1)'}
-                        onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
-                      >
-                        <div style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.15rem' }}>{s.label}</div>
-                        <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>{s.desc}</div>
-                      </Link>
-                    ))}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </li>
+                    {s.shortLabel}
+                  </Link>
+                </li>
+              )
+            })}
           </ul>
 
           {/* ── CTA button (right) ───────────────────────── */}
