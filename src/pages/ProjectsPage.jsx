@@ -35,7 +35,7 @@ export default function ProjectsPage() {
             Every installation Suntrik has delivered — from PM-KUSUM farmer clusters to large industrial rooftops across Haryana and North India.
           </p>
           <div style={{ display: 'flex', gap: '1.5rem', justifyContent: 'center', marginTop: '2rem', flexWrap: 'wrap' }}>
-            {[{ v: `${PROJECTS.length}+`, l: 'Projects' }, { v: '4', l: 'Sectors' }, { v: '150MW+', l: 'Capacity' }, { v: '100%', l: 'On-Time' }].map(s => (
+            {[{ v: '1000+', l: 'Projects' }, { v: '4', l: 'Sectors' }, { v: '150MW+', l: 'Capacity' }, { v: '100%', l: 'On-Time' }].map(s => (
               <div key={s.l} style={{ textAlign: 'center' }}>
                 <div style={{ fontFamily: 'Space Grotesk', fontWeight: 900, fontSize: '1.8rem', background: 'var(--gradient-sun)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>{s.v}</div>
                 <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>{s.l}</div>
