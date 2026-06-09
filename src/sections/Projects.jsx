@@ -1,276 +1,169 @@
 /**
- * Projects — PM-KUSUM featured showcase + project grid
- * Filter tabs by project type
+ * Projects — Homepage showcase
+ * Featured card + grid preview → "View All Projects" CTA
  */
-
-import { useState, useRef } from 'react'
-import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
+import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
+import { PROJECTS, TYPE_COLOR, TYPE_ICON } from '../data/projects'
 
-const PROJECTS = [
-  {
-    id: 1,
-    title: 'PM-KUSUM Ground-Mount Solar',
-    location: 'Rohtak, Haryana',
-    capacity: '50 kWp',
-    type: 'PM-KUSUM',
-    year: '2023',
-    featured: true,
-    schemeSubsidy: '90%',
-    desc: 'Turnkey ground-mount installation for a farmer collective under PM-KUSUM Component B. Suntrik managed the complete DPR preparation, HAREDA empanelment, DISCOM grid interconnection, and subsidy disbursement — freeing the farmers from all bureaucratic burden.',
-    highlights: [
-      'HAREDA sanction obtained in 3 weeks',
-      'Complete MNRE Tier-1 component supply',
-      'Power purchase agreement with DHBVN',
-      'System live within 45 days of sanction',
-    ],
-    img: null,
-    typeColor: '#10B981',
-  },
-  {
-    id: 2,
-    title: 'Industrial Rooftop EPC',
-    location: 'Faridabad, Haryana',
-    capacity: '180 kWp',
-    type: 'Industrial',
-    year: '2024',
-    featured: false,
-    desc: 'Turnkey rooftop installation on a steel fabrication plant — including shadow analysis, net-metering approval, structural engineering, and a 5-year AMC. Grid dependency reduced by 68% in month one.',
-    highlights: ['DHBVN net-metering in 18 days', 'PVsyst-verified yield', '5-year AMC signed'],
-    img: null,
-    typeColor: '#8B5CF6',
-  },
-  {
-    id: 3,
-    title: 'Commercial Logistics Hub',
-    location: 'Gurugram, Haryana',
-    capacity: '300 kWp',
-    type: 'Commercial',
-    year: '2024',
-    featured: false,
-    desc: 'Grid-tied system for a logistics warehouse with bifacial modules and real-time monitoring dashboard. Grid dependency reduced by 74%. Plant is performing above the guaranteed yield.',
-    highlights: ['Bifacial module configuration', '24/7 monitoring portal', '74% grid dependency reduction'],
-    img: null,
-    typeColor: '#3B82F6',
-  },
-  {
-    id: 4,
-    title: 'Residential Colony Cluster',
-    location: 'Panipat, Haryana',
-    capacity: '10–25 kWp',
-    type: 'Residential',
-    year: '2024',
-    featured: false,
-    desc: '22 rooftop systems installed for a gated community under PM Surya Ghar Muft Bijli Yojana — subsidy handled end-to-end, from national portal registration to disbursement.',
-    highlights: ['PM Surya Ghar subsidy', '22 homes in 60 days', 'Subsidy disbursement handled'],
-    img: null,
-    typeColor: '#FF6B1A',
-  },
-  {
-    id: 5,
-    title: 'PM-KUSUM Solar Pump Cluster',
-    location: 'Hisar, Haryana',
-    capacity: '35 kWp',
-    type: 'PM-KUSUM',
-    year: '2023',
-    featured: false,
-    desc: 'Component B installation replacing diesel irrigation pumps for 8 farmer families. 100% elimination of irrigation electricity cost. HAREDA and state subsidy of 90% availed.',
-    highlights: ['8 solar pump installations', '90% subsidy availed', 'Zero irrigation cost achieved'],
-    img: null,
-    typeColor: '#10B981',
-  },
-  {
-    id: 6,
-    title: 'C&I Rooftop + Net Metering',
-    location: 'Sonipat, Haryana',
-    capacity: '120 kWp',
-    type: 'Commercial',
-    year: '2024',
-    featured: false,
-    desc: 'Grid-tied commercial rooftop on a textile manufacturing unit. DHEVCL net-metering approved. System generating net credits of ₹1.8 lakh per month for the client.',
-    highlights: ['Net-metering credit ₹1.8L/mo', 'Textile plant rooftop', 'DHEVCL approved'],
-    img: null,
-    typeColor: '#3B82F6',
-  },
-]
-
-const FILTERS = ['All', 'PM-KUSUM', 'Industrial', 'Commercial', 'Residential']
-const TYPE_BG  = { 'PM-KUSUM': '#10B981', Industrial: '#8B5CF6', Commercial: '#3B82F6', Residential: '#FF6B1A' }
+const FEATURED = PROJECTS[0]
+const SIDE     = [PROJECTS[3], PROJECTS[1]]
+const BOTTOM   = [PROJECTS[2], PROJECTS[4], PROJECTS[5]]
 
 export default function Projects() {
-  const [activeFilter, setActiveFilter] = useState('All')
-  const containerRef = useRef(null)
-
-  const { scrollYProgress } = useScroll({ target: containerRef, offset: ['start end', 'end start'] })
-  const bgY = useTransform(scrollYProgress, [0, 1], ['-5%', '5%'])
-
   const { ref: headRef, inView: headIn } = useScrollAnimation(0.08)
-  const { ref: gridRef, inView: gridIn  } = useScrollAnimation(0.05)
+  const { ref: gridRef, inView: gridIn } = useScrollAnimation(0.05)
 
-  const filteredProjects = PROJECTS.filter(p =>
-    activeFilter === 'All' || p.type === activeFilter
-  )
   return (
-    <section id="projects" ref={containerRef} style={{
-      position: 'relative', overflow: 'hidden',
-      background: 'linear-gradient(175deg, #060A0F 0%, #0A1020 50%, #060A0F 100%)',
-      padding: 'clamp(2rem, 3vh, 3rem) 0',
-      minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center',
-    }}>
-      {/* Background glow */}
-      <motion.div style={{ y: bgY, position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none' }}>
-        <div style={{
-          position: 'absolute', top: '20%', right: '10%',
-          width: 600, height: 600, borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(255,107,26,0.06) 0%, transparent 65%)',
-          filter: 'blur(60px)',
-        }} />
-      </motion.div>
+    <section
+      id="projects"
+      style={{
+        position: 'relative', overflow: 'hidden',
+        background: 'linear-gradient(175deg, #060A0F 0%, #0A1020 50%, #060A0F 100%)',
+        padding: 'clamp(2rem, 3vh, 3rem) 0',
+        minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center',
+      }}
+    >
+      <div style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none' }}>
+        <div style={{ position: 'absolute', top: '20%', right: '8%', width: 700, height: 700, borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,107,26,0.06) 0%, transparent 65%)', filter: 'blur(70px)' }} />
+      </div>
 
       <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-
-        {/* ── Header ── */}
-        <div ref={headRef} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '1rem' }}>
+        {/* Header */}
+        <div ref={headRef} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
           <div>
-            <motion.span className="section-tag"
-              initial={{ opacity: 0, y: 20 }} animate={headIn ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5 }}>
-              Our Projects
-            </motion.span>
-            <motion.h2
-              initial={{ opacity: 0, y: 28 }} animate={headIn ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.65, delay: 0.1 }}
-              style={{ fontSize: 'clamp(1.5rem, 3.2vw, 2.2rem)' }}
-            >
+            <motion.span className="section-tag" initial={{ opacity: 0, y: 20 }} animate={headIn ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5 }}>Our Work</motion.span>
+            <motion.h2 initial={{ opacity: 0, y: 28 }} animate={headIn ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.65, delay: 0.1 }} style={{ fontSize: 'clamp(1.5rem, 3.2vw, 2.2rem)' }}>
               Proven Across <span className="gradient-text">North India</span>
             </motion.h2>
           </div>
-          <motion.p
-            initial={{ opacity: 0, y: 18 }} animate={headIn ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, delay: 0.2 }}
-            style={{ color: 'var(--text-secondary)', maxWidth: 360, lineHeight: 1.75, textAlign: 'right' }}
-            className="proj-subhead"
-          >
-            From single rooftops to farmer cluster deployments and PM-KUSUM agricultural solar schemes.
+          <motion.p initial={{ opacity: 0 }} animate={headIn ? { opacity: 1 } : {}} transition={{ duration: 0.6, delay: 0.2 }}
+            style={{ color: 'var(--text-secondary)', maxWidth: 340, lineHeight: 1.75, textAlign: 'right', fontSize: '0.875rem' }} className="proj-subhead">
+            From farmer solar pumps to industrial rooftops — delivered on time, every time.
           </motion.p>
         </div>
 
-        {/* ── Filter tabs ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }} animate={headIn ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.55, delay: 0.25 }}
-          style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '1.25rem' }}
-        >
-          {FILTERS.map(f => (
-            <button
-              key={f}
-              onClick={() => setActiveFilter(f)}
-              style={{
-                padding: '0.5rem 1.25rem', borderRadius: 100,
-                border: '1px solid',
-                borderColor: activeFilter === f ? 'transparent' : 'rgba(255,255,255,0.12)',
-                background: activeFilter === f ? 'var(--gradient-sun)' : 'transparent',
-                color: activeFilter === f ? '#fff' : 'var(--text-secondary)',
-                fontWeight: 600, fontSize: '0.82rem', cursor: 'pointer',
-                transition: 'all 0.25s ease',
-                fontFamily: 'inherit',
-              }}
-            >{f}</button>
-          ))}
-        </motion.div>
+        <div ref={gridRef}>
+          {/* Top row: large featured + 2 stacked */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1.6fr 1fr', gap: '1rem', marginBottom: '1rem' }} className="proj-top-row">
 
-        {/* ── Project grid ── */}
-        <div ref={gridRef} style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }} className="proj-grid">
-          <AnimatePresence>
-            {filteredProjects
-              .map((p, i) => (
-                <motion.div
-                  key={p.id}
-                  layout
-                  initial={{ opacity: 0, y: 32 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.55, delay: gridIn ? i * 0.07 : 0, ease: [0.16, 1, 0.3, 1] }}
-                  whileHover={{ y: -5 }}
-                  style={{
-                    borderRadius: 12, overflow: 'hidden',
-                    border: '1px solid rgba(255,255,255,0.07)',
-                    background: 'rgba(255,255,255,0.03)',
-                    cursor: 'pointer',
-                    transition: 'border-color 0.25s',
-                  }}
-                  onMouseEnter={e => e.currentTarget.style.borderColor = `${TYPE_BG[p.type] ?? 'rgba(255,107,26,0.3)'}44`}
+            {/* Featured */}
+            <motion.div
+              initial={{ opacity: 0, y: 32 }} animate={gridIn ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -4 }}
+              style={{ borderRadius: 16, overflow: 'hidden', border: `1px solid ${TYPE_COLOR[FEATURED.type]}33`, background: `linear-gradient(140deg, ${TYPE_COLOR[FEATURED.type]}15 0%, rgba(6,10,15,0.98) 65%)`, position: 'relative', cursor: 'pointer', minHeight: 280 }}
+              onMouseEnter={e => e.currentTarget.style.borderColor = `${TYPE_COLOR[FEATURED.type]}55`}
+              onMouseLeave={e => e.currentTarget.style.borderColor = `${TYPE_COLOR[FEATURED.type]}33`}
+            >
+              <div style={{ height: 3, background: `linear-gradient(90deg, ${TYPE_COLOR[FEATURED.type]}, transparent)` }} />
+              <div style={{ padding: '1.75rem 2rem' }}>
+                <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.1rem', flexWrap: 'wrap' }}>
+                  <span style={{ background: TYPE_COLOR[FEATURED.type], color: '#fff', fontSize: '0.65rem', fontWeight: 800, padding: '0.2rem 0.75rem', borderRadius: 100 }}>{TYPE_ICON[FEATURED.type]} {FEATURED.type}</span>
+                  <span style={{ background: 'rgba(255,184,48,0.15)', color: 'var(--brand-amber)', fontSize: '0.65rem', fontWeight: 700, padding: '0.2rem 0.75rem', borderRadius: 100, border: '1px solid rgba(255,184,48,0.25)' }}>{FEATURED.capacity}</span>
+                  {FEATURED.subsidy && <span style={{ background: 'rgba(16,185,129,0.15)', color: '#10B981', fontSize: '0.65rem', fontWeight: 700, padding: '0.2rem 0.75rem', borderRadius: 100, border: '1px solid rgba(16,185,129,0.25)' }}>{FEATURED.subsidy} Subsidy</span>}
+                </div>
+                <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: 'clamp(1.1rem, 2vw, 1.45rem)', fontWeight: 800, marginBottom: '0.35rem', lineHeight: 1.2 }}>{FEATURED.title}</h3>
+                <p style={{ fontSize: '0.75rem', color: TYPE_COLOR[FEATURED.type], fontWeight: 600, marginBottom: '0.85rem' }}>📍 {FEATURED.location} · {FEATURED.year}</p>
+                <p style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', lineHeight: 1.7, marginBottom: '1.1rem', maxWidth: 480 }}>{FEATURED.desc}</p>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.45rem' }}>
+                  {FEATURED.highlights.map(h => (
+                    <div key={h} style={{ display: 'flex', gap: '0.4rem', fontSize: '0.73rem', color: 'var(--text-muted)' }}>
+                      <span style={{ color: TYPE_COLOR[FEATURED.type], flexShrink: 0 }}>▸</span>{h}
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div style={{ position: 'absolute', bottom: '1rem', right: '1.5rem', fontSize: '6rem', opacity: 0.06, lineHeight: 1, userSelect: 'none', pointerEvents: 'none' }}>{TYPE_ICON[FEATURED.type]}</div>
+            </motion.div>
+
+            {/* Side stack */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              {SIDE.map((p, i) => (
+                <motion.div key={p.id}
+                  initial={{ opacity: 0, x: 30 }} animate={gridIn ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.55, delay: 0.15 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                  whileHover={{ y: -3 }}
+                  style={{ flex: 1, borderRadius: 12, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.07)', background: 'rgba(255,255,255,0.03)', cursor: 'pointer', display: 'flex', transition: 'border-color 0.25s' }}
+                  onMouseEnter={e => e.currentTarget.style.borderColor = `${TYPE_COLOR[p.type]}44`}
                   onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)'}
                 >
-                  {/* Landscape: image left, info right */}
-                  <div style={{ display: 'flex', height: '100%' }}>
-                    {/* Image column */}
-                    <div style={{
-                      width: 110, flexShrink: 0, position: 'relative',
-                      background: `linear-gradient(145deg, ${TYPE_BG[p.type]}22 0%, #060A0F 100%)`,
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      borderRight: `1px solid ${TYPE_BG[p.type]}22`,
-                    }}>
-                      {p.img
-                        ? <img src={p.img} alt={p.title} style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', inset: 0 }} />
-                        : <div style={{ fontSize: '2rem', opacity: 0.5 }}>
-                            {p.type === 'PM-KUSUM' ? '🌾' : p.type === 'Industrial' ? '🏭' : p.type === 'Commercial' ? '🏢' : '🏠'}
-                          </div>
-                      }
-                      {/* Left accent bar */}
-                      <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: 3, background: TYPE_BG[p.type] || 'var(--brand-orange)', borderRadius: '3px 0 0 3px' }} />
+                  <div style={{ width: 4, flexShrink: 0, background: TYPE_COLOR[p.type] }} />
+                  <div style={{ width: 72, flexShrink: 0, background: `linear-gradient(145deg, ${TYPE_COLOR[p.type]}18 0%, transparent 100%)`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.6rem' }}>{TYPE_ICON[p.type]}</div>
+                  <div style={{ flex: 1, padding: '1rem', display: 'flex', flexDirection: 'column', justifyContent: 'center', minWidth: 0 }}>
+                    <div style={{ display: 'flex', gap: '0.35rem', marginBottom: '0.3rem', flexWrap: 'wrap', alignItems: 'center' }}>
+                      <span style={{ background: TYPE_COLOR[p.type], color: '#fff', fontSize: '0.55rem', fontWeight: 800, padding: '0.12rem 0.5rem', borderRadius: 100 }}>{p.type}</span>
+                      <span style={{ color: 'var(--brand-amber)', fontSize: '0.6rem', fontWeight: 700 }}>{p.capacity}</span>
                     </div>
-
-                    {/* Info column */}
-                    <div style={{ flex: 1, padding: '0.85rem 1rem', display: 'flex', flexDirection: 'column', justifyContent: 'center', minWidth: 0 }}>
-                      {/* Type + capacity row */}
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.35rem', flexWrap: 'wrap' }}>
-                        <span style={{
-                          background: TYPE_BG[p.type] || 'var(--brand-orange)',
-                          color: '#fff', fontSize: '0.58rem', fontWeight: 800,
-                          padding: '0.15rem 0.55rem', borderRadius: 100,
-                        }}>{p.type}</span>
-                        <span style={{
-                          background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(6px)',
-                          color: 'var(--brand-amber)', fontSize: '0.62rem', fontWeight: 700,
-                          padding: '0.15rem 0.55rem', borderRadius: 100,
-                          border: '1px solid rgba(255,184,48,0.25)',
-                        }}>{p.capacity}</span>
-                      </div>
-                      <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.18rem', lineHeight: 1.25, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                        {p.title}
-                      </h3>
-                      <p style={{ fontSize: '0.68rem', color: TYPE_BG[p.type] || 'var(--brand-orange)', fontWeight: 600, marginBottom: '0.45rem' }}>
-                        📍 {p.location} · {p.year}
-                      </p>
-                      <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
-                        {p.highlights.map(h => (
-                          <li key={h} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.35rem', fontSize: '0.68rem', color: 'var(--text-muted)', lineHeight: 1.35 }}>
-                            <span style={{ color: TYPE_BG[p.type] || 'var(--brand-orange)', flexShrink: 0 }}>▸</span>
-                            {h}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                    <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '0.88rem', fontWeight: 700, marginBottom: '0.18rem', lineHeight: 1.25, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{p.title}</h3>
+                    <p style={{ fontSize: '0.66rem', color: TYPE_COLOR[p.type], fontWeight: 600, marginBottom: '0.38rem' }}>📍 {p.location} · {p.year}</p>
+                    <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.16rem' }}>
+                      {p.highlights.slice(0, 2).map(h => (
+                        <li key={h} style={{ display: 'flex', gap: '0.3rem', fontSize: '0.64rem', color: 'var(--text-muted)', lineHeight: 1.3 }}>
+                          <span style={{ color: TYPE_COLOR[p.type], flexShrink: 0 }}>▸</span>{h}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </motion.div>
               ))}
-          </AnimatePresence>
-        </div>
+            </div>
+          </div>
 
-        {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }} animate={gridIn ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, delay: 0.4 }}
-          style={{ textAlign: 'center', marginTop: '1.5rem' }}
-        >
-          <a href="#contact" className="btn-outline">Discuss Your Project →</a>
-        </motion.div>
+          {/* Bottom row */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem', marginBottom: '1.5rem' }} className="proj-bottom-row">
+            {BOTTOM.map((p, i) => (
+              <motion.div key={p.id}
+                initial={{ opacity: 0, y: 28 }} animate={gridIn ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.55, delay: 0.3 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                whileHover={{ y: -4 }}
+                style={{ borderRadius: 12, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.07)', background: 'rgba(255,255,255,0.03)', cursor: 'pointer', display: 'flex', transition: 'border-color 0.25s' }}
+                onMouseEnter={e => e.currentTarget.style.borderColor = `${TYPE_COLOR[p.type]}44`}
+                onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)'}
+              >
+                <div style={{ width: 86, flexShrink: 0, position: 'relative', background: `linear-gradient(145deg, ${TYPE_COLOR[p.type]}22 0%, #060A0F 100%)`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.7rem', borderRight: `1px solid ${TYPE_COLOR[p.type]}22` }}>
+                  {TYPE_ICON[p.type]}
+                  <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: 3, background: TYPE_COLOR[p.type] }} />
+                </div>
+                <div style={{ flex: 1, padding: '0.85rem 1rem', display: 'flex', flexDirection: 'column', justifyContent: 'center', minWidth: 0 }}>
+                  <div style={{ display: 'flex', gap: '0.35rem', marginBottom: '0.28rem', alignItems: 'center', flexWrap: 'wrap' }}>
+                    <span style={{ background: TYPE_COLOR[p.type], color: '#fff', fontSize: '0.55rem', fontWeight: 800, padding: '0.12rem 0.5rem', borderRadius: 100 }}>{p.type}</span>
+                    <span style={{ color: 'var(--brand-amber)', fontSize: '0.6rem', fontWeight: 700 }}>{p.capacity}</span>
+                  </div>
+                  <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '0.82rem', fontWeight: 700, marginBottom: '0.16rem', lineHeight: 1.25, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{p.title}</h3>
+                  <p style={{ fontSize: '0.65rem', color: TYPE_COLOR[p.type], fontWeight: 600, marginBottom: '0.32rem' }}>📍 {p.location} · {p.year}</p>
+                  <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.15rem' }}>
+                    {p.highlights.slice(0, 2).map(h => (
+                      <li key={h} style={{ display: 'flex', gap: '0.3rem', fontSize: '0.63rem', color: 'var(--text-muted)', lineHeight: 1.3 }}>
+                        <span style={{ color: TYPE_COLOR[p.type], flexShrink: 0 }}>▸</span>{h}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Stats + CTA */}
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={gridIn ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: 0.5 }} style={{ textAlign: 'center' }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '2.5rem', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 16, padding: '1.1rem 2.5rem', marginBottom: '1.25rem' }} className="proj-stats-bar">
+              {[{ v: '8+', l: 'Projects' }, { v: '4', l: 'Sectors' }, { v: '150MW+', l: 'Capacity' }, { v: '100%', l: 'On-Time' }].map(s => (
+                <div key={s.l} style={{ textAlign: 'center' }}>
+                  <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 900, fontSize: '1.3rem', background: 'var(--gradient-sun)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', lineHeight: 1 }}>{s.v}</div>
+                  <div style={{ fontSize: '0.63rem', color: 'var(--text-muted)', marginTop: 3, textTransform: 'uppercase', letterSpacing: '0.1em' }}>{s.l}</div>
+                </div>
+              ))}
+            </div>
+            <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+              <Link to="/projects" className="btn-primary" style={{ textDecoration: 'none' }}>View All Projects →</Link>
+              <a href="#contact" className="btn-outline">Discuss Your Project</a>
+            </div>
+          </motion.div>
+        </div>
       </div>
 
       <style>{`
-        @media(max-width:900px){
-          .proj-grid { grid-template-columns: repeat(2,1fr) !important; }
-        }
-        @media(max-width:560px){
-          .proj-grid { grid-template-columns: 1fr !important; }
-          .proj-subhead { text-align:left !important; }
-        }
+        @media(max-width:900px){ .proj-top-row { grid-template-columns:1fr !important; } }
+        @media(max-width:700px){ .proj-bottom-row { grid-template-columns:1fr !important; } }
+        @media(max-width:560px){ .proj-subhead{text-align:left!important} .proj-stats-bar{flex-wrap:wrap;gap:1rem!important;padding:1rem 1.5rem!important} }
       `}</style>
     </section>
   )

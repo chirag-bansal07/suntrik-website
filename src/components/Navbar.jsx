@@ -1,21 +1,27 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import SuntrikLogo from './SuntrikLogo'
 
-const LINKS = [
+const HOME_LINKS = [
   { label: 'About',    href: '#about'    },
   { label: 'Services', href: '#services' },
-  { label: 'Schemes',  href: '#schemes'  },
   { label: 'Projects', href: '#projects' },
   { label: 'Savings',  href: '#savings'  },
   { label: 'Contact',  href: '#contact'  },
 ]
 
-export default function Navbar() {
+const SCHEME_LINKS = [
+  { label: '🌾 PM-KUSUM',      to: '/schemes/kusum',      desc: '90% subsidy for farmers' },
+  { label: '🏠 PM Surya Ghar', to: '/schemes/surya-ghar', desc: '₹78,000 subsidy for homes' },
+]
+
+export default function Navbar({ page = false }) {
   const [scrolled,    setScrolled]    = useState(false)
   const [open,        setOpen]        = useState(false)
   const [hovered,     setHovered]     = useState(null)
   const [activeLink,  setActiveLink]  = useState(null)
+  const [schemesOpen, setSchemesOpen] = useState(false)
   const hoverBgRef = useRef(null)
 
   /* ── scroll state ─────────────────────────────────────── */
@@ -25,20 +31,17 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', fn)
   }, [])
 
-  /* ── active section tracker ───────────────────────────── */
+  /* ── active section tracker (homepage only) ───────────── */
   useEffect(() => {
-    const sections = LINKS.map(l => document.querySelector(l.href))
+    if (page) return
+    const sections = HOME_LINKS.map(l => document.querySelector(l.href))
     const io = new IntersectionObserver(
-      entries => {
-        entries.forEach(e => {
-          if (e.isIntersecting) setActiveLink('#' + e.target.id)
-        })
-      },
+      entries => { entries.forEach(e => { if (e.isIntersecting) setActiveLink('#' + e.target.id) }) },
       { threshold: 0.25, rootMargin: '-60px 0px -60px 0px' },
     )
     sections.forEach(s => s && io.observe(s))
     return () => io.disconnect()
-  }, [])
+  }, [page])
 
   return (
     <>
@@ -87,44 +90,82 @@ export default function Navbar() {
               }}
             />
 
-            {LINKS.map(l => {
+            {/* Home anchor links */}
+            {HOME_LINKS.map(l => {
               const isActive  = activeLink === l.href
               const isHovered = hovered   === l.href
               return (
                 <li key={l.label} style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                   <a
-                    href={l.href}
+                    href={page ? '/' + l.href : l.href}
                     onMouseEnter={() => setHovered(l.href)}
                     onMouseLeave={() => setHovered(null)}
                     style={{
                       display: 'block', padding: '0.45rem 1rem',
                       fontSize: '0.875rem', fontWeight: 500,
                       color: isActive ? 'var(--brand-orange)' : isHovered ? '#fff' : 'rgba(255,255,255,0.65)',
-                      textDecoration: 'none',
-                      borderRadius: 8,
+                      textDecoration: 'none', borderRadius: 8,
                       background: isHovered ? 'rgba(255,107,26,0.1)' : 'transparent',
                       transition: 'color 0.18s, background 0.18s',
                     }}
                   >
                     {l.label}
                   </a>
-                  {/* Active underline — sits beneath the link, perfectly centred */}
                   {isActive && (
-                    <motion.span
-                      layoutId="activeUnderline"
-                      style={{
-                        position: 'absolute', bottom: -2,
-                        left: '20%', right: '20%',
-                        height: 2, borderRadius: 1,
-                        background: 'var(--gradient-sun)',
-                        display: 'block',
-                      }}
+                    <motion.span layoutId="activeUnderline"
+                      style={{ position: 'absolute', bottom: -2, left: '20%', right: '20%', height: 2, borderRadius: 1, background: 'var(--gradient-sun)', display: 'block' }}
                       transition={{ type: 'spring', stiffness: 500, damping: 35 }}
                     />
                   )}
                 </li>
               )
             })}
+
+            {/* Schemes dropdown */}
+            <li style={{ position: 'relative', zIndex: 1 }}
+              onMouseEnter={() => setSchemesOpen(true)}
+              onMouseLeave={() => setSchemesOpen(false)}
+            >
+              <button style={{
+                display: 'flex', alignItems: 'center', gap: '0.3rem',
+                padding: '0.45rem 1rem', fontSize: '0.875rem', fontWeight: 500,
+                color: schemesOpen ? '#fff' : 'rgba(255,255,255,0.65)',
+                background: schemesOpen ? 'rgba(255,107,26,0.1)' : 'transparent',
+                border: 'none', cursor: 'pointer', borderRadius: 8,
+                fontFamily: 'inherit', transition: 'color 0.18s, background 0.18s',
+              }}>
+                Schemes
+                <span style={{ fontSize: '0.65rem', transition: 'transform 0.2s', transform: schemesOpen ? 'rotate(180deg)' : 'none' }}>▾</span>
+              </button>
+              <AnimatePresence>
+                {schemesOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -6, scale: 0.97 }}
+                    animate={{ opacity: 1, y: 0,  scale: 1 }}
+                    exit={{    opacity: 0, y: -6, scale: 0.97 }}
+                    transition={{ duration: 0.15 }}
+                    style={{
+                      position: 'absolute', top: '100%', left: '50%', transform: 'translateX(-50%)',
+                      marginTop: '0.5rem', background: 'rgba(5,9,14,0.97)',
+                      border: '1px solid rgba(255,107,26,0.2)', borderRadius: 10,
+                      backdropFilter: 'blur(20px)', overflow: 'hidden', minWidth: 220,
+                      boxShadow: '0 12px 40px rgba(0,0,0,0.5)',
+                    }}
+                  >
+                    {SCHEME_LINKS.map(s => (
+                      <Link key={s.to} to={s.to}
+                        style={{ display: 'block', padding: '0.85rem 1.25rem', textDecoration: 'none', transition: 'background 0.15s' }}
+                        onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,107,26,0.1)'}
+                        onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+                      >
+                        <div style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.15rem' }}>{s.label}</div>
+                        <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>{s.desc}</div>
+                      </Link>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </li>
           </ul>
 
           {/* ── CTA button (right) ───────────────────────── */}
@@ -184,10 +225,10 @@ export default function Navbar() {
               padding: '1rem 1.75rem 1.75rem',
             }}
           >
-            {LINKS.map((l, i) => (
+            {HOME_LINKS.map((l, i) => (
               <motion.a
                 key={l.label}
-                href={l.href}
+                href={page ? '/' + l.href : l.href}
                 onClick={() => setOpen(false)}
                 initial={{ opacity: 0, x: -12 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -202,6 +243,20 @@ export default function Navbar() {
               >
                 {l.label}
               </motion.a>
+            ))}
+            {/* Schemes links in mobile drawer */}
+            {SCHEME_LINKS.map((s, i) => (
+              <Link key={s.to} to={s.to}
+                onClick={() => setOpen(false)}
+                style={{
+                  display: 'block', padding: '0.9rem 0',
+                  fontSize: '1.05rem', fontWeight: 600,
+                  borderBottom: '1px solid rgba(255,255,255,0.05)',
+                  color: 'var(--text-primary)', textDecoration: 'none',
+                }}
+              >
+                {s.label}
+              </Link>
             ))}
             <motion.a
               href="#contact"
