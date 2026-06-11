@@ -6,6 +6,7 @@
 import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
+import TiltCard from '../components/ui/TiltCard'
 
 // ── 5-Step EPC Process ────────────────────────────────────────────────────
 const PROCESS = [
@@ -358,14 +359,13 @@ export default function Services() {
             gap: '0.85rem',
           }}>
             {SERVICES.map((svc, i) => (
+              <TiltCard key={svc.id} max={7} style={{ borderRadius: 12 }}>
               <motion.div
-                key={svc.id}
                 initial={{ opacity: 0, y: 24 }}
                 animate={cardsIn ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.55, delay: i * 0.06, ease: [0.16, 1, 0.3, 1] }}
-                whileHover={{ y: -3 }}
                 className="glass-card"
-                style={{ padding: '1rem 1.1rem', position: 'relative', overflow: 'hidden', cursor: 'default', display: 'flex', gap: '0.85rem', alignItems: 'flex-start' }}
+                style={{ padding: '1rem 1.1rem', position: 'relative', overflow: 'hidden', cursor: 'default', display: 'flex', gap: '0.85rem', alignItems: 'flex-start', height: '100%', borderRadius: 12 }}
                 onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(255,107,26,0.3)'}
                 onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'}
               >
@@ -379,15 +379,12 @@ export default function Services() {
                     {svc.desc}
                   </p>
                 </div>
-                <motion.div
-                  initial={{ scaleX: 0 }} whileHover={{ scaleX: 1 }}
-                  transition={{ duration: 0.3 }}
-                  style={{
-                    position: 'absolute', bottom: 0, left: 0, right: 0, height: 2,
-                    background: 'var(--gradient-sun)', transformOrigin: 'left',
-                  }}
-                />
+                <div style={{
+                  position: 'absolute', bottom: 0, left: 0, right: 0, height: 2,
+                  background: 'var(--gradient-sun)', opacity: 0.5,
+                }} />
               </motion.div>
+              </TiltCard>
             ))}
           </div>
 

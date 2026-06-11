@@ -6,6 +6,8 @@ import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
 import { PROJECTS, TYPE_COLOR, TYPE_ICON } from '../data/projects'
+import TiltCard from '../components/ui/TiltCard'
+import CountUp  from '../components/ui/CountUp'
 
 const FEATURED = PROJECTS[0]
 const SIDE     = [PROJECTS[3], PROJECTS[1]]
@@ -49,10 +51,10 @@ export default function Projects() {
           <div style={{ display: 'grid', gridTemplateColumns: '1.6fr 1fr', gap: '1rem', marginBottom: '1rem' }} className="proj-top-row">
 
             {/* Featured */}
+            <TiltCard style={{ borderRadius: 16 }} max={6}>
             <motion.div
               initial={{ opacity: 0, y: 32 }} animate={gridIn ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              whileHover={{ y: -4 }}
-              style={{ borderRadius: 16, overflow: 'hidden', border: `1px solid ${TYPE_COLOR[FEATURED.type]}33`, background: `linear-gradient(140deg, ${TYPE_COLOR[FEATURED.type]}15 0%, rgba(6,10,15,0.98) 65%)`, position: 'relative', cursor: 'pointer', minHeight: 280 }}
+              style={{ borderRadius: 16, overflow: 'hidden', border: `1px solid ${TYPE_COLOR[FEATURED.type]}33`, background: `linear-gradient(140deg, ${TYPE_COLOR[FEATURED.type]}15 0%, rgba(6,10,15,0.98) 65%)`, position: 'relative', cursor: 'pointer', minHeight: 280, height: '100%' }}
               onMouseEnter={e => e.currentTarget.style.borderColor = `${TYPE_COLOR[FEATURED.type]}55`}
               onMouseLeave={e => e.currentTarget.style.borderColor = `${TYPE_COLOR[FEATURED.type]}33`}
             >
@@ -76,6 +78,7 @@ export default function Projects() {
               </div>
               <div style={{ position: 'absolute', bottom: '1rem', right: '1.5rem', fontSize: '6rem', opacity: 0.06, lineHeight: 1, userSelect: 'none', pointerEvents: 'none' }}>{TYPE_ICON[FEATURED.type]}</div>
             </motion.div>
+            </TiltCard>
 
             {/* Side stack */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
@@ -145,9 +148,9 @@ export default function Projects() {
           {/* Stats + CTA */}
           <motion.div initial={{ opacity: 0, y: 20 }} animate={gridIn ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: 0.5 }} style={{ textAlign: 'center' }}>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: '2.5rem', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 16, padding: '1.1rem 2.5rem', marginBottom: '1.25rem' }} className="proj-stats-bar">
-              {[{ v: '8+', l: 'Projects' }, { v: '4', l: 'Sectors' }, { v: '150MW+', l: 'Capacity' }, { v: '100%', l: 'On-Time' }].map(s => (
+              {[{ to: 1000, suffix: '+', l: 'Projects' }, { to: 4, suffix: '', l: 'Sectors' }, { to: 150, suffix: 'MW+', l: 'Capacity' }, { to: 100, suffix: '%', l: 'On-Time' }].map(s => (
                 <div key={s.l} style={{ textAlign: 'center' }}>
-                  <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 900, fontSize: '1.3rem', background: 'var(--gradient-sun)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', lineHeight: 1 }}>{s.v}</div>
+                  <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 900, fontSize: '1.3rem', background: 'var(--gradient-sun)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', lineHeight: 1 }}><CountUp to={s.to} suffix={s.suffix} /></div>
                   <div style={{ fontSize: '0.63rem', color: 'var(--text-muted)', marginTop: 3, textTransform: 'uppercase', letterSpacing: '0.1em' }}>{s.l}</div>
                 </div>
               ))}

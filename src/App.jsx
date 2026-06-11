@@ -11,10 +11,15 @@ import Services from './sections/Services'
 import Projects from './sections/Projects'
 import Stats from './sections/Stats'
 import WhyUs from './sections/WhyUs'
-import Savings from './sections/Savings'
+import SavingsCalculator from './sections/SavingsCalculator'
 import Testimonials from './sections/Testimonials'
 import Contact from './sections/Contact'
 import Footer from './components/Footer'
+
+import Preloader from './components/Preloader'
+import CustomCursor from './components/CustomCursor'
+import ScrollProgress from './components/ScrollProgress'
+import Atmosphere from './components/Atmosphere'
 
 import ProjectsPage  from './pages/ProjectsPage'
 import KusumPage     from './pages/KusumPage'
@@ -48,7 +53,7 @@ function HomePage() {
         <Projects />
         <Stats />
         <WhyUs />
-        <Savings />
+        <SavingsCalculator />
         <Testimonials />
         <Contact />
       </main>
@@ -66,6 +71,10 @@ function ScrollToTop() {
 export default function App() {
   return (
     <BrowserRouter>
+      <Preloader />
+      <CustomCursor />
+      <ScrollProgress />
+      <Atmosphere />
       <ScrollToTop />
       <Routes>
         <Route path="/"                   element={<HomePage />} />

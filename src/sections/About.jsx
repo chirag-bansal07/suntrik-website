@@ -6,6 +6,7 @@
 import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
+import CountUp from '../components/ui/CountUp'
 
 
 const MILESTONES = [
@@ -143,10 +144,10 @@ export default function About() {
             }}>Our Numbers</h3>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.65rem' }}>
               {[
-                { v: '10+',    l: 'Years Experience',   s: 'Solar EPC since 2018' },
-                { v: '1,000+', l: 'Happy Clients',      s: 'Homes, farms & industries' },
-                { v: '150MW+', l: 'Capacity Installed', s: 'Cumulative across North India' },
-                { v: '100%',   l: 'DISCOM Approvals',   s: 'Zero net-metering rejections' },
+                { to: 10,   suffix: '+',   l: 'Years Experience',   s: 'Solar EPC since 2018' },
+                { to: 1000, suffix: '+',   l: 'Happy Clients',      s: 'Homes, farms & industries' },
+                { to: 150,  suffix: 'MW+', l: 'Capacity Installed', s: 'Cumulative across North India' },
+                { to: 100,  suffix: '%',   l: 'DISCOM Approvals',   s: 'Zero net-metering rejections' },
               ].map(s => (
                 <div key={s.l} style={{
                   padding: '0.75rem 0.9rem', borderRadius: 10,
@@ -158,7 +159,7 @@ export default function About() {
                     background: 'var(--gradient-sun)',
                     WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
                     lineHeight: 1, marginBottom: '0.3rem',
-                  }}>{s.v}</div>
+                  }}><CountUp to={s.to} suffix={s.suffix} /></div>
                   <div style={{ fontWeight: 700, fontSize: '0.81rem', marginBottom: 2 }}>{s.l}</div>
                   <div style={{ fontSize: '0.69rem', color: 'var(--text-muted)' }}>{s.s}</div>
                 </div>

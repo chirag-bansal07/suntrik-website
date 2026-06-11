@@ -12,6 +12,8 @@
 import { useEffect, useRef } from 'react'
 import { gsap }          from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import Magnetic from '../components/ui/Magnetic'
+import CountUp  from '../components/ui/CountUp'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -222,11 +224,13 @@ export default function Hero() {
             </p>
 
             <div ref={btnsRef} style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginBottom: '3.25rem' }}>
-              <a href="#services" className="btn-primary">Our Services</a>
-              <a href="#contact"  className="btn-outline"
-                style={{ borderColor: 'rgba(255,255,255,0.3)', color: '#fff' }}>
-                Get Free Assessment
-              </a>
+              <Magnetic><a href="#services" className="btn-primary">Our Services</a></Magnetic>
+              <Magnetic>
+                <a href="#contact" className="btn-outline"
+                  style={{ borderColor: 'rgba(255,255,255,0.3)', color: '#fff' }}>
+                  Get Free Assessment
+                </a>
+              </Magnetic>
             </div>
 
             <div ref={statsRef} style={{
@@ -234,10 +238,10 @@ export default function Hero() {
               paddingTop: '1.75rem', borderTop: '1px solid rgba(255,255,255,0.1)',
             }}>
               {[
-                { value: '10+',    label: 'Years of Experience' },
-                { value: '1,000+', label: 'Happy Clients'       },
-                { value: '150MW+', label: 'Capacity Installed'  },
-                { value: '24/7',   label: 'O&M Support'         },
+                { to: 10,   suffix: '+',   label: 'Years of Experience' },
+                { to: 1000, suffix: '+',   label: 'Happy Clients'       },
+                { to: 150,  suffix: 'MW+', label: 'Capacity Installed'  },
+                { value: '24/7',           label: 'O&M Support'         },
               ].map(s => (
                 <div key={s.label}>
                   <div style={{
@@ -246,7 +250,7 @@ export default function Hero() {
                     background: 'var(--gradient-sun)',
                     WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
                     backgroundClip: 'text', lineHeight: 1,
-                  }}>{s.value}</div>
+                  }}>{s.to != null ? <CountUp to={s.to} suffix={s.suffix} /> : s.value}</div>
                   <div style={{
                     fontSize: '0.7rem', color: 'rgba(255,255,255,0.5)',
                     textTransform: 'uppercase', letterSpacing: '0.12em', marginTop: 4,
