@@ -10,7 +10,7 @@ import { useScrollAnimation } from '../hooks/useScrollAnimation'
 
 const STATS = [
   {
-    value: 10,   suffix: '+',    label: 'Years of Experience',  sub: 'Solar EPC since 2018',            icon: '📅',
+    value: 8,    suffix: '+',    label: 'Years of Experience',  sub: 'Solar EPC since 2018',            icon: '📅',
     progress: 0.42,
   },
   {
@@ -129,7 +129,7 @@ export default function Stats() {
         >
           <span className="section-tag" style={{ justifyContent: 'center' }}>Our Accomplishments</span>
           <h2 style={{ fontSize: 'clamp(1.5rem, 3.2vw, 2.2rem)', marginBottom: '0.5rem' }}>
-            {new Date().getFullYear() - 2018}+ Years of Solar <span className="gradient-text">Impact</span>
+            8+ Years of Solar <span className="gradient-text">Impact</span>
           </h2>
           <p style={{ color: 'var(--text-secondary)', maxWidth: 480, margin: '0 auto', lineHeight: 1.8 }}>
             Numbers that reflect real projects delivered, real subsidies navigated, and real energy savings created for North India.

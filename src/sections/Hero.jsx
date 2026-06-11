@@ -238,7 +238,7 @@ export default function Hero() {
               paddingTop: '1.75rem', borderTop: '1px solid rgba(255,255,255,0.1)',
             }}>
               {[
-                { to: 10,   suffix: '+',   label: 'Years of Experience' },
+                { to: 8,    suffix: '+',   label: 'Years of Experience' },
                 { to: 1000, suffix: '+',   label: 'Happy Clients'       },
                 { to: 150,  suffix: 'MW+', label: 'Capacity Installed'  },
                 { value: '24/7',           label: 'O&M Support'         },

@@ -1,12 +1,11 @@
 /**
  * Preloader — a one-per-session animated sunrise.
- * A sun disc rises over a horizon while the SUNTRIK wordmark and a thin
- * loading line fill in, then the whole panel lifts away.
+ * The Suntrik logo rises over a horizon while a thin loading line fills in,
+ * then the whole panel lifts away.
  */
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-
-const LETTERS = 'SUNTRIK'.split('')
+import SuntrikLogo from './SuntrikLogo'
 
 export default function Preloader() {
   const [done, setDone] = useState(() => {
@@ -53,18 +52,22 @@ export default function Preloader() {
             }}
           />
 
-          {/* Sun disc rising */}
+          {/* Suntrik logo rising */}
           <motion.div
-            initial={{ y: 140, scale: 0.7, opacity: 0 }}
+            initial={{ y: 120, scale: 0.8, opacity: 0 }}
             animate={{ y: 0, scale: 1, opacity: 1 }}
             transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
-            style={{
-              width: 110, height: 110, borderRadius: '50%',
-              background: 'radial-gradient(circle at 38% 36%, #FFE08A 0%, #FFB830 35%, #FF6B1A 75%)',
-              boxShadow: '0 0 70px rgba(255,140,40,0.7), 0 0 140px rgba(255,107,26,0.4)',
-              marginBottom: '1.75rem',
-            }}
-          />
+            style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.75rem' }}
+          >
+            <div style={{
+              position: 'absolute', width: 230, height: 230, borderRadius: '50%',
+              background: 'radial-gradient(circle, rgba(255,176,48,0.5) 0%, rgba(255,107,26,0.2) 45%, transparent 72%)',
+              filter: 'blur(18px)',
+            }} />
+            <div style={{ position: 'relative', filter: 'drop-shadow(0 0 26px rgba(255,140,40,0.55))' }}>
+              <SuntrikLogo width={172} />
+            </div>
+          </motion.div>
 
           {/* Horizon line sweeping out */}
           <motion.div
@@ -76,21 +79,6 @@ export default function Preloader() {
               background: 'linear-gradient(90deg, transparent, rgba(255,107,26,0.7), transparent)',
             }}
           />
-
-          {/* Wordmark */}
-          <div style={{ display: 'flex', gap: '0.08em', fontFamily: 'Space Grotesk, sans-serif', fontWeight: 800, fontSize: 'clamp(1.6rem, 5vw, 2.6rem)', letterSpacing: '0.12em' }}>
-            {LETTERS.map((l, i) => (
-              <motion.span
-                key={i}
-                initial={{ opacity: 0, y: 18 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.5 + i * 0.07 }}
-                className="gradient-text"
-              >
-                {l}
-              </motion.span>
-            ))}
-          </div>
 
           {/* Loading line */}
           <div style={{ width: 160, height: 2, marginTop: '1.5rem', background: 'rgba(255,255,255,0.08)', borderRadius: 2, overflow: 'hidden' }}>

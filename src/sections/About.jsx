@@ -4,7 +4,7 @@
  */
 
 import { useRef } from 'react'
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
 import CountUp from '../components/ui/CountUp'
 import SuntrikLogo from '../components/SuntrikLogo'
@@ -34,12 +34,7 @@ export default function About() {
   const { ref: headRef, inView: headIn } = useScrollAnimation(0.1)
   const { ref: midRef,  inView: midIn  } = useScrollAnimation(0.1)
 
-  // Self-drawing timeline path — bound to scroll through the milestones
-  const timelineRef = useRef(null)
-  const { scrollYProgress: tlProgress } = useScroll({ target: timelineRef, offset: ['start 0.85', 'end 0.55'] })
-  const drawLength = useSpring(tlProgress, { stiffness: 120, damping: 30, mass: 0.4 })
-
-  const yearsSince = new Date().getFullYear() - 2018
+  const yearsSince = 8
 
   return (
     <section
@@ -75,15 +70,13 @@ export default function About() {
             border: `1px solid rgba(255,107,26,${r.opacity})`,
             animation: `${r.dir === 1 ? 'aOrbitCW' : 'aOrbitCCW'} ${r.dur}s linear infinite`,
           }}>
-            {/* Orbiting logo — counter-rotates so it stays upright */}
-            <div style={{ position: 'absolute', left: '50%', [r.dotPos]: 0, transform: 'translate(-50%,-50%)' }}>
-              <div style={{
-                animation: `${r.dir === 1 ? 'aOrbitCCW' : 'aOrbitCW'} ${r.dur}s linear infinite`,
-                filter: 'drop-shadow(0 0 6px rgba(255,107,26,0.55))', opacity: 0.92,
-              }}>
-                <SuntrikLogo width={46 - i * 7} />
-              </div>
-            </div>
+            {/* Orbiting planet */}
+            <div style={{
+              position: 'absolute', left: '50%', [r.dotPos]: 0, transform: 'translate(-50%,-50%)',
+              width: r.dotSz * 2, height: r.dotSz * 2, borderRadius: '50%',
+              background: `radial-gradient(circle at 32% 30%, #fff4dd 0%, ${r.color} 42%, ${r.color}cc 68%, ${r.color}66 100%)`,
+              boxShadow: `0 0 ${r.dotSz * 2.2}px ${r.color}aa, inset -2px -2px 5px rgba(0,0,0,0.4)`,
+            }} />
           </div>
         ))}
 
@@ -168,7 +161,7 @@ export default function About() {
             }}>Our Numbers</h3>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.65rem' }}>
               {[
-                { to: 10,   suffix: '+',   l: 'Years Experience',   s: 'Solar EPC since 2018' },
+                { to: 8,    suffix: '+',   l: 'Years Experience',   s: 'Solar EPC since 2018' },
                 { to: 1000, suffix: '+',   l: 'Happy Clients',      s: 'Homes, farms & industries' },
                 { to: 150,  suffix: 'MW+', l: 'Capacity Installed', s: 'Cumulative across North India' },
                 { to: 100,  suffix: '%',   l: 'DISCOM Approvals',   s: 'Zero net-metering rejections' },
@@ -201,11 +194,11 @@ export default function About() {
               fontSize: '0.66rem', color: 'var(--text-muted)', fontWeight: 600,
               textTransform: 'uppercase', letterSpacing: '0.15em', marginBottom: '0.75rem',
             }}>Our Journey</h3>
-            <div ref={timelineRef} style={{ position: 'relative', paddingLeft: '2rem' }}>
+            <div style={{ position: 'relative', paddingLeft: '2rem' }}>
               {/* Self-drawing SVG timeline path */}
               <svg
                 width="8" viewBox="0 0 8 100" preserveAspectRatio="none"
-                style={{ position: 'absolute', left: 0, top: 8, height: 'calc(100% - 16px)', overflow: 'visible' }}
+                style={{ position: 'absolute', left: -3, top: 8, height: 'calc(100% - 16px)', overflow: 'visible' }}
               >
                 <defs>
                   <linearGradient id="tlGrad" x1="0" y1="0" x2="0" y2="1">
@@ -215,11 +208,13 @@ export default function About() {
                   </linearGradient>
                 </defs>
                 {/* faint full track */}
-                <path d="M4 0 V100" stroke="rgba(255,184,48,0.12)" strokeWidth="2" fill="none"
+                <path d="M4 0 V100" stroke="rgba(255,184,48,0.20)" strokeWidth="2" fill="none"
                   vectorEffect="non-scaling-stroke" strokeLinecap="round" />
-                {/* animated draw-in, tied to scroll */}
+                {/* animated draw-in when the journey scrolls into view */}
                 <motion.path d="M4 0 V100" stroke="url(#tlGrad)" strokeWidth="2.5" fill="none"
-                  vectorEffect="non-scaling-stroke" strokeLinecap="round" style={{ pathLength: drawLength }} />
+                  vectorEffect="non-scaling-stroke" strokeLinecap="round"
+                  initial={{ pathLength: 0 }} animate={midIn ? { pathLength: 1 } : { pathLength: 0 }}
+                  transition={{ duration: 1.6, ease: 'easeInOut', delay: 0.3 }} />
               </svg>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                 {MILESTONES.map((m, i) => (
