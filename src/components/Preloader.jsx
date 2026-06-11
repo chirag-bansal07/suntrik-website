@@ -1,7 +1,8 @@
 /**
- * Preloader — a one-per-session animated sunrise.
- * The Suntrik logo rises over a horizon while a thin loading line fills in,
- * then the whole panel lifts away.
+ * Intro — one-per-session zoom reveal.
+ * The page opens on a black screen with the Suntrik logo, then the camera
+ * "zooms into" the logo (it scales up and fades) while the black backdrop
+ * dissolves to reveal the website behind it.
  */
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -10,16 +11,16 @@ import SuntrikLogo from './SuntrikLogo'
 export default function Preloader() {
   const [done, setDone] = useState(() => {
     if (typeof window === 'undefined') return true
-    return sessionStorage.getItem('suntrik-preloaded') === '1'
+    return sessionStorage.getItem('suntrik-intro') === '1'
   })
 
   useEffect(() => {
     if (done) return
     document.body.style.overflow = 'hidden'
     const t = setTimeout(() => {
-      sessionStorage.setItem('suntrik-preloaded', '1')
+      sessionStorage.setItem('suntrik-intro', '1')
       setDone(true)
-    }, 2000)
+    }, 1650)
     return () => { clearTimeout(t); document.body.style.overflow = '' }
   }, [done])
 
@@ -27,68 +28,43 @@ export default function Preloader() {
     <AnimatePresence onExitComplete={() => { document.body.style.overflow = '' }}>
       {!done && (
         <motion.div
-          key="preloader"
-          exit={{ y: '-100%' }}
-          transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1] }}
+          key="intro"
+          initial={{ opacity: 1 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.4 }}
           style={{
-            position: 'fixed', inset: 0, zIndex: 200000,
-            background: 'radial-gradient(ellipse 90% 70% at 50% 100%, #1a1200 0%, #0a0a0f 55%, #060A0F 100%)',
-            display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-            overflow: 'hidden',
+            position: 'fixed', inset: 0, zIndex: 200000, pointerEvents: 'none',
+            display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden',
           }}
         >
-          {/* Rays */}
+          {/* Black backdrop that dissolves as we zoom in */}
           <motion.div
-            aria-hidden
-            initial={{ opacity: 0, scale: 0.6, rotate: 0 }}
-            animate={{ opacity: 0.5, scale: 1, rotate: 40 }}
-            transition={{ duration: 2, ease: 'easeOut' }}
+            initial={{ opacity: 1 }}
+            animate={{ opacity: 0 }}
+            transition={{ duration: 0.85, delay: 0.75, ease: 'easeIn' }}
+            style={{ position: 'absolute', inset: 0, background: '#000' }}
+          />
+          {/* Soft glow that blooms as the logo zooms */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.6 }}
+            animate={{ opacity: [0, 0.6, 0], scale: [0.6, 1, 3] }}
+            transition={{ duration: 1.6, times: [0, 0.4, 1], ease: 'easeIn' }}
             style={{
-              position: 'absolute', bottom: '34%', width: 520, height: 520,
-              background: 'repeating-conic-gradient(from 0deg, rgba(255,184,48,0.16) 0deg 6deg, transparent 6deg 18deg)',
-              borderRadius: '50%', filter: 'blur(2px)',
-              maskImage: 'radial-gradient(circle, black 30%, transparent 70%)',
-              WebkitMaskImage: 'radial-gradient(circle, black 30%, transparent 70%)',
+              position: 'absolute', width: 420, height: 420, borderRadius: '50%',
+              background: 'radial-gradient(circle, rgba(255,140,40,0.5) 0%, rgba(255,107,26,0.15) 45%, transparent 72%)',
+              filter: 'blur(30px)',
             }}
           />
-
-          {/* Suntrik logo rising */}
+          {/* Logo zooming into the viewer */}
           <motion.div
-            initial={{ y: 120, scale: 0.8, opacity: 0 }}
-            animate={{ y: 0, scale: 1, opacity: 1 }}
-            transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
-            style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.75rem' }}
+            initial={{ scale: 0.82, opacity: 0 }}
+            animate={{ scale: [0.82, 1, 1, 17], opacity: [0, 1, 1, 0] }}
+            transition={{ duration: 1.6, times: [0, 0.22, 0.5, 1], ease: [0.6, 0, 0.85, 0.4] }}
+            style={{ position: 'relative', filter: 'drop-shadow(0 0 40px rgba(255,107,26,0.5))' }}
           >
-            <div style={{
-              position: 'absolute', width: 230, height: 230, borderRadius: '50%',
-              background: 'radial-gradient(circle, rgba(255,176,48,0.5) 0%, rgba(255,107,26,0.2) 45%, transparent 72%)',
-              filter: 'blur(18px)',
-            }} />
-            <div style={{ position: 'relative', filter: 'drop-shadow(0 0 26px rgba(255,140,40,0.55))' }}>
-              <SuntrikLogo width={172} />
-            </div>
+            <SuntrikLogo width={220} />
           </motion.div>
-
-          {/* Horizon line sweeping out */}
-          <motion.div
-            initial={{ scaleX: 0, opacity: 0 }}
-            animate={{ scaleX: 1, opacity: 1 }}
-            transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            style={{
-              width: '60vw', maxWidth: 420, height: 1, marginBottom: '1.5rem',
-              background: 'linear-gradient(90deg, transparent, rgba(255,107,26,0.7), transparent)',
-            }}
-          />
-
-          {/* Loading line */}
-          <div style={{ width: 160, height: 2, marginTop: '1.5rem', background: 'rgba(255,255,255,0.08)', borderRadius: 2, overflow: 'hidden' }}>
-            <motion.div
-              initial={{ width: '0%' }}
-              animate={{ width: '100%' }}
-              transition={{ duration: 1.7, ease: 'easeInOut' }}
-              style={{ height: '100%', background: 'linear-gradient(90deg, #FF6B1A, #FFB830)' }}
-            />
-          </div>
         </motion.div>
       )}
     </AnimatePresence>

@@ -72,10 +72,16 @@ export default function Hero() {
 
         for (let i = 0; i < count; i++) {
           const img = new Image()
+          img.decoding = 'async'
           img.onload = () => {
             if (cancelled) return
             imgs[i] = img
-            if (i === 0) drawCover(ctx, img, canvas.width, canvas.height)
+            // Force the JPEG to decode now (off the scroll path) so the first
+            // scroll-through is a pure GPU blit instead of a synchronous decode.
+            const ready = img.decode ? img.decode().catch(() => {}) : Promise.resolve()
+            ready.then(() => {
+              if (!cancelled && i === 0) drawCover(ctx, img, canvas.width, canvas.height)
+            })
           }
           img.src = `${FRAMES_PATH}/frame-${String(i + 1).padStart(4, '0')}.jpg`
           imgs[i] = img
