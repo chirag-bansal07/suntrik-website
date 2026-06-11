@@ -4,9 +4,10 @@
  */
 
 import { useRef } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
 import CountUp from '../components/ui/CountUp'
+import SuntrikLogo from '../components/SuntrikLogo'
 
 
 const MILESTONES = [
@@ -33,6 +34,11 @@ export default function About() {
   const { ref: headRef, inView: headIn } = useScrollAnimation(0.1)
   const { ref: midRef,  inView: midIn  } = useScrollAnimation(0.1)
 
+  // Self-drawing timeline path — bound to scroll through the milestones
+  const timelineRef = useRef(null)
+  const { scrollYProgress: tlProgress } = useScroll({ target: timelineRef, offset: ['start 0.85', 'end 0.55'] })
+  const drawLength = useSpring(tlProgress, { stiffness: 120, damping: 30, mass: 0.4 })
+
   const yearsSince = new Date().getFullYear() - 2018
 
   return (
@@ -46,7 +52,7 @@ export default function About() {
         minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center',
       }}
     >
-      {/* ── Animated sun + orbit rings ── */}
+      {/* ── Suntrik logo orbit ── */}
       <motion.div
         style={{ y: orbY, position: 'absolute', top: '-12%', right: '-7%', zIndex: 0, pointerEvents: 'none' }}
         aria-hidden
@@ -54,11 +60,12 @@ export default function About() {
         {/* Core glow */}
         <div style={{
           width: 720, height: 720, borderRadius: '50%',
-          background: 'radial-gradient(circle at 42% 40%, rgba(255,184,48,0.16) 0%, rgba(255,107,26,0.08) 40%, transparent 70%)',
+          background: 'radial-gradient(circle at 50% 50%, rgba(255,184,48,0.16) 0%, rgba(255,107,26,0.08) 40%, transparent 70%)',
           filter: 'blur(55px)',
           animation: 'aSunPulse 5s ease-in-out infinite',
         }} />
-        {/* Orbit rings */}
+
+        {/* Orbit rings, each carrying an orbiting Suntrik logo mark */}
         {ORBIT_RINGS.map((r, i) => (
           <div key={i} style={{
             position: 'absolute', top: '50%', left: '50%',
@@ -68,15 +75,32 @@ export default function About() {
             border: `1px solid rgba(255,107,26,${r.opacity})`,
             animation: `${r.dir === 1 ? 'aOrbitCW' : 'aOrbitCCW'} ${r.dur}s linear infinite`,
           }}>
-            <div style={{
-              position: 'absolute',
-              [r.dotPos]: -(r.dotSz / 2 + 1), left: '50%', transform: 'translateX(-50%)',
-              width: r.dotSz, height: r.dotSz, borderRadius: '50%',
-              background: r.color,
-              boxShadow: `0 0 ${r.dotSz * 1.4}px ${r.dotSz * 0.7}px ${r.color}99`,
-            }} />
+            {/* Orbiting logo — counter-rotates so it stays upright */}
+            <div style={{ position: 'absolute', left: '50%', [r.dotPos]: 0, transform: 'translate(-50%,-50%)' }}>
+              <div style={{
+                animation: `${r.dir === 1 ? 'aOrbitCCW' : 'aOrbitCW'} ${r.dur}s linear infinite`,
+                filter: 'drop-shadow(0 0 6px rgba(255,107,26,0.55))', opacity: 0.92,
+              }}>
+                <SuntrikLogo width={46 - i * 7} />
+              </div>
+            </div>
           </div>
         ))}
+
+        {/* Suntrik logo at the centre — replaces the sun */}
+        <div style={{
+          position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+        }}>
+          <div style={{
+            position: 'absolute', width: 240, height: 240, borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(255,184,48,0.32) 0%, rgba(255,107,26,0.12) 45%, transparent 72%)',
+            filter: 'blur(14px)', animation: 'aSunPulse 5s ease-in-out infinite',
+          }} />
+          <div style={{ position: 'relative', filter: 'drop-shadow(0 0 18px rgba(255,107,26,0.45))' }}>
+            <SuntrikLogo width={160} />
+          </div>
+        </div>
       </motion.div>
 
       {/* Dot grid (masked to left side) */}
@@ -177,13 +201,26 @@ export default function About() {
               fontSize: '0.66rem', color: 'var(--text-muted)', fontWeight: 600,
               textTransform: 'uppercase', letterSpacing: '0.15em', marginBottom: '0.75rem',
             }}>Our Journey</h3>
-            <div style={{ position: 'relative', paddingLeft: '2rem' }}>
-              {/* Line */}
-              <div style={{
-                position: 'absolute', left: 0, top: 8, bottom: 8, width: 2,
-                background: 'linear-gradient(to bottom, #FF6B1A, #FFB830, rgba(255,184,48,0.1))',
-                borderRadius: 1,
-              }} />
+            <div ref={timelineRef} style={{ position: 'relative', paddingLeft: '2rem' }}>
+              {/* Self-drawing SVG timeline path */}
+              <svg
+                width="8" viewBox="0 0 8 100" preserveAspectRatio="none"
+                style={{ position: 'absolute', left: 0, top: 8, height: 'calc(100% - 16px)', overflow: 'visible' }}
+              >
+                <defs>
+                  <linearGradient id="tlGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%"   stopColor="#FF6B1A" />
+                    <stop offset="55%"  stopColor="#FFB830" />
+                    <stop offset="100%" stopColor="rgba(255,184,48,0.25)" />
+                  </linearGradient>
+                </defs>
+                {/* faint full track */}
+                <path d="M4 0 V100" stroke="rgba(255,184,48,0.12)" strokeWidth="2" fill="none"
+                  vectorEffect="non-scaling-stroke" strokeLinecap="round" />
+                {/* animated draw-in, tied to scroll */}
+                <motion.path d="M4 0 V100" stroke="url(#tlGrad)" strokeWidth="2.5" fill="none"
+                  vectorEffect="non-scaling-stroke" strokeLinecap="round" style={{ pathLength: drawLength }} />
+              </svg>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                 {MILESTONES.map((m, i) => (
                   <motion.div

@@ -11,7 +11,7 @@ import Services from './sections/Services'
 import Projects from './sections/Projects'
 import Stats from './sections/Stats'
 import WhyUs from './sections/WhyUs'
-import SavingsCalculator from './sections/SavingsCalculator'
+import Savings from './sections/Savings'
 import Testimonials from './sections/Testimonials'
 import Contact from './sections/Contact'
 import Footer from './components/Footer'
@@ -53,7 +53,7 @@ function HomePage() {
         <Projects />
         <Stats />
         <WhyUs />
-        <SavingsCalculator />
+        <Savings />
         <Testimonials />
         <Contact />
       </main>
