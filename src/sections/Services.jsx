@@ -4,6 +4,7 @@
  */
 
 import { useRef } from 'react'
+import { Link } from 'react-router-dom'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
 import TiltCard from '../components/ui/TiltCard'
@@ -393,7 +394,7 @@ export default function Services() {
             transition={{ duration: 0.6, delay: 0.5 }}
             style={{ textAlign: 'center', marginTop: '1.5rem' }}
           >
-            <a href="#contact" className="btn-primary">Request a Free Site Assessment →</a>
+            <Link to="/#contact" className="btn-primary">Request a Free Site Assessment →</Link>
           </motion.div>
         </div>
       </div>

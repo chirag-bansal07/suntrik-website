@@ -4,6 +4,7 @@
  */
 
 import { useRef } from 'react'
+import { Link } from 'react-router-dom'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
 
@@ -263,7 +264,7 @@ export default function WhyUs() {
           transition={{ duration: 0.6, delay: 0.55 }}
           style={{ textAlign: 'center', marginTop: '1.75rem' }}
         >
-          <a href="#contact" className="btn-primary">Get Your Free Assessment →</a>
+          <Link to="/#contact" className="btn-primary">Get Your Free Assessment →</Link>
         </motion.div>
       </div>
       <style>{`

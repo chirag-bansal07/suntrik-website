@@ -12,6 +12,7 @@
 import { useEffect, useRef } from 'react'
 import { gsap }          from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { Link } from 'react-router-dom'
 import Magnetic from '../components/ui/Magnetic'
 import CountUp  from '../components/ui/CountUp'
 
@@ -232,10 +233,10 @@ export default function Hero() {
             <div ref={btnsRef} style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginBottom: '3.25rem' }}>
               <Magnetic><a href="#services" className="btn-primary">Our Services</a></Magnetic>
               <Magnetic>
-                <a href="#contact" className="btn-outline"
+                <Link to="/#contact" className="btn-outline"
                   style={{ borderColor: 'rgba(255,255,255,0.3)', color: '#fff' }}>
                   Get Free Assessment
-                </a>
+                </Link>
               </Magnetic>
             </div>
 

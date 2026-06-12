@@ -34,11 +34,13 @@ function HomePage() {
       easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
     })
+    window.__lenis = lenis
     lenis.on('scroll', ScrollTrigger.update)
     gsap.ticker.add(time => lenis.raf(time * 1000))
     gsap.ticker.lagSmoothing(0)
     return () => {
       lenis.destroy()
+      window.__lenis = null
       gsap.ticker.remove(time => lenis.raf(time * 1000))
     }
   }, [])
@@ -63,8 +65,26 @@ function HomePage() {
 }
 
 function ScrollToTop() {
-  const { pathname } = useLocation()
-  useEffect(() => { window.scrollTo(0, 0) }, [pathname])
+  const { pathname, hash } = useLocation()
+  useEffect(() => {
+    if (!hash) { window.scrollTo(0, 0); return }
+    // Navigated to e.g. /#contact. The target may not exist yet if we just
+    // switched routes, so retry until it mounts, then scroll there. Use Lenis
+    // when present so smooth scroll doesn't fight a native jump.
+    const id = hash.slice(1)
+    let timer
+    const scrollToTarget = (attempts) => {
+      const el = document.getElementById(id)
+      if (el) {
+        if (window.__lenis) window.__lenis.scrollTo(el, { offset: -72 })
+        else el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      } else if (attempts > 0) {
+        timer = setTimeout(() => scrollToTarget(attempts - 1), 120)
+      }
+    }
+    timer = setTimeout(() => scrollToTarget(8), 80)
+    return () => clearTimeout(timer)
+  }, [pathname, hash])
   return null
 }
 

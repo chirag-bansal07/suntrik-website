@@ -6,7 +6,7 @@ import SuntrikLogo from './SuntrikLogo'
 const HOME_LINKS = [
   { label: 'About',    href: '#about'    },
   { label: 'Services', href: '#services' },
-  { label: 'Projects', href: '#projects' },
+  { label: 'Projects', to: '/projects'   },
   { label: 'Savings',  href: '#savings'  },
   { label: 'Contact',  href: '#contact'  },
 ]
@@ -33,7 +33,7 @@ export default function Navbar({ page = false }) {
   /* ── active section tracker (homepage only) ───────────── */
   useEffect(() => {
     if (page) return
-    const sections = HOME_LINKS.map(l => document.querySelector(l.href))
+    const sections = HOME_LINKS.filter(l => l.href).map(l => document.querySelector(l.href))
     const io = new IntersectionObserver(
       entries => { entries.forEach(e => { if (e.isIntersecting) setActiveLink('#' + e.target.id) }) },
       { threshold: 0.25, rootMargin: '-60px 0px -60px 0px' },
@@ -89,27 +89,30 @@ export default function Navbar({ page = false }) {
               }}
             />
 
-            {/* Home anchor links */}
+            {/* Home links (anchors) + route links (e.g. Projects) */}
             {HOME_LINKS.map(l => {
-              const isActive  = activeLink === l.href
-              const isHovered = hovered   === l.href
+              const target    = l.href || l.to
+              const isActive  = !!l.href && activeLink === l.href
+              const isHovered = hovered === target
+              const linkStyle = {
+                display: 'block', padding: '0.45rem 1rem',
+                fontSize: '0.875rem', fontWeight: 500,
+                color: isActive ? 'var(--brand-orange)' : isHovered ? '#fff' : 'rgba(255,255,255,0.65)',
+                textDecoration: 'none', borderRadius: 8,
+                background: isHovered ? 'rgba(255,107,26,0.1)' : 'transparent',
+                transition: 'color 0.18s, background 0.18s',
+              }
               return (
                 <li key={l.label} style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                  <a
-                    href={page ? '/' + l.href : l.href}
-                    onMouseEnter={() => setHovered(l.href)}
-                    onMouseLeave={() => setHovered(null)}
-                    style={{
-                      display: 'block', padding: '0.45rem 1rem',
-                      fontSize: '0.875rem', fontWeight: 500,
-                      color: isActive ? 'var(--brand-orange)' : isHovered ? '#fff' : 'rgba(255,255,255,0.65)',
-                      textDecoration: 'none', borderRadius: 8,
-                      background: isHovered ? 'rgba(255,107,26,0.1)' : 'transparent',
-                      transition: 'color 0.18s, background 0.18s',
-                    }}
-                  >
-                    {l.label}
-                  </a>
+                  {l.to ? (
+                    <Link to={l.to} onMouseEnter={() => setHovered(target)} onMouseLeave={() => setHovered(null)} style={linkStyle}>
+                      {l.label}
+                    </Link>
+                  ) : (
+                    <a href={page ? '/' + l.href : l.href} onMouseEnter={() => setHovered(target)} onMouseLeave={() => setHovered(null)} style={linkStyle}>
+                      {l.label}
+                    </a>
+                  )}
                   {isActive && (
                     <motion.span layoutId="activeUnderline"
                       style={{ position: 'absolute', bottom: -2, left: '20%', right: '20%', height: 2, borderRadius: 1, background: 'var(--gradient-sun)', display: 'block' }}
@@ -147,15 +150,13 @@ export default function Navbar({ page = false }) {
 
           {/* ── CTA button (right) ───────────────────────── */}
           <div className="desktop-nav" style={{ display: 'flex', justifyContent: 'flex-end' }}>
-            <motion.a
-              href="#contact"
+            <Link
+              to="/#contact"
               className="btn-primary"
               style={{ padding: '0.5rem 1.25rem', fontSize: '0.8rem', fontWeight: 600, whiteSpace: 'nowrap' }}
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.97 }}
             >
               Free Assessment
-            </motion.a>
+            </Link>
           </div>
 
           {/* ── Hamburger (mobile) ───────────────────────── */}
@@ -202,25 +203,29 @@ export default function Navbar({ page = false }) {
               padding: '1rem 1.75rem 1.75rem',
             }}
           >
-            {HOME_LINKS.map((l, i) => (
-              <motion.a
-                key={l.label}
-                href={page ? '/' + l.href : l.href}
-                onClick={() => setOpen(false)}
-                initial={{ opacity: 0, x: -12 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.055 }}
-                style={{
-                  display: 'block', padding: '0.9rem 0',
-                  fontSize: '1.05rem', fontWeight: 600,
-                  borderBottom: '1px solid rgba(255,255,255,0.05)',
-                  color: activeLink === l.href ? 'var(--brand-orange)' : 'var(--text-primary)',
-                  textDecoration: 'none',
-                }}
-              >
-                {l.label}
-              </motion.a>
-            ))}
+            {HOME_LINKS.map((l, i) => {
+              const mobileStyle = {
+                display: 'block', padding: '0.9rem 0',
+                fontSize: '1.05rem', fontWeight: 600,
+                borderBottom: '1px solid rgba(255,255,255,0.05)',
+                color: (!!l.href && activeLink === l.href) ? 'var(--brand-orange)' : 'var(--text-primary)',
+                textDecoration: 'none',
+              }
+              return (
+                <motion.div
+                  key={l.label}
+                  initial={{ opacity: 0, x: -12 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.055 }}
+                >
+                  {l.to ? (
+                    <Link to={l.to} onClick={() => setOpen(false)} style={mobileStyle}>{l.label}</Link>
+                  ) : (
+                    <a href={page ? '/' + l.href : l.href} onClick={() => setOpen(false)} style={mobileStyle}>{l.label}</a>
+                  )}
+                </motion.div>
+              )
+            })}
             {/* Schemes links in mobile drawer */}
             {SCHEME_LINKS.map((s, i) => (
               <Link key={s.to} to={s.to}
@@ -235,15 +240,19 @@ export default function Navbar({ page = false }) {
                 {s.label}
               </Link>
             ))}
-            <motion.a
-              href="#contact"
-              className="btn-primary"
-              onClick={() => setOpen(false)}
+            <motion.div
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.38 }}
-              style={{ marginTop: '1.25rem', display: 'block', textAlign: 'center' }}
+              style={{ marginTop: '1.25rem' }}
             >
-              Free Assessment →
-            </motion.a>
+              <Link
+                to="/#contact"
+                className="btn-primary"
+                onClick={() => setOpen(false)}
+                style={{ display: 'block', textAlign: 'center' }}
+              >
+                Free Assessment →
+              </Link>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

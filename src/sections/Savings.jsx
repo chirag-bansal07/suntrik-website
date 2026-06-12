@@ -5,6 +5,7 @@
  */
 
 import { useState, useRef } from 'react'
+import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
 
@@ -268,9 +269,9 @@ export default function Savings() {
           <p style={{ color: 'var(--text-secondary)', marginBottom: '1.25rem', fontSize: '0.88rem' }}>
             Get a site-specific savings estimate from our engineers — completely free.
           </p>
-          <a href="#contact" className="btn-primary">
+          <Link to="/#contact" className="btn-primary">
             Get My Free Savings Report →
-          </a>
+          </Link>
         </motion.div>
       </div>
 
