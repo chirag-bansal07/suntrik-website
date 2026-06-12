@@ -87,7 +87,7 @@ export default function SuryaGharPage() {
               <span style={{ fontSize: '0.7rem', color: 'var(--brand-orange)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.18em', display: 'block', marginBottom: '0.75rem' }}>About the Scheme</span>
               <h2 style={{ fontSize: 'clamp(1.4rem, 3vw, 2rem)', fontWeight: 800, marginBottom: '1rem', lineHeight: 1.2 }}>What is PM Surya Ghar?</h2>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, marginBottom: '1rem', fontSize: '0.9rem' }}>
-                Launched in February 2024 with a ₹75,021 crore outlay, PM Surya Ghar Muft Bijli Yojana targets 1 crore Indian households for rooftop solar by 2027. It is the Government of India's largest residential solar initiative.
+                Launched on 13 February 2024 with a ₹75,021 crore outlay, PM Surya Ghar Muft Bijli Yojana targets 1 crore Indian households for rooftop solar by March 2027. It is the world's largest domestic rooftop solar programme.
               </p>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '0.9rem', marginBottom: '1rem' }}>
                 The scheme provides a direct central subsidy of up to ₹78,000 credited to the homeowner's bank account after a grid-tied solar system is installed and commissioned. Combined with net-metering, most households achieve near-zero electricity bills.

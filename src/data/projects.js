@@ -15,7 +15,7 @@ export const PROJECTS = [
     ],
     img: null,
     typeColor: '#10B981',
-    subsidy: '90%',
+    subsidy: '60%',
   },
   {
     id: 2,
@@ -61,11 +61,11 @@ export const PROJECTS = [
     capacity: '35 kWp',
     type: 'PM-KUSUM',
     year: '2023',
-    desc: 'Component B installation replacing diesel irrigation pumps for 8 farmer families. 100% elimination of irrigation electricity cost. HAREDA and state subsidy of 90% availed.',
-    highlights: ['8 solar pump installations', '90% subsidy availed', 'Zero irrigation cost achieved', 'Diesel pump replacement'],
+    desc: 'Component B installation replacing diesel irrigation pumps for 8 farmer families. 100% elimination of irrigation electricity cost. Central (30%) and state (30%) subsidy availed.',
+    highlights: ['8 solar pump installations', 'Central + state subsidy availed', 'Zero irrigation cost achieved', 'Diesel pump replacement'],
     img: null,
     typeColor: '#10B981',
-    subsidy: '90%',
+    subsidy: '60%',
   },
   {
     id: 6,

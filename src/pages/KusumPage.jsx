@@ -9,22 +9,22 @@ const KUSUM_PROJECTS = PROJECTS.filter(p => p.type === 'PM-KUSUM')
 
 const COMPONENTS = [
   {
-    id: 'A', label: 'Component A', title: 'Solarisation of Grid-Connected Agriculture Pumps',
+    id: 'A', label: 'Component A', title: 'Decentralized Grid-Connected Solar Power Plants',
     color: '#10B981', icon: '⚡',
-    desc: 'Solarisation of existing grid-connected agriculture pumps. Farmers can sell surplus solar power to the DISCOM and earn additional income beyond irrigation needs.',
-    points: ['Capacity: Up to 2 MW per project', 'Individual farmers or groups eligible', 'Power sold at APPC rate to DISCOM', 'No capital expenditure from farmer'],
+    desc: 'Farmers, cooperatives, panchayats and FPOs set up ground- or stilt-mounted solar power plants on barren or cultivable land and sell the power to the DISCOM.',
+    points: ['10,000 MW national target', 'Plant size: 500 kW to 2 MW', 'Power sold to the DISCOM', 'Income from otherwise barren land'],
   },
   {
-    id: 'B', label: 'Component B', title: 'Standalone Off-Grid Solar Pumps',
+    id: 'B', label: 'Component B', title: 'Standalone Solar Agriculture Pumps',
     color: '#FF6B1A', icon: '🌱',
-    desc: 'Installation of standalone solar agriculture pumps for farmers who do not have grid connection. Replaces diesel pumps entirely — zero fuel cost, zero electricity bill for irrigation.',
-    points: ['Pump capacity: 0.5 HP to 7.5 HP', '90% subsidy (central + state combined)', 'No grid connection required', 'Diesel pump replacement program'],
+    desc: 'Installation of standalone solar agriculture pumps for farmers without a grid connection — replacing diesel pumps with zero fuel cost and zero electricity bill for irrigation.',
+    points: ['14 lakh pumps targeted nationally', 'Pump capacity up to 7.5 HP', '30% central + at least 30% state subsidy', 'Farmer pays only 10% upfront after loan'],
   },
   {
-    id: 'C', label: 'Component C', title: 'Solarisation of Grid-Connected Pump Sets',
+    id: 'C', label: 'Component C', title: 'Solarisation of Grid-Connected Pumps',
     color: '#3B82F6', icon: '🔋',
-    desc: 'Solarisation of existing grid-connected pump sets by installing solar panels alongside. Farmers use solar power first, draw from grid only when needed, and sell surplus back.',
-    points: ['Individual farmer scheme', 'Pump capacity up to 7.5 HP', 'Net-metering with DISCOM', 'Central financial assistance available'],
+    desc: 'Solarisation of existing grid-connected pumps individually (IPS) or by solarising the whole agriculture feeder (FLS). Farmers use solar by day and feed surplus to the DISCOM.',
+    points: ['35 lakh grid-connected pumps targeted', 'Individual (IPS) & Feeder Level (FLS)', 'Net-metering with the DISCOM', '30% central financial assistance'],
   },
 ]
 
@@ -34,12 +34,12 @@ const STEPS = [
   { n: '03', title: 'HAREDA Sanction', desc: 'We follow up with HAREDA and the State Nodal Agency to obtain the official sanction letter — typically within 3–4 weeks of submission.' },
   { n: '04', title: 'Turnkey Installation', desc: 'Suntrik\'s NISE-certified team installs the complete system: modules, inverters, mounting, cabling, and pump controller. MNRE Tier-1 components only.' },
   { n: '05', title: 'DISCOM Inspection & Commissioning', desc: 'We coordinate the DISCOM inspection, net-metering connection (Component A/C), and official commissioning certificate.' },
-  { n: '06', title: 'Subsidy Disbursement', desc: 'Suntrik tracks and coordinates the subsidy disbursement from HAREDA/MNRE directly to your account. The 90% benefit is yours without any follow-up from your side.' },
+  { n: '06', title: 'Subsidy Disbursement', desc: 'Suntrik tracks and coordinates the subsidy disbursement from HAREDA/MNRE directly to your account. Your full subsidy benefit is credited without any follow-up from your side.' },
 ]
 
 const FAQS = [
   { q: 'Who is eligible for PM-KUSUM Component B?', a: 'Any farmer with agricultural land (minimum 0.5 acres) who wants to replace their diesel pump or install a new solar pump. No existing electricity connection required.' },
-  { q: 'What is the actual cost to the farmer after subsidy?', a: 'Under Component B, the combined central and state subsidy covers 90% of the benchmark cost. A farmer typically pays only 10% — for a 5 HP pump this works out to approximately ₹15,000–25,000.' },
+  { q: 'What is the actual cost to the farmer after subsidy?', a: 'Under Component B, the Centre provides 30% Central Financial Assistance and the State at least 30%. The farmer\'s 40% share can be cut to just 10% upfront with bank finance for the remaining 30% — about ₹24,000 upfront on a ₹2.4 lakh 5 HP pump.' },
   { q: 'How long does the entire process take?', a: 'From application to system commissioning, Suntrik\'s process typically takes 45–60 days. HAREDA sanction takes 3–4 weeks; installation takes 5–7 days once approved.' },
   { q: 'Does Suntrik handle all the paperwork?', a: 'Yes. Suntrik manages the complete process — portal registration, DPR, HAREDA coordination, installation, DISCOM inspection, and subsidy disbursement. You only need to provide documents once.' },
   { q: 'Is maintenance covered after installation?', a: 'All Suntrik PM-KUSUM installations come with a 5-year comprehensive AMC covering preventive maintenance, part replacement, and remote monitoring. Module warranty is 25 years.' },
@@ -68,10 +68,10 @@ export default function KusumPage() {
             <span style={{ background: 'linear-gradient(90deg, #10B981, #34D399)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Solar Power for Every Farmer</span>
           </h1>
           <p style={{ color: 'var(--text-secondary)', maxWidth: 620, lineHeight: 1.85, fontSize: '1rem', marginBottom: '2rem' }}>
-            Pradhan Mantri Kisan Urja Suraksha evam Utthaan Mahabhiyan (PM-KUSUM) is India's flagship scheme to solarise agriculture. Eligible farmers get up to <strong style={{ color: '#10B981' }}>90% subsidy</strong> on solar pump installation — Suntrik handles everything from application to commissioning.
+            Pradhan Mantri Kisan Urja Suraksha evam Utthaan Mahabhiyan (PM-KUSUM) is India's flagship scheme to solarise agriculture, targeting <strong style={{ color: '#10B981' }}>34,800 MW</strong> of solar capacity by March 2026. Under Component-B, the Centre gives 30% and the State at least 30% — with bank finance the farmer initially pays only <strong style={{ color: '#10B981' }}>10%</strong>. Suntrik handles everything from application to commissioning.
           </p>
           <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', marginBottom: '2.5rem' }}>
-            {[{ v: '90%', l: 'Subsidy for Farmers' }, { v: '3.5 GW', l: 'National Target' }, { v: '2023', l: 'HAREDA Empanelled' }, { v: '100%', l: 'Approval Rate' }].map(s => (
+            {[{ v: '34,800 MW', l: 'Target by March 2026' }, { v: '₹34,422 Cr', l: 'Central Outlay' }, { v: '30% + 30%', l: 'Centre + State Subsidy' }, { v: '10%', l: 'Farmer Pays (after loan)' }].map(s => (
               <div key={s.l} style={{ textAlign: 'center', padding: '0.85rem 1.25rem', background: 'rgba(16,185,129,0.07)', border: '1px solid rgba(16,185,129,0.18)', borderRadius: 10 }}>
                 <div style={{ fontFamily: 'Space Grotesk', fontWeight: 900, fontSize: '1.6rem', color: '#10B981', lineHeight: 1 }}>{s.v}</div>
                 <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', marginTop: 4 }}>{s.l}</div>
@@ -93,7 +93,7 @@ export default function KusumPage() {
               <span style={{ fontSize: '0.7rem', color: '#10B981', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.18em', display: 'block', marginBottom: '0.75rem' }}>About the Scheme</span>
               <h2 style={{ fontSize: 'clamp(1.4rem, 3vw, 2rem)', fontWeight: 800, marginBottom: '1rem', lineHeight: 1.2 }}>What is PM-KUSUM?</h2>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, marginBottom: '1rem', fontSize: '0.9rem' }}>
-                Launched in 2019 by the Ministry of New and Renewable Energy (MNRE), PM-KUSUM aims to add 30.8 GW of solar capacity through three components targeting farmers, irrigation pumps, and agricultural feeders.
+                Launched in 2019 by the Ministry of New and Renewable Energy (MNRE), PM-KUSUM aims to add 34,800 MW of solar capacity by March 2026, with central financial support of ₹34,422 crore, through three components targeting farmers, irrigation pumps, and agricultural feeders.
               </p>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '0.9rem' }}>
                 In Haryana, the scheme is implemented through <strong style={{ color: 'var(--text-primary)' }}>HAREDA (Haryana Renewable Energy Development Agency)</strong>. Suntrik is HAREDA-empanelled, meaning we are an officially approved installer authorised to execute PM-KUSUM projects with full subsidy eligibility.
@@ -101,10 +101,10 @@ export default function KusumPage() {
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.85rem' }}>
               {[
-                { icon: '🌾', title: '25 lakh farmers', desc: 'National target for solar pump beneficiaries' },
-                { icon: '⚡', title: '30.8 GW', desc: 'Total solar capacity target under PM-KUSUM' },
-                { icon: '💰', title: '₹34,000 Cr', desc: 'Central government financial outlay' },
-                { icon: '✓', title: 'MNRE Approved', desc: 'Only MNRE-empanelled installers can execute' },
+                { icon: '⚡', title: '34,800 MW', desc: 'Solar capacity target by March 2026' },
+                { icon: '💰', title: '₹34,422 Cr', desc: 'Total central financial support' },
+                { icon: '🌱', title: '14 Lakh', desc: 'Standalone solar pumps (Component B)' },
+                { icon: '🔋', title: '35 Lakh', desc: 'Grid-connected pumps (Component C)' },
               ].map(c => (
                 <div key={c.title} style={{ padding: '1.1rem', background: 'rgba(16,185,129,0.05)', border: '1px solid rgba(16,185,129,0.12)', borderRadius: 10 }}>
                   <div style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>{c.icon}</div>
@@ -154,13 +154,13 @@ export default function KusumPage() {
             <div>
               <h2 style={{ fontSize: 'clamp(1.4rem, 3vw, 2rem)', fontWeight: 800, marginBottom: '0.75rem' }}>Subsidy Structure</h2>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.8, marginBottom: '1.5rem', fontSize: '0.9rem' }}>
-                Under Component B (the most popular — standalone solar pumps), the combined central and state subsidy covers 90% of the benchmark cost set by MNRE. The farmer contributes only 10%.
+                Under Component B (standalone solar pumps), the Centre provides 30% Central Financial Assistance — 50% in special-category regions — and the State adds at least 30%. The farmer&apos;s 40% share drops to just 10% upfront, with bank finance for the remaining 30%.
               </p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                 {[
-                  { label: 'Central Government Subsidy', pct: 60, color: '#10B981' },
-                  { label: 'State Government Subsidy (Haryana)', pct: 30, color: '#3B82F6' },
-                  { label: 'Farmer Contribution', pct: 10, color: '#FF6B1A' },
+                  { label: 'Central Financial Assistance', pct: 30, color: '#10B981' },
+                  { label: 'State Government Subsidy', pct: 30, color: '#3B82F6' },
+                  { label: 'Farmer Share (10% upfront + 30% loan)', pct: 40, color: '#FF6B1A' },
                 ].map(s => (
                   <div key={s.label}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.3rem' }}>
@@ -178,10 +178,10 @@ export default function KusumPage() {
               <h3 style={{ fontFamily: 'Space Grotesk', fontWeight: 700, fontSize: '1rem', marginBottom: '1rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Sample Cost Breakdown (5 HP Pump)</h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
                 {[
-                  { label: 'Benchmark Cost (MNRE)', value: '₹2,40,000', note: 'Fixed by MNRE for 5 HP' },
-                  { label: 'Central Subsidy (60%)', value: '− ₹1,44,000', color: '#10B981' },
+                  { label: 'Benchmark Cost (5 HP, indicative)', value: '₹2,40,000', note: 'MNRE benchmark — varies by capacity' },
+                  { label: 'Central CFA (30%)', value: '− ₹72,000', color: '#10B981' },
                   { label: 'State Subsidy (30%)', value: '− ₹72,000', color: '#3B82F6' },
-                  { label: 'Farmer Pays (10%)', value: '₹24,000', color: '#FF6B1A', bold: true },
+                  { label: 'Farmer Upfront (10%)', value: '₹24,000', color: '#FF6B1A', bold: true },
                 ].map(r => (
                   <div key={r.label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.75rem 1rem', background: r.bold ? 'rgba(255,107,26,0.08)' : 'rgba(255,255,255,0.03)', border: `1px solid ${r.bold ? 'rgba(255,107,26,0.2)' : 'rgba(255,255,255,0.06)'}`, borderRadius: 8 }}>
                     <span style={{ fontSize: '0.82rem', color: 'var(--text-secondary)' }}>{r.label}</span>
