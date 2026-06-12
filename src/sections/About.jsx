@@ -121,7 +121,7 @@ export default function About() {
             fontSize: 'clamp(1.7rem, 3.5vw, 2.8rem)',
             lineHeight: 1.09, fontWeight: 900, marginBottom: '0.75rem',
           }}>
-            North India's Trusted<br />
+            India's Most Trusted<br />
             <span className="gradient-text">Solar EPC Partner</span>
           </h2>
 
