@@ -14,8 +14,8 @@ const MILESTONES = [
   { year: '2018', event: 'Founded as Suntrik Solutions — Solar EPC for residential & commercial segments' },
   { year: '2019', event: 'Expanded into Industrial Solar EPC; large factory & warehouse rooftops' },
   { year: '2021', event: 'First MW commissioned; launched SunMount — in-house mounting structure manufacturing' },
-  { year: '2023', event: 'Launched Solar One Energy (distribution arm); PM-KUSUM & HAREDA empanelment' },
-  { year: '2024', event: 'Incorporated as Suntrik Green Energy Pvt. Ltd.; Bajekan manufacturing plant operational' },
+  { year: '2023', event: 'Launched Solar One Energy (distribution arm)' },
+  { year: '2024', event: 'Incorporated as Suntrik Green Energy Pvt. Ltd.; PM-KUSUM & HAREDA empanelment' },
   { year: '2025', event: '80 MWp PM-KUSUM orders under execution across Rajasthan & Haryana — active order book ₹150 Cr+' },
 ]
 
