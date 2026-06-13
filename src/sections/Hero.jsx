@@ -1,15 +1,14 @@
 /**
- * Hero — Pre-extracted frame playback
+ * Hero — Pre-extracted frame playback (desktop) / static poster (mobile).
  *
- * Frames live in public/hero-frames/ (generated once via `npm run extract-frames`).
- * On page load we fetch manifest.json to know the count, then preload all
- * JPEG images in parallel.  During scroll, ctx.drawImage(frames[idx]) is
- * called — a synchronous GPU blit, zero seek latency, 1 unique frame per tick.
- *
- * No in-browser extraction, no "Preparing experience" on every reload.
+ * On desktop we fetch manifest.json, preload the JPEG frames and scrub them on a
+ * pinned canvas during scroll. On phones that approach decodes ~190 full-res
+ * JPEGs into memory at once and crashes mobile Safari, so small screens get a
+ * single static poster image with the text overlaid — no canvas, no pin, no
+ * frame loading.
  */
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { gsap }          from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Link } from 'react-router-dom'
@@ -20,6 +19,7 @@ gsap.registerPlugin(ScrollTrigger)
 
 // ── Constants ──────────────────────────────────────────────────────────────
 const FRAMES_PATH = '/hero-frames'
+const POSTER = `${FRAMES_PATH}/frame-0001.jpg`
 
 // ── Helpers ────────────────────────────────────────────────────────────────
 function drawCover(ctx, img, cw, ch) {
@@ -34,6 +34,10 @@ function drawCover(ctx, img, cw, ch) {
 }
 
 export default function Hero() {
+  // Decide once, synchronously, so phones never mount the canvas / load frames.
+  const [isMobile] = useState(() =>
+    typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches)
+
   const wrapperRef = useRef(null)
   const canvasRef  = useRef(null)
   const framesRef  = useRef([])
@@ -46,6 +50,8 @@ export default function Hero() {
   const statsRef = useRef(null)
 
   useEffect(() => {
+    if (isMobile) return  // mobile uses the static poster — no canvas/frames/pin
+
     const canvas  = canvasRef.current
     const ctx     = canvas?.getContext('2d')
     const wrapper = wrapperRef.current
@@ -158,60 +164,77 @@ export default function Hero() {
       gc.revert()
       window.removeEventListener('resize', syncSize)
     }
-  }, [])
+  }, [isMobile])
 
   // ════════════════════════════════════════════════════════════════════
   // JSX
   // ════════════════════════════════════════════════════════════════════
+  const textWrapperStyle = isMobile
+    ? { position: 'relative', zIndex: 2, width: '100%', padding: '7rem 1.5rem 4rem' }
+    : { position: 'absolute', inset: 0, zIndex: 2, display: 'flex', alignItems: 'center', padding: '0 2rem' }
+
   return (
     <section
       id="hero"
       ref={wrapperRef}
-      style={{ position: 'relative', width: '100%', height: '100vh', overflow: 'hidden', background: '#060A0F' }}
+      style={{
+        position: 'relative', width: '100%',
+        minHeight: '100vh', height: isMobile ? 'auto' : '100vh',
+        overflow: 'hidden', background: '#060A0F',
+        display: isMobile ? 'flex' : 'block', alignItems: 'center',
+      }}
     >
-      {/* ── Canvas — each scroll tick draws one pre-extracted frame ──── */}
-      <canvas
-        ref={canvasRef}
-        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', zIndex: 0 }}
-      />
+      {/* ── Background: canvas (desktop) or static poster (mobile) ──── */}
+      {isMobile ? (
+        <div style={{
+          position: 'absolute', inset: 0, zIndex: 0,
+          backgroundImage: `url(${POSTER})`, backgroundSize: 'cover', backgroundPosition: 'center',
+        }} />
+      ) : (
+        <canvas
+          ref={canvasRef}
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', zIndex: 0 }}
+        />
+      )}
 
       {/* ── Gradient overlay ─────────────────────────────────────────── */}
       <div style={{
         position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none',
-        background: 'linear-gradient(118deg, rgba(6,10,15,0.80) 0%, rgba(6,10,15,0.25) 55%, rgba(6,10,15,0.55) 100%)',
+        background: isMobile
+          ? 'linear-gradient(160deg, rgba(6,10,15,0.88) 0%, rgba(6,10,15,0.6) 55%, rgba(6,10,15,0.82) 100%)'
+          : 'linear-gradient(118deg, rgba(6,10,15,0.80) 0%, rgba(6,10,15,0.25) 55%, rgba(6,10,15,0.55) 100%)',
       }} />
 
-      {/* ── Scroll hint ──────────────────────────────────────────────── */}
-      <div style={{
-        position: 'absolute', bottom: '2.5rem', left: '50%',
-        transform: 'translateX(-50%)', zIndex: 3,
-        display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.4rem',
-        pointerEvents: 'none',
-      }}>
-        <span style={{ fontSize: '0.62rem', letterSpacing: '0.28em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)' }}>
-          Scroll
-        </span>
+      {/* ── Scroll hint (desktop only) ───────────────────────────────── */}
+      {!isMobile && (
         <div style={{
-          width: '1px', height: '48px',
-          background: 'linear-gradient(to bottom, rgba(255,107,26,0.9), transparent)',
-          animation: 'scrollPulse 1.9s ease-in-out infinite',
-        }} />
-      </div>
+          position: 'absolute', bottom: '2.5rem', left: '50%',
+          transform: 'translateX(-50%)', zIndex: 3,
+          display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.4rem',
+          pointerEvents: 'none',
+        }}>
+          <span style={{ fontSize: '0.62rem', letterSpacing: '0.28em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)' }}>
+            Scroll
+          </span>
+          <div style={{
+            width: '1px', height: '48px',
+            background: 'linear-gradient(to bottom, rgba(255,107,26,0.9), transparent)',
+            animation: 'scrollPulse 1.9s ease-in-out infinite',
+          }} />
+        </div>
+      )}
 
       {/* ── Text block ───────────────────────────────────────────────── */}
-      <div style={{
-        position: 'absolute', inset: 0, zIndex: 2,
-        display: 'flex', alignItems: 'center', padding: '0 2rem',
-      }}>
+      <div style={textWrapperStyle}>
         <div style={{ maxWidth: 1320, margin: '0 auto', width: '100%' }}>
           <div style={{ maxWidth: 700 }}>
 
             <div ref={tagRef} className="section-tag" style={{ marginBottom: '1.1rem' }}>
-              Solar EPC Company · North India
+              Solar EPC Company · India
             </div>
 
             <h1 ref={h1Ref} style={{
-              fontSize: 'clamp(2.8rem, 6.5vw, 5.2rem)',
+              fontSize: 'clamp(2.3rem, 6.5vw, 5.2rem)',
               lineHeight: 1.06, marginBottom: '1.4rem',
               color: '#fff', textShadow: '0 2px 40px rgba(0,0,0,0.45)',
             }}>
@@ -220,17 +243,17 @@ export default function Hero() {
             </h1>
 
             <p ref={subRef} style={{
-              fontSize: 'clamp(1rem, 1.75vw, 1.15rem)',
+              fontSize: 'clamp(0.95rem, 1.75vw, 1.15rem)',
               color: 'rgba(240,244,255,0.8)', lineHeight: 1.8,
-              maxWidth: 540, marginBottom: '2.2rem',
+              maxWidth: 540, marginBottom: isMobile ? '1.75rem' : '2.2rem',
               textShadow: '0 1px 12px rgba(0,0,0,0.4)',
             }}>
               Suntrik delivers end-to-end solar EPC — site survey, engineering
               design, turnkey installation, and lifetime O&amp;M — across
-              Haryana and North India.
+              India.
             </p>
 
-            <div ref={btnsRef} style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginBottom: '3.25rem' }}>
+            <div ref={btnsRef} style={{ display: 'flex', gap: '0.85rem', flexWrap: 'wrap', marginBottom: isMobile ? '2.25rem' : '3.25rem' }}>
               <Magnetic><a href="#services" className="btn-primary">Our Services</a></Magnetic>
               <Magnetic>
                 <Link to="/#contact" className="btn-outline"
@@ -241,7 +264,7 @@ export default function Hero() {
             </div>
 
             <div ref={statsRef} style={{
-              display: 'flex', gap: '2.5rem', flexWrap: 'wrap',
+              display: 'flex', gap: isMobile ? '1.1rem 1.75rem' : '2.5rem', flexWrap: 'wrap',
               paddingTop: '1.75rem', borderTop: '1px solid rgba(255,255,255,0.1)',
             }}>
               {[

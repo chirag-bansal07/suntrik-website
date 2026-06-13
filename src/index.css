@@ -45,7 +45,7 @@
 }
 
 *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; background: var(--bg-deep); }
+html { scroll-behavior: smooth; background: var(--bg-deep); overflow-x: hidden; max-width: 100%; }
 body {
   font-family: 'Inter', sans-serif;
   font-weight: 400;
