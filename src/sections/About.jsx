@@ -164,7 +164,7 @@ export default function About() {
                 { to: 8,    suffix: '+',   l: 'Years Experience',   s: 'Solar EPC since 2018' },
                 { to: 1000, suffix: '+',   l: 'Happy Clients',      s: 'Homes, farms & industries' },
                 { to: 150,  suffix: 'MW+', l: 'Capacity Installed', s: 'Cumulative across India' },
-                { to: 25,   suffix: ' Yr', l: 'Panel Warranty',    s: 'Tier-1 linear output guarantee' },
+                { to: 5,    suffix: ' Yr', l: 'AMC Coverage',       s: '2 Yr C&I · 5 Yr Residential' },
               ].map(s => (
                 <div key={s.l} style={{
                   padding: '0.75rem 0.9rem', borderRadius: 10,

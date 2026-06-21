@@ -11,20 +11,14 @@ const COMPONENTS = [
   {
     id: 'A', label: 'Component A', title: 'Decentralized Grid-Connected Solar Power Plants',
     color: '#10B981', icon: '⚡',
-    desc: 'Farmers, cooperatives, panchayats and FPOs set up ground- or stilt-mounted solar power plants on barren or cultivable land and sell the power to the DISCOM.',
-    points: ['10,000 MW national target', 'Plant size: 500 kW to 2 MW', 'Power sold to the DISCOM', 'Income from otherwise barren land'],
-  },
-  {
-    id: 'B', label: 'Component B', title: 'Standalone Solar Agriculture Pumps',
-    color: '#FF6B1A', icon: '🌱',
-    desc: 'Installation of standalone solar agriculture pumps for farmers without a grid connection — replacing diesel pumps with zero fuel cost and zero electricity bill for irrigation.',
-    points: ['14 lakh pumps targeted nationally', 'Pump capacity up to 7.5 HP', '30% central + at least 30% state subsidy', 'Farmer pays only 10% upfront after loan'],
+    desc: 'Farmers, cooperatives, panchayats and FPOs set up ground- or stilt-mounted solar power plants on barren or cultivable land and sell the power to the DISCOM at a fixed tariff.',
+    points: ['10,000 MW national target', 'Plant size: 500 kW to 2 MW', 'Power sold to the DISCOM at fixed tariff', 'Income from otherwise barren / cultivable land'],
   },
   {
     id: 'C', label: 'Component C', title: 'Solarisation of Grid-Connected Pumps',
     color: '#3B82F6', icon: '🔋',
     desc: 'Solarisation of existing grid-connected pumps individually (IPS) or by solarising the whole agriculture feeder (FLS). Farmers use solar by day and feed surplus to the DISCOM.',
-    points: ['35 lakh grid-connected pumps targeted', 'Individual (IPS) & Feeder Level (FLS)', 'Net-metering with the DISCOM', '30% central financial assistance'],
+    points: ['35 lakh grid-connected pumps targeted', 'Individual (IPS) & Feeder Level (FLS)', 'Net-metering — sell surplus to the DISCOM', '30% central financial assistance'],
   },
 ]
 
@@ -33,16 +27,17 @@ const STEPS = [
   { n: '02', title: 'DPR Preparation & Submission', desc: 'Our engineers prepare the Detailed Project Report — site survey, load calculation, single-line diagram, and equipment specifications per MNRE norms.' },
   { n: '03', title: 'HAREDA Sanction', desc: 'We follow up with HAREDA and the State Nodal Agency to obtain the official sanction letter — typically within 3–4 weeks of submission.' },
   { n: '04', title: 'Turnkey Installation', desc: 'Suntrik\'s NISE-certified team installs the complete system: modules, inverters, mounting, cabling, and pump controller. MNRE Tier-1 components only.' },
-  { n: '05', title: 'DISCOM Inspection & Commissioning', desc: 'We coordinate the DISCOM inspection, net-metering connection (Component A/C), and official commissioning certificate.' },
+  { n: '05', title: 'DISCOM Inspection & Commissioning', desc: 'We coordinate the DISCOM inspection, net-metering / PPA connection, and official commissioning certificate.' },
   { n: '06', title: 'Subsidy Disbursement', desc: 'Suntrik tracks and coordinates the subsidy disbursement from HAREDA/MNRE directly to your account. Your full subsidy benefit is credited without any follow-up from your side.' },
 ]
 
 const FAQS = [
-  { q: 'Who is eligible for PM-KUSUM Component B?', a: 'Any farmer with agricultural land (minimum 0.5 acres) who wants to replace their diesel pump or install a new solar pump. No existing electricity connection required.' },
-  { q: 'What is the actual cost to the farmer after subsidy?', a: 'Under Component B, the Centre provides 30% Central Financial Assistance and the State at least 30%. The farmer\'s 40% share can be cut to just 10% upfront with bank finance for the remaining 30% — about ₹24,000 upfront on a ₹2.4 lakh 5 HP pump.' },
-  { q: 'How long does the entire process take?', a: 'From application to system commissioning, Suntrik\'s process typically takes 45–60 days. HAREDA sanction takes 3–4 weeks; installation takes 5–7 days once approved.' },
-  { q: 'Does Suntrik handle all the paperwork?', a: 'Yes. Suntrik manages the complete process — portal registration, DPR, HAREDA coordination, installation, DISCOM inspection, and subsidy disbursement. You only need to provide documents once.' },
-  { q: 'Is maintenance covered after installation?', a: 'All Suntrik PM-KUSUM installations come with a 5-year comprehensive AMC covering preventive maintenance, part replacement, and remote monitoring. Module warranty is 25 years.' },
+  { q: 'Who is eligible for PM-KUSUM Component A?', a: 'Farmers, cooperatives, panchayats, and Farmer Producer Organisations (FPOs) with barren or cultivable land can set up ground-mount solar plants of 500 kW to 2 MW and sell power to the DISCOM under a 25-year PPA.' },
+  { q: 'Who is eligible for PM-KUSUM Component C?', a: 'Any farmer with an existing grid-connected agriculture pump can apply. The pump is solarised under IPS (individual) or FLS (feeder-level) mode. The farmer irrigates free during daylight and earns net-metering credits for surplus power fed to the DISCOM.' },
+  { q: 'What CFA (subsidy) is available under Component A and C?', a: 'The Centre provides 30% Central Financial Assistance under both components. States typically add further support — in Haryana, HAREDA supplements the central grant. Suntrik calculates the exact net cost at the free assessment stage.' },
+  { q: 'How long does the entire process take?', a: 'From application to commissioning, Suntrik\'s process typically takes 45–60 days for Component C pump solarisation. Component A ground-mount plants (larger scale) take 90–120 days including DISCOM interconnection and PPA signing.' },
+  { q: 'Does Suntrik handle all the paperwork?', a: 'Yes. Suntrik manages everything — portal registration, DPR preparation, HAREDA coordination, installation, DISCOM inspection and net-metering, and CFA disbursement follow-up. You provide documents once.' },
+  { q: 'Is maintenance covered after installation?', a: 'All Suntrik PM-KUSUM installations include a 5-year comprehensive AMC covering preventive maintenance, inverter health checks, cleaning schedules, and remote monitoring.' },
 ]
 
 export default function KusumPage() {
@@ -68,10 +63,10 @@ export default function KusumPage() {
             <span style={{ background: 'linear-gradient(90deg, #10B981, #34D399)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Solar Power for Every Farmer</span>
           </h1>
           <p style={{ color: 'var(--text-secondary)', maxWidth: 620, lineHeight: 1.85, fontSize: '1rem', marginBottom: '2rem' }}>
-            Pradhan Mantri Kisan Urja Suraksha evam Utthaan Mahabhiyan (PM-KUSUM) is India's flagship scheme to solarise agriculture, targeting <strong style={{ color: '#10B981' }}>34,800 MW</strong> of solar capacity by March 2026. Under Component-B, the Centre gives 30% and the State at least 30% — with bank finance the farmer initially pays only <strong style={{ color: '#10B981' }}>10%</strong>. Suntrik handles everything from application to commissioning.
+            Pradhan Mantri Kisan Urja Suraksha evam Utthaan Mahabhiyan (PM-KUSUM) is India's flagship scheme to solarise agriculture, targeting <strong style={{ color: '#10B981' }}>34,800 MW</strong> of solar capacity by March 2026. Component A lets farmers earn income by selling solar power to the DISCOM. Component C solarises existing grid-connected pumps with net-metering. Suntrik handles everything from application to commissioning.
           </p>
           <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', marginBottom: '2.5rem' }}>
-            {[{ v: '34,800 MW', l: 'Target by March 2026' }, { v: '₹34,422 Cr', l: 'Central Outlay' }, { v: '30% + 30%', l: 'Centre + State Subsidy' }, { v: '10%', l: 'Farmer Pays (after loan)' }].map(s => (
+            {[{ v: '34,800 MW', l: 'Target by March 2026' }, { v: '₹34,422 Cr', l: 'Central Outlay' }, { v: '30%', l: 'Central Financial Assistance' }, { v: '35 Lakh', l: 'Grid-Connected Pumps (Comp. C)' }].map(s => (
               <div key={s.l} style={{ textAlign: 'center', padding: '0.85rem 1.25rem', background: 'rgba(16,185,129,0.07)', border: '1px solid rgba(16,185,129,0.18)', borderRadius: 10 }}>
                 <div style={{ fontFamily: 'Space Grotesk', fontWeight: 900, fontSize: '1.6rem', color: '#10B981', lineHeight: 1 }}>{s.v}</div>
                 <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', marginTop: 4 }}>{s.l}</div>
@@ -103,8 +98,8 @@ export default function KusumPage() {
               {[
                 { icon: '⚡', title: '34,800 MW', desc: 'Solar capacity target by March 2026' },
                 { icon: '💰', title: '₹34,422 Cr', desc: 'Total central financial support' },
-                { icon: '🌱', title: '14 Lakh', desc: 'Standalone solar pumps (Component B)' },
-                { icon: '🔋', title: '35 Lakh', desc: 'Grid-connected pumps (Component C)' },
+                { icon: '🌾', title: '10,000 MW', desc: 'Decentralized plants target (Component A)' },
+                { icon: '🔋', title: '35 Lakh', desc: 'Grid-connected pumps solarised (Component C)' },
               ].map(c => (
                 <div key={c.title} style={{ padding: '1.1rem', background: 'rgba(16,185,129,0.05)', border: '1px solid rgba(16,185,129,0.12)', borderRadius: 10 }}>
                   <div style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>{c.icon}</div>
@@ -121,8 +116,8 @@ export default function KusumPage() {
       <div id="components" style={{ padding: '4rem 0', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
         <div className="container">
           <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-            <h2 style={{ fontSize: 'clamp(1.4rem, 3vw, 2rem)', fontWeight: 800, marginBottom: '0.6rem' }}>Three Components of PM-KUSUM</h2>
-            <p style={{ color: 'var(--text-secondary)', maxWidth: 500, margin: '0 auto' }}>Suntrik is empanelled and active under all three components in Haryana.</p>
+            <h2 style={{ fontSize: 'clamp(1.4rem, 3vw, 2rem)', fontWeight: 800, marginBottom: '0.6rem' }}>Components Suntrik Executes</h2>
+            <p style={{ color: 'var(--text-secondary)', maxWidth: 500, margin: '0 auto' }}>Suntrik is HAREDA-empanelled for Component A and Component C across Rajasthan and Haryana.</p>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.25rem' }} className="kusum-comp-grid">
             {COMPONENTS.map(c => (
@@ -147,50 +142,54 @@ export default function KusumPage() {
         </div>
       </div>
 
-      {/* ── Subsidy Structure ── */}
+      {/* ── Financial Structure ── */}
       <div style={{ background: '#0a1020', padding: '4rem 0', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: '3rem', alignItems: 'start' }} className="kusum-subsidy-grid">
-            <div>
-              <h2 style={{ fontSize: 'clamp(1.4rem, 3vw, 2rem)', fontWeight: 800, marginBottom: '0.75rem' }}>Subsidy Structure</h2>
-              <p style={{ color: 'var(--text-secondary)', lineHeight: 1.8, marginBottom: '1.5rem', fontSize: '0.9rem' }}>
-                Under Component B (standalone solar pumps), the Centre provides 30% Central Financial Assistance — 50% in special-category regions — and the State adds at least 30%. The farmer&apos;s 40% share drops to just 10% upfront, with bank finance for the remaining 30%.
-              </p>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                {[
-                  { label: 'Central Financial Assistance', pct: 30, color: '#10B981' },
-                  { label: 'State Government Subsidy', pct: 30, color: '#3B82F6' },
-                  { label: 'Farmer Share (10% upfront + 30% loan)', pct: 40, color: '#FF6B1A' },
-                ].map(s => (
-                  <div key={s.label}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.3rem' }}>
-                      <span style={{ fontSize: '0.82rem', color: 'var(--text-secondary)' }}>{s.label}</span>
-                      <span style={{ fontFamily: 'Space Grotesk', fontWeight: 800, color: s.color }}>{s.pct}%</span>
-                    </div>
-                    <div style={{ height: 8, background: 'rgba(255,255,255,0.06)', borderRadius: 4, overflow: 'hidden' }}>
-                      <div style={{ height: '100%', width: `${s.pct}%`, background: s.color, borderRadius: 4 }} />
-                    </div>
+          <h2 style={{ fontSize: 'clamp(1.4rem, 3vw, 2rem)', fontWeight: 800, marginBottom: '0.75rem' }}>Financial Structure</h2>
+          <p style={{ color: 'var(--text-secondary)', lineHeight: 1.8, marginBottom: '2.5rem', fontSize: '0.9rem', maxWidth: 680 }}>
+            Both components carry 30% Central Financial Assistance (CFA). States typically add further support. Revenue flows are different: Component A earns a DISCOM power-purchase tariff; Component C earns net-metering credits.
+          </p>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }} className="kusum-subsidy-grid">
+            {[
+              {
+                label: 'Component A — Ground-Mount Plants',
+                color: '#10B981',
+                rows: [
+                  { label: 'Central Financial Assistance (CFA)', value: '30%', color: '#10B981' },
+                  { label: 'State Government Support', value: '≥ 30%', color: '#3B82F6' },
+                  { label: 'Revenue model', value: 'DISCOM tariff (25 yr PPA)' },
+                  { label: 'Farmer / beneficiary pays', value: '≤ 40% project cost', color: '#FF6B1A', bold: true },
+                ],
+                note: 'Excess land — barren or cultivable — earns lease + power-sale income. DISCOM signs a 25-year Power Purchase Agreement.',
+              },
+              {
+                label: 'Component C — Grid-Connected Pump Solarisation',
+                color: '#3B82F6',
+                rows: [
+                  { label: 'Central Financial Assistance (CFA)', value: '30%', color: '#10B981' },
+                  { label: 'State Government Support', value: 'Varies by state', color: '#3B82F6' },
+                  { label: 'Revenue model', value: 'Net-metering credits' },
+                  { label: 'Farmer benefit', value: 'Free daytime irrigation + grid credits', bold: true },
+                ],
+                note: 'Solarises the existing grid-connected pump. Farmer irrigates free during daylight and earns net-metering credits for surplus fed to the DISCOM.',
+              },
+            ].map(card => (
+              <div key={card.label} style={{ borderRadius: 14, border: `1px solid ${card.color}22`, background: `linear-gradient(160deg, ${card.color}08 0%, rgba(6,10,15,0.98) 60%)`, overflow: 'hidden' }}>
+                <div style={{ height: 4, background: card.color }} />
+                <div style={{ padding: '1.5rem' }}>
+                  <h3 style={{ fontFamily: 'Space Grotesk', fontWeight: 700, fontSize: '0.95rem', color: card.color, marginBottom: '1.1rem' }}>{card.label}</h3>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem', marginBottom: '1rem' }}>
+                    {card.rows.map(r => (
+                      <div key={r.label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.6rem 0.85rem', background: r.bold ? `${card.color}12` : 'rgba(255,255,255,0.03)', border: `1px solid ${r.bold ? card.color + '30' : 'rgba(255,255,255,0.06)'}`, borderRadius: 7 }}>
+                        <span style={{ fontSize: '0.78rem', color: 'var(--text-secondary)' }}>{r.label}</span>
+                        <span style={{ fontFamily: 'Space Grotesk', fontWeight: r.bold ? 800 : 700, color: r.color || 'var(--text-primary)', fontSize: '0.82rem' }}>{r.value}</span>
+                      </div>
+                    ))}
                   </div>
-                ))}
+                  <p style={{ fontSize: '0.72rem', color: 'var(--text-muted)', lineHeight: 1.65 }}>{card.note}</p>
+                </div>
               </div>
-            </div>
-            <div>
-              <h3 style={{ fontFamily: 'Space Grotesk', fontWeight: 700, fontSize: '1rem', marginBottom: '1rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Sample Cost Breakdown (5 HP Pump)</h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-                {[
-                  { label: 'Benchmark Cost (5 HP, indicative)', value: '₹2,40,000', note: 'MNRE benchmark — varies by capacity' },
-                  { label: 'Central CFA (30%)', value: '− ₹72,000', color: '#10B981' },
-                  { label: 'State Subsidy (30%)', value: '− ₹72,000', color: '#3B82F6' },
-                  { label: 'Farmer Upfront (10%)', value: '₹24,000', color: '#FF6B1A', bold: true },
-                ].map(r => (
-                  <div key={r.label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.75rem 1rem', background: r.bold ? 'rgba(255,107,26,0.08)' : 'rgba(255,255,255,0.03)', border: `1px solid ${r.bold ? 'rgba(255,107,26,0.2)' : 'rgba(255,255,255,0.06)'}`, borderRadius: 8 }}>
-                    <span style={{ fontSize: '0.82rem', color: 'var(--text-secondary)' }}>{r.label}</span>
-                    <span style={{ fontFamily: 'Space Grotesk', fontWeight: r.bold ? 900 : 700, color: r.color || 'var(--text-primary)', fontSize: r.bold ? '1rem' : '0.9rem' }}>{r.value}</span>
-                  </div>
-                ))}
-              </div>
-              <p style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginTop: '0.75rem', lineHeight: 1.6 }}>* Benchmark costs vary by pump capacity and state. Figures above are indicative. Suntrik provides exact cost breakdown at the assessment stage.</p>
-            </div>
+            ))}
           </div>
         </div>
       </div>

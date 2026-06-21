@@ -22,8 +22,8 @@ const STATS = [
     progress: 0.88,
   },
   {
-    value: 25,   suffix: ' Yr',  label: 'Panel Warranty',       sub: 'Tier-1 linear output guarantee',   icon: '🛡️',
-    progress: 1.0,
+    value: 5,    suffix: ' Yr',  label: 'AMC Coverage',         sub: '2 Yr C&I · 5 Yr Residential',     icon: '🔧',
+    progress: 0.6,
   },
 ]
 

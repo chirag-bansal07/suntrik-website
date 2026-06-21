@@ -5,7 +5,7 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { PROJECTS, TYPE_COLOR, TYPE_ICON } from '../data/projects'
 
-const FILTERS = ['All', 'PM-KUSUM', 'PM Surya Ghar', 'Commercial', 'Industrial']
+const FILTERS = ['All', 'PM-KUSUM', 'PM Surya Ghar', 'C&I']
 
 export default function ProjectsPage() {
   const [active, setActive] = useState('All')
