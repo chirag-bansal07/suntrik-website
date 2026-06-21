@@ -79,10 +79,10 @@ export default function SuryaGharPage() {
             </div>
 
             {/* PM portrait */}
-            <div className="sg-hero-portrait" style={{ position: 'relative', display: 'flex', justifyContent: 'center' }}>
-              <div style={{ position: 'absolute', inset: '-10%', background: 'radial-gradient(ellipse, rgba(255,107,26,0.18) 0%, transparent 68%)', filter: 'blur(40px)', pointerEvents: 'none' }} />
+            <div className="sg-hero-portrait" style={{ position: 'relative', display: 'flex', justifyContent: 'flex-end' }}>
+              <div style={{ position: 'absolute', inset: '-12%', background: 'radial-gradient(ellipse, rgba(255,107,26,0.2) 0%, transparent 68%)', filter: 'blur(45px)', pointerEvents: 'none' }} />
               <img src="/pm-modi.png" alt="Hon'ble Prime Minister Shri Narendra Modi" loading="eager"
-                style={{ position: 'relative', width: '100%', maxWidth: 380, height: 'auto', filter: 'drop-shadow(0 30px 60px rgba(0,0,0,0.55))' }} />
+                style={{ position: 'relative', width: '100%', maxWidth: 500, height: 'auto', filter: 'drop-shadow(0 30px 60px rgba(0,0,0,0.55))' }} />
             </div>
           </div>
         </div>
