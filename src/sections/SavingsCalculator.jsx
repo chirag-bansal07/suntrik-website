@@ -20,7 +20,7 @@ const UNITS_KW_YEAR = UNITS_KW_DAY * SUNNY_DAYS   // 1360
 
 const SECTORS = {
   Residential:  { costPerKw: 60000, scheme: 'PM Surya Ghar', color: '#FF6B1A', note: 'Up to ₹78,000 central subsidy' },
-  Agricultural: { costPerKw: 55000, scheme: 'PM-KUSUM',      color: '#10B981', note: 'Up to 90% subsidy for farmers' },
+  Agricultural: { costPerKw: 55000, scheme: 'PM-KUSUM',      color: '#10B981', note: '30% central + 30% state subsidy' },
   Commercial:   { costPerKw: 50000, scheme: 'Net-Metering',  color: '#3B82F6', note: '40% accelerated depreciation benefit' },
 }
 

@@ -12,7 +12,7 @@ const HOME_LINKS = [
 ]
 
 const SCHEME_LINKS = [
-  { label: '🌾 PM-KUSUM',      shortLabel: 'PM-KUSUM',    to: '/schemes/kusum',      desc: '90% subsidy for farmers' },
+  { label: '🌾 PM-KUSUM',      shortLabel: 'PM-KUSUM',    to: '/schemes/kusum',      desc: '60% subsidy for farmers' },
   { label: '🏠 PM Surya Ghar', shortLabel: 'Surya Ghar',  to: '/schemes/surya-ghar', desc: '₹78,000 subsidy for homes' },
 ]
 

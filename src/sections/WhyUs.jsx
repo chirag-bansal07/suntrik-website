@@ -48,7 +48,7 @@ const FEATURES = [
   {
     num: '03',
     title: 'DISCOM & Net-Metering Mastery',
-    desc: "We handle all paperwork, portal submissions, and co-ordination with your DISCOM for net-metering and grid interconnection. Our team knows the exact DHBVN / DHEVCL requirements and has a 100% approval rate across all submitted applications.",
+    desc: "We handle all paperwork, portal submissions, and co-ordination with your DISCOM for net-metering and grid interconnection. Our team knows the exact DHBVN / DHEVCL requirements and manages every submission from application through to approval.",
     icon: (
       <svg width="36" height="36" viewBox="0 0 48 48" fill="none">
         <path d="M8 24h32" stroke="url(#wg3)" strokeWidth="1.6" strokeLinecap="round" strokeDasharray="4 3"/>
@@ -60,8 +60,8 @@ const FEATURES = [
         </linearGradient></defs>
       </svg>
     ),
-    stat: '100%',
-    statSub: 'net-metering approvals',
+    stat: 'End-to-End',
+    statSub: 'DISCOM net-metering',
     bullets: ['DHBVN / DHEVCL net-metering expertise', 'Portal submission to approval managed', 'Grid-sync testing & commissioning'],
   },
   {
@@ -76,8 +76,8 @@ const FEATURES = [
         </linearGradient></defs>
       </svg>
     ),
-    stat: '90% Subsidy',
-    statSub: 'for PM-KUSUM eligible farmers',
+    stat: '₹78,000',
+    statSub: 'max PM Surya Ghar subsidy',
     bullets: ['PM-KUSUM empanelled installer', 'PM Surya Ghar portal to disbursement', 'State scheme maximisation advisory'],
   },
   {

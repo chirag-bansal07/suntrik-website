@@ -11,8 +11,8 @@ import TiltCard from '../components/ui/TiltCard'
 
 const TEAM = [
   { name: 'Vinay Bansal',  title: 'Director', bio: '29+ years of ops & finance leadership.',           accent: '#FF6B1A', photo: '' },
-  { name: 'Kapil Vidhani', title: 'Director', bio: '8+ years in solar distribution & operations.',      accent: '#FFB830', photo: '' },
   { name: 'Rajat Goyal',   title: 'Director', bio: 'NISE-certified solar engineer & operations lead.',  accent: '#10B981', photo: '' },
+  { name: 'Sarthak Goyal', title: 'Director', bio: '8+ years in solar distribution & operations.',      accent: '#FFB830', photo: '' },
 ]
 
 const initials = name => name.split(' ').filter(Boolean).slice(0, 2).map(w => w[0]).join('')

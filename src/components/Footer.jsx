@@ -24,9 +24,9 @@ export default function Footer() {
             </div>
 
             <p style={{ fontSize: '0.84rem', color: 'var(--text-secondary)', lineHeight: 1.85, maxWidth: 270, marginBottom: '1.5rem' }}>
-              North India's trusted Solar EPC partner — delivering advisory, engineering, turnkey
+              India's trusted Solar EPC partner — delivering advisory, engineering, turnkey
               installation, and lifetime O&amp;M for homes, businesses, and farms since 2018.
-              Part of the Suntrik Group alongside <em>Solar One Energy</em> (distribution)
+              Part of the Suntrik Group alongside its distribution arm
               and <em>SunMount</em> (mounting structures).
             </p>
 

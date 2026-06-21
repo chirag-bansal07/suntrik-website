@@ -11,7 +11,6 @@ import CountUp  from '../components/ui/CountUp'
 
 const FEATURED = PROJECTS[0]
 const SIDE     = [PROJECTS[3], PROJECTS[1]]
-const BOTTOM   = [PROJECTS[2], PROJECTS[4], PROJECTS[5]]
 
 export default function Projects() {
   const { ref: headRef, inView: headIn } = useScrollAnimation(0.08)
@@ -37,7 +36,7 @@ export default function Projects() {
           <div>
             <motion.span className="section-tag" initial={{ opacity: 0, y: 20 }} animate={headIn ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5 }}>Our Work</motion.span>
             <motion.h2 initial={{ opacity: 0, y: 28 }} animate={headIn ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.65, delay: 0.1 }} style={{ fontSize: 'clamp(1.5rem, 3.2vw, 2.2rem)' }}>
-              Proven Across <span className="gradient-text">North India</span>
+              Proven Across <span className="gradient-text">India</span>
             </motion.h2>
           </div>
           <motion.p initial={{ opacity: 0 }} animate={headIn ? { opacity: 1 } : {}} transition={{ duration: 0.6, delay: 0.2 }}
@@ -112,38 +111,6 @@ export default function Projects() {
             </div>
           </div>
 
-          {/* Bottom row */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem', marginBottom: '1.5rem' }} className="proj-bottom-row">
-            {BOTTOM.map((p, i) => (
-              <motion.div key={p.id}
-                initial={{ opacity: 0, y: 28 }} animate={gridIn ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.55, delay: 0.3 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-                whileHover={{ y: -4 }}
-                style={{ borderRadius: 12, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.07)', background: 'rgba(255,255,255,0.03)', cursor: 'pointer', display: 'flex', transition: 'border-color 0.25s' }}
-                onMouseEnter={e => e.currentTarget.style.borderColor = `${TYPE_COLOR[p.type]}44`}
-                onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)'}
-              >
-                <div style={{ width: 86, flexShrink: 0, position: 'relative', background: `linear-gradient(145deg, ${TYPE_COLOR[p.type]}22 0%, #060A0F 100%)`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.7rem', borderRight: `1px solid ${TYPE_COLOR[p.type]}22` }}>
-                  {TYPE_ICON[p.type]}
-                  <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: 3, background: TYPE_COLOR[p.type] }} />
-                </div>
-                <div style={{ flex: 1, padding: '0.85rem 1rem', display: 'flex', flexDirection: 'column', justifyContent: 'center', minWidth: 0 }}>
-                  <div style={{ display: 'flex', gap: '0.35rem', marginBottom: '0.28rem', alignItems: 'center', flexWrap: 'wrap' }}>
-                    <span style={{ background: TYPE_COLOR[p.type], color: '#fff', fontSize: '0.55rem', fontWeight: 800, padding: '0.12rem 0.5rem', borderRadius: 100 }}>{p.type}</span>
-                    <span style={{ color: 'var(--brand-amber)', fontSize: '0.6rem', fontWeight: 700 }}>{p.capacity}</span>
-                  </div>
-                  <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '0.82rem', fontWeight: 700, marginBottom: '0.16rem', lineHeight: 1.25, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{p.title}</h3>
-                  <p style={{ fontSize: '0.65rem', color: TYPE_COLOR[p.type], fontWeight: 600, marginBottom: '0.32rem' }}>📍 {p.location} · {p.year}</p>
-                  <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.15rem' }}>
-                    {p.highlights.slice(0, 2).map(h => (
-                      <li key={h} style={{ display: 'flex', gap: '0.3rem', fontSize: '0.63rem', color: 'var(--text-muted)', lineHeight: 1.3 }}>
-                        <span style={{ color: TYPE_COLOR[p.type], flexShrink: 0 }}>▸</span>{h}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </motion.div>
-            ))}
-          </div>
 
           {/* Stats + CTA */}
           <motion.div initial={{ opacity: 0, y: 20 }} animate={gridIn ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: 0.5 }} style={{ textAlign: 'center' }}>

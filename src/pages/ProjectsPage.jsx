@@ -32,7 +32,7 @@ export default function ProjectsPage() {
             All Projects
           </h1>
           <p style={{ color: 'var(--text-secondary)', maxWidth: 520, margin: '0 auto', lineHeight: 1.8 }}>
-            Every installation Suntrik has delivered — from PM-KUSUM farmer clusters to large industrial rooftops across Haryana and North India.
+            Every installation Suntrik has delivered — from PM-KUSUM farmer clusters to large industrial rooftops across India.
           </p>
           <div style={{ display: 'flex', gap: '1.5rem', justifyContent: 'center', marginTop: '2rem', flexWrap: 'wrap' }}>
             {[{ v: '1000+', l: 'Projects' }, { v: '4', l: 'Sectors' }, { v: '150MW+', l: 'Capacity' }, { v: '100%', l: 'On-Time' }].map(s => (

@@ -25,9 +25,9 @@ const TABLE = [
 
 const WHY_SOLAR = [
   { icon: '💡', label: 'Cut Electricity Bills',    desc: 'Offset 80–100% of your monthly bill from day one of commissioning.' },
-  { icon: '🏦', label: '4-Year Payback',           desc: 'One-time investment, full payback typically within 3–4 years in North India.' },
+  { icon: '🏦', label: '4-Year Payback',           desc: 'One-time investment, full payback typically within 3–4 years in India.' },
   { icon: '♻️', label: 'Feed Excess to Grid',       desc: 'Net-metering lets you earn credits for surplus solar power fed to the DISCOM.' },
-  { icon: '📜', label: 'Government Subsidies',     desc: 'PM Surya Ghar: up to ₹78,000 subsidy. PM-KUSUM: up to 90% subsidy for farmers.' },
+  { icon: '📜', label: 'Government Subsidies',     desc: 'PM Surya Ghar: up to ₹78,000 subsidy. PM-KUSUM: 30% central + 30% state subsidy for farmers.' },
   { icon: '🌱', label: 'Clean Energy',             desc: 'Reduce your carbon footprint. 1 kW solar saves ~1.4 tonnes of CO₂ per year.' },
   { icon: '🔒', label: '25-Year Asset',            desc: 'Tier-1 panels with 25-year linear output warranty — a bankable long-term asset.' },
 ]
@@ -168,7 +168,7 @@ export default function Savings() {
             transition={{ duration: 0.6, delay: 0.2 }}
             style={{ color: 'var(--text-secondary)', maxWidth: 540, margin: '0 auto', lineHeight: 1.8 }}
           >
-            Based on 340 sunny days/year and 4 units per kW per day — the North India average.
+            Based on 340 sunny days/year and 4 units per kW per day — the Indian average.
             Minimum estimated annual savings from your solar plant.
           </motion.p>
         </div>

@@ -34,7 +34,7 @@ const STEPS = [
 const FAQS = [
   { q: 'Who is eligible for PM Surya Ghar Muft Bijli Yojana?', a: 'Any Indian household with a valid electricity connection (single residential meter), a suitable rooftop, and Aadhaar-linked bank account is eligible. Rented properties require landlord NOC.' },
   { q: 'How much does a 3 kW system cost after subsidy?', a: 'A 3 kW system typically costs ₹1,80,000–₹2,10,000 installed (MNRE benchmark). After the ₹78,000 central subsidy, the net cost is approximately ₹1,00,000–₹1,30,000. Bank loans are available for the remainder.' },
-  { q: 'Will I actually get 300 free units per month?', a: 'A 3 kW system in North India generates approximately 360–400 units per month (340 sunny days × 4 units/kW/day). This exceeds the 300-unit threshold, so most households effectively have zero electricity bills.' },
+  { q: 'Will I actually get 300 free units per month?', a: 'A 3 kW system in India generates approximately 360–400 units per month (340 sunny days × 4 units/kW/day). This exceeds the 300-unit threshold, so most households effectively have zero electricity bills.' },
   { q: 'How does net metering work?', a: 'When your solar panels generate more than your household consumes, the surplus is exported to the DISCOM grid and credited to your electricity account. This credit offsets your night-time or cloudy-day grid consumption.' },
   { q: 'Does Suntrik handle the entire process or do I have to do anything?', a: 'Suntrik handles everything — portal registration, DISCOM application, installation, inspection coordination, and subsidy disbursement. You need to provide your documents (Aadhaar, consumer number, bank details) and be available for the DISCOM inspection visit.' },
 ]
@@ -62,7 +62,7 @@ export default function SuryaGharPage() {
             <span className="gradient-text">300 Free Units Every Month</span>
           </h1>
           <p style={{ color: 'var(--text-secondary)', maxWidth: 640, lineHeight: 1.85, fontSize: '1rem', marginBottom: '2rem' }}>
-            PM Surya Ghar Muft Bijli Yojana provides <strong style={{ color: 'var(--brand-orange)' }}>up to ₹78,000 subsidy</strong> on residential rooftop solar. With a 3 kW system, most North Indian households get 300+ free units per month — effectively a zero electricity bill. Suntrik handles everything from registration to disbursement.
+            PM Surya Ghar Muft Bijli Yojana provides <strong style={{ color: 'var(--brand-orange)' }}>up to ₹78,000 subsidy</strong> on residential rooftop solar. With a 3 kW system, most Indian households get 300+ free units per month — effectively a zero electricity bill. Suntrik handles everything from registration to disbursement.
           </p>
           <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', marginBottom: '2.5rem' }}>
             {[{ v: '₹78,000', l: 'Max Subsidy' }, { v: '300', l: 'Free Units/Month' }, { v: '1 Cr', l: 'Homes Target' }, { v: '2–3 Yr', l: 'Payback Period' }].map(s => (
@@ -145,9 +145,9 @@ export default function SuryaGharPage() {
                 The central subsidy is paid as a direct benefit transfer (DBT) to your bank account after installation and DISCOM commissioning. Additional state subsidies may apply in some states.
               </p>
               <div style={{ padding: '1.25rem', background: 'rgba(255,107,26,0.06)', border: '1px solid rgba(255,107,26,0.15)', borderRadius: 10 }}>
-                <div style={{ fontFamily: 'Space Grotesk', fontWeight: 800, fontSize: '1.1rem', color: 'var(--brand-orange)', marginBottom: '0.5rem' }}>Recommendation for North India</div>
+                <div style={{ fontFamily: 'Space Grotesk', fontWeight: 800, fontSize: '1.1rem', color: 'var(--brand-orange)', marginBottom: '0.5rem' }}>Recommendation for India</div>
                 <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', lineHeight: 1.7 }}>
-                  For a typical North Indian household consuming 200–400 units/month, a <strong style={{ color: 'var(--text-primary)' }}>3 kW system</strong> is optimal — it maximises the ₹78,000 subsidy and generates ~400 units/month, ensuring zero bills year-round.
+                  For a typical Indian household consuming 200–400 units/month, a <strong style={{ color: 'var(--text-primary)' }}>3 kW system</strong> is optimal — it maximises the ₹78,000 subsidy and generates ~400 units/month, ensuring zero bills year-round.
                 </p>
               </div>
             </div>

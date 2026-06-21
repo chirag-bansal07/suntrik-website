@@ -18,11 +18,11 @@ const STATS = [
     progress: 1.0,
   },
   {
-    value: 150,  suffix: ' MW+', label: 'Capacity Installed',   sub: 'Cumulative across North India',    icon: '☀️',
+    value: 150,  suffix: ' MW+', label: 'Capacity Installed',   sub: 'Cumulative across India',           icon: '☀️',
     progress: 0.88,
   },
   {
-    value: 100,  suffix: '%',    label: 'DISCOM Approvals',     sub: 'Zero net-metering rejections',     icon: '✅',
+    value: 25,   suffix: ' Yr',  label: 'Panel Warranty',       sub: 'Tier-1 linear output guarantee',   icon: '🛡️',
     progress: 1.0,
   },
 ]
@@ -132,7 +132,7 @@ export default function Stats() {
             8+ Years of Solar <span className="gradient-text">Impact</span>
           </h2>
           <p style={{ color: 'var(--text-secondary)', maxWidth: 480, margin: '0 auto', lineHeight: 1.8 }}>
-            Numbers that reflect real projects delivered, real subsidies navigated, and real energy savings created for North India.
+            Numbers that reflect real projects delivered, real subsidies navigated, and real energy savings created for India.
           </p>
         </motion.div>
 

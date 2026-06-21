@@ -14,8 +14,8 @@ const MILESTONES = [
   { year: '2018', event: 'Founded as Suntrik Solutions — Solar EPC for residential & commercial segments' },
   { year: '2019', event: 'Expanded into Industrial Solar EPC; large factory & warehouse rooftops' },
   { year: '2021', event: 'First MW commissioned; launched SunMount — in-house mounting structure manufacturing' },
-  { year: '2023', event: 'Launched Solar One Energy (distribution arm)' },
-  { year: '2024', event: 'Incorporated as Suntrik Green Energy Pvt. Ltd.; PM-KUSUM & HAREDA empanelment' },
+  { year: '2023', event: 'Launched a distribution arm' },
+  { year: '2024', event: 'Incorporated as Suntrik Green Energy Pvt. Ltd.; PM-KUSUM & Open Access projects' },
   { year: '2025', event: '80 MWp PM-KUSUM orders under execution across Rajasthan & Haryana — active order book ₹150 Cr+' },
 ]
 
@@ -130,7 +130,7 @@ export default function About() {
               Founded in <strong style={{ color: 'var(--text-primary)' }}>2018</strong> as Suntrik Solutions and
               incorporated in <strong style={{ color: 'var(--text-primary)' }}>2024</strong> as{' '}
               <strong style={{ color: 'var(--text-primary)' }}>Suntrik Green Energy Pvt. Ltd.</strong>, we have
-              built {yearsSince}+ years of solar EPC expertise across Haryana and North India.
+              built {yearsSince}+ years of solar EPC expertise across India.
             </p>
             <p style={{ color: 'var(--text-secondary)', lineHeight: 1.75, fontSize: '0.875rem' }}>
               We serve residential homeowners, commercial establishments, industrial plants and farming
@@ -163,8 +163,8 @@ export default function About() {
               {[
                 { to: 8,    suffix: '+',   l: 'Years Experience',   s: 'Solar EPC since 2018' },
                 { to: 1000, suffix: '+',   l: 'Happy Clients',      s: 'Homes, farms & industries' },
-                { to: 150,  suffix: 'MW+', l: 'Capacity Installed', s: 'Cumulative across North India' },
-                { to: 100,  suffix: '%',   l: 'DISCOM Approvals',   s: 'Zero net-metering rejections' },
+                { to: 150,  suffix: 'MW+', l: 'Capacity Installed', s: 'Cumulative across India' },
+                { to: 25,   suffix: ' Yr', l: 'Panel Warranty',    s: 'Tier-1 linear output guarantee' },
               ].map(s => (
                 <div key={s.l} style={{
                   padding: '0.75rem 0.9rem', borderRadius: 10,
