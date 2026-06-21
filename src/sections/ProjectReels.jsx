@@ -82,7 +82,7 @@ export default function ProjectReels() {
 
   return (
     <section
-      id="reels"
+      id="projects"
       style={{
         position: 'relative', overflow: 'hidden',
         background: 'radial-gradient(ellipse 80% 60% at 50% 30%, #0e1626 0%, #070b12 55%, #05080d 100%)',
@@ -102,17 +102,17 @@ export default function ProjectReels() {
         <div ref={headRef} style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
           <motion.span className="section-tag" style={{ justifyContent: 'center' }}
             initial={{ opacity: 0, y: 18 }} animate={headIn ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5 }}>
-            Aerial Reels
+            Our Work
           </motion.span>
           <motion.h2
             initial={{ opacity: 0, y: 26 }} animate={headIn ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, delay: 0.1 }}
             style={{ fontSize: 'clamp(1.7rem, 3.6vw, 2.6rem)', marginBottom: '0.6rem' }}>
-            Our Projects, <span className="gradient-text">From Above</span>
+            Proven Across <span className="gradient-text">India</span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 16 }} animate={headIn ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, delay: 0.2 }}
             style={{ color: 'var(--text-secondary)', maxWidth: 560, margin: '0 auto', lineHeight: 1.8 }}>
-            Drone footage from our PM-KUSUM ground-mount plants across Rajasthan — megawatts of clean power, built and commissioned by Suntrik.
+            Aerial drone footage from our PM-KUSUM ground-mount plants across Rajasthan — delivered end-to-end by Suntrik.
           </motion.p>
         </div>
 

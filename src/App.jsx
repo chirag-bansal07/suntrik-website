@@ -8,7 +8,6 @@ import Navbar from './components/Navbar'
 import Hero from './sections/Hero'
 import About from './sections/About'
 import Services from './sections/Services'
-import Projects from './sections/Projects'
 import ProjectReels from './sections/ProjectReels'
 import Stats from './sections/Stats'
 import WhyUs from './sections/WhyUs'
@@ -54,7 +53,6 @@ function HomePage() {
         <Hero />
         <About />
         <Services />
-        <Projects />
         <ProjectReels />
         <Stats />
         <WhyUs />
