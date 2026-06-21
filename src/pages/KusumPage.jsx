@@ -221,30 +221,26 @@ export default function KusumPage() {
             <span style={{ fontSize: '0.7rem', color: '#10B981', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.15em', display: 'block', marginBottom: '0.5rem' }}>Our Work</span>
             <h2 style={{ fontSize: 'clamp(1.4rem, 3vw, 2rem)', fontWeight: 800 }}>PM-KUSUM Projects by Suntrik</h2>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1.25rem' }} className="kusum-proj-grid">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(330px, 1fr))', gap: '1.5rem' }} className="kusum-proj-grid">
             {KUSUM_PROJECTS.map(p => (
-              <div key={p.id} style={{ borderRadius: 14, overflow: 'hidden', border: '1px solid rgba(16,185,129,0.15)', background: 'rgba(16,185,129,0.04)', display: 'flex' }}>
-                {p.img ? (
-                  <div style={{ width: 200, flexShrink: 0, backgroundImage: `url(${p.img})`, backgroundSize: 'cover', backgroundPosition: 'center', borderRight: '1px solid rgba(16,185,129,0.12)' }} />
-                ) : (
-                  <div style={{ width: 90, flexShrink: 0, background: 'linear-gradient(145deg, rgba(16,185,129,0.2) 0%, transparent)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2rem', borderRight: '1px solid rgba(16,185,129,0.12)' }}>🌾</div>
-                )}
-                <div style={{ flex: 1, padding: '1.25rem' }}>
-                  <div style={{ display: 'flex', gap: '0.4rem', marginBottom: '0.5rem', flexWrap: 'wrap' }}>
-                    <span style={{ background: '#10B981', color: '#fff', fontSize: '0.6rem', fontWeight: 800, padding: '0.15rem 0.6rem', borderRadius: 100 }}>PM-KUSUM</span>
-                    <span style={{ background: 'rgba(255,184,48,0.1)', color: 'var(--brand-amber)', fontSize: '0.6rem', fontWeight: 700, padding: '0.15rem 0.6rem', borderRadius: 100, border: '1px solid rgba(255,184,48,0.2)' }}>{p.capacity}</span>
-                    {p.subsidy && <span style={{ background: 'rgba(16,185,129,0.12)', color: '#10B981', fontSize: '0.6rem', fontWeight: 700, padding: '0.15rem 0.6rem', borderRadius: 100 }}>{p.subsidy} Subsidy</span>}
+              <div key={p.id}
+                style={{ borderRadius: 18, overflow: 'hidden', border: '1px solid rgba(16,185,129,0.18)', background: 'rgba(16,185,129,0.04)', cursor: 'pointer', transition: 'transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease' }}
+                onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-6px)'; e.currentTarget.style.borderColor = 'rgba(16,185,129,0.55)'; e.currentTarget.style.boxShadow = '0 20px 50px rgba(0,0,0,0.45)' }}
+                onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.borderColor = 'rgba(16,185,129,0.18)'; e.currentTarget.style.boxShadow = 'none' }}
+              >
+                <div style={{ position: 'relative', height: 260, overflow: 'hidden' }}>
+                  {p.img
+                    ? <img src={p.img} alt={p.location} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                    : <div style={{ width: '100%', height: '100%', background: 'linear-gradient(145deg, rgba(16,185,129,0.25), #060A0F)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '3.5rem' }}>🌾</div>}
+                  {/* gradient scrim for legible text */}
+                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(6,10,15,0.94) 0%, rgba(6,10,15,0.2) 48%, transparent 72%)' }} />
+                  {/* scheme tag */}
+                  <span style={{ position: 'absolute', top: '0.9rem', left: '0.9rem', background: '#10B981', color: '#fff', fontSize: '0.64rem', fontWeight: 800, padding: '0.28rem 0.75rem', borderRadius: 100, letterSpacing: '0.04em' }}>🌾 PM-KUSUM</span>
+                  {/* capacity + location */}
+                  <div style={{ position: 'absolute', left: '1.2rem', right: '1.2rem', bottom: '1.1rem' }}>
+                    <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 900, fontSize: '2.3rem', lineHeight: 1, color: '#fff', textShadow: '0 2px 18px rgba(0,0,0,0.5)' }}>{p.capacity}</div>
+                    <div style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.9)', fontWeight: 600, marginTop: '0.45rem' }}>📍 {p.location}</div>
                   </div>
-                  <h3 style={{ fontFamily: 'Space Grotesk', fontWeight: 700, fontSize: '1rem', marginBottom: '0.25rem' }}>{p.title}</h3>
-                  <p style={{ fontSize: '0.7rem', color: '#10B981', fontWeight: 600, marginBottom: '0.6rem' }}>📍 {p.location} · {p.year}</p>
-                  <p style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', lineHeight: 1.65, marginBottom: '0.75rem' }}>{p.desc}</p>
-                  <ul style={{ listStyle: 'none', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.3rem' }}>
-                    {p.highlights.map(h => (
-                      <li key={h} style={{ display: 'flex', gap: '0.35rem', fontSize: '0.72rem', color: 'var(--text-muted)' }}>
-                        <span style={{ color: '#10B981', flexShrink: 0 }}>✓</span>{h}
-                      </li>
-                    ))}
-                  </ul>
                 </div>
               </div>
             ))}
