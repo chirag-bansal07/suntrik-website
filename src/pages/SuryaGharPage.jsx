@@ -53,28 +53,39 @@ export default function SuryaGharPage() {
           <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(255,107,26,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,107,26,0.025) 1px, transparent 1px)', backgroundSize: '52px 52px' }} />
         </div>
         <div className="container" style={{ position: 'relative' }}>
-          <div style={{ display: 'flex', gap: '0.75rem', marginBottom: '1.25rem', flexWrap: 'wrap' }}>
-            <span style={{ background: 'rgba(255,107,26,0.15)', color: 'var(--brand-orange)', fontSize: '0.72rem', fontWeight: 700, padding: '0.3rem 0.9rem', borderRadius: 100, border: '1px solid rgba(255,107,26,0.3)' }}>🏠 MNRE Scheme</span>
-            <span style={{ background: 'rgba(255,107,26,0.15)', color: 'var(--brand-orange)', fontSize: '0.72rem', fontWeight: 700, padding: '0.3rem 0.9rem', borderRadius: 100, border: '1px solid rgba(255,107,26,0.3)' }}>✓ Empanelled Installer</span>
-          </div>
-          <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', fontWeight: 900, marginBottom: '1rem', lineHeight: 1.1, maxWidth: 720 }}>
-            PM Surya Ghar —<br />
-            <span className="gradient-text">300 Free Units Every Month</span>
-          </h1>
-          <p style={{ color: 'var(--text-secondary)', maxWidth: 640, lineHeight: 1.85, fontSize: '1rem', marginBottom: '2rem' }}>
-            PM Surya Ghar Muft Bijli Yojana provides <strong style={{ color: 'var(--brand-orange)' }}>up to ₹78,000 subsidy</strong> on residential rooftop solar. With a 3 kW system, most Indian households get 300+ free units per month — effectively a zero electricity bill. Suntrik handles everything from registration to disbursement.
-          </p>
-          <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', marginBottom: '2.5rem' }}>
-            {[{ v: '₹78,000', l: 'Max Subsidy' }, { v: '300', l: 'Free Units/Month' }, { v: '1 Cr', l: 'Homes Target' }, { v: '2–3 Yr', l: 'Payback Period' }].map(s => (
-              <div key={s.l} style={{ textAlign: 'center', padding: '0.85rem 1.25rem', background: 'rgba(255,107,26,0.07)', border: '1px solid rgba(255,107,26,0.18)', borderRadius: 10 }}>
-                <div style={{ fontFamily: 'Space Grotesk', fontWeight: 900, fontSize: '1.6rem', color: 'var(--brand-orange)', lineHeight: 1 }}>{s.v}</div>
-                <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', marginTop: 4 }}>{s.l}</div>
+          <div className="sg-hero-grid" style={{ display: 'grid', gridTemplateColumns: '1.35fr 1fr', gap: '2.5rem', alignItems: 'center' }}>
+            <div>
+              <div style={{ display: 'flex', gap: '0.75rem', marginBottom: '1.25rem', flexWrap: 'wrap' }}>
+                <span style={{ background: 'rgba(255,107,26,0.15)', color: 'var(--brand-orange)', fontSize: '0.72rem', fontWeight: 700, padding: '0.3rem 0.9rem', borderRadius: 100, border: '1px solid rgba(255,107,26,0.3)' }}>🏠 MNRE Scheme</span>
+                <span style={{ background: 'rgba(255,107,26,0.15)', color: 'var(--brand-orange)', fontSize: '0.72rem', fontWeight: 700, padding: '0.3rem 0.9rem', borderRadius: 100, border: '1px solid rgba(255,107,26,0.3)' }}>✓ Empanelled Installer</span>
               </div>
-            ))}
-          </div>
-          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-            <a href="#contact-sg" className="btn-primary">Apply for PM Surya Ghar →</a>
-            <a href="#subsidy" className="btn-outline">View Subsidy Slabs</a>
+              <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', fontWeight: 900, marginBottom: '1rem', lineHeight: 1.1 }}>
+                PM Surya Ghar —<br />
+                <span className="gradient-text">300 Free Units Every Month</span>
+              </h1>
+              <p style={{ color: 'var(--text-secondary)', maxWidth: 640, lineHeight: 1.85, fontSize: '1rem', marginBottom: '2rem' }}>
+                PM Surya Ghar Muft Bijli Yojana provides <strong style={{ color: 'var(--brand-orange)' }}>up to ₹78,000 subsidy</strong> on residential rooftop solar. With a 3 kW system, most Indian households get 300+ free units per month — effectively a zero electricity bill. Suntrik handles everything from registration to disbursement.
+              </p>
+              <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', marginBottom: '2.5rem' }}>
+                {[{ v: '₹78,000', l: 'Max Subsidy' }, { v: '300', l: 'Free Units/Month' }, { v: '1 Cr', l: 'Homes Target' }, { v: '2–3 Yr', l: 'Payback Period' }].map(s => (
+                  <div key={s.l} style={{ textAlign: 'center', padding: '0.85rem 1.25rem', background: 'rgba(255,107,26,0.07)', border: '1px solid rgba(255,107,26,0.18)', borderRadius: 10 }}>
+                    <div style={{ fontFamily: 'Space Grotesk', fontWeight: 900, fontSize: '1.6rem', color: 'var(--brand-orange)', lineHeight: 1 }}>{s.v}</div>
+                    <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', marginTop: 4 }}>{s.l}</div>
+                  </div>
+                ))}
+              </div>
+              <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+                <a href="#contact-sg" className="btn-primary">Apply for PM Surya Ghar →</a>
+                <a href="#subsidy" className="btn-outline">View Subsidy Slabs</a>
+              </div>
+            </div>
+
+            {/* PM portrait */}
+            <div className="sg-hero-portrait" style={{ position: 'relative', display: 'flex', justifyContent: 'center' }}>
+              <div style={{ position: 'absolute', inset: '-10%', background: 'radial-gradient(ellipse, rgba(255,107,26,0.18) 0%, transparent 68%)', filter: 'blur(40px)', pointerEvents: 'none' }} />
+              <img src="/pm-modi.png" alt="Hon'ble Prime Minister Shri Narendra Modi" loading="eager"
+                style={{ position: 'relative', width: '100%', maxWidth: 380, height: 'auto', filter: 'drop-shadow(0 30px 60px rgba(0,0,0,0.55))' }} />
+            </div>
           </div>
         </div>
       </div>
@@ -319,6 +330,8 @@ export default function SuryaGharPage() {
       <Footer />
       <style>{`
         @media(max-width:860px){
+          .sg-hero-grid { grid-template-columns:1fr !important; }
+          .sg-hero-portrait { max-width:340px; margin:1.5rem auto 0; order:-1; }
           .sg-intro-grid,.sg-subsidy-grid { grid-template-columns:1fr !important; }
           .sg-benefits-grid,.sg-steps-grid { grid-template-columns:1fr !important; }
           .sg-proj-grid { grid-template-columns:1fr !important; }

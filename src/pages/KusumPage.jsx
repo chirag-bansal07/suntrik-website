@@ -54,28 +54,39 @@ export default function KusumPage() {
           <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(16,185,129,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(16,185,129,0.025) 1px, transparent 1px)', backgroundSize: '52px 52px' }} />
         </div>
         <div className="container" style={{ position: 'relative' }}>
-          <div style={{ display: 'flex', gap: '0.75rem', marginBottom: '1.25rem', flexWrap: 'wrap' }}>
-            <span style={{ background: 'rgba(16,185,129,0.15)', color: '#10B981', fontSize: '0.72rem', fontWeight: 700, padding: '0.3rem 0.9rem', borderRadius: 100, border: '1px solid rgba(16,185,129,0.3)' }}>🌾 MNRE Scheme</span>
-            <span style={{ background: 'rgba(16,185,129,0.15)', color: '#10B981', fontSize: '0.72rem', fontWeight: 700, padding: '0.3rem 0.9rem', borderRadius: 100, border: '1px solid rgba(16,185,129,0.3)' }}>✓ HAREDA Empanelled Installer</span>
-          </div>
-          <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', fontWeight: 900, marginBottom: '1rem', lineHeight: 1.1, maxWidth: 700 }}>
-            PM-KUSUM Scheme —<br />
-            <span style={{ background: 'linear-gradient(90deg, #10B981, #34D399)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Solar Power for Every Farmer</span>
-          </h1>
-          <p style={{ color: 'var(--text-secondary)', maxWidth: 620, lineHeight: 1.85, fontSize: '1rem', marginBottom: '2rem' }}>
-            Pradhan Mantri Kisan Urja Suraksha evam Utthaan Mahabhiyan (PM-KUSUM) is India's flagship scheme to solarise agriculture, targeting <strong style={{ color: '#10B981' }}>34,800 MW</strong> of solar capacity by March 2026. Component A lets farmers earn income by selling solar power to the DISCOM. Component C solarises existing grid-connected pumps with net-metering. Suntrik handles everything from application to commissioning.
-          </p>
-          <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', marginBottom: '2.5rem' }}>
-            {[{ v: '34,800 MW', l: 'Target by March 2026' }, { v: '₹34,422 Cr', l: 'Central Outlay' }, { v: '30%', l: 'Central Financial Assistance' }, { v: '35 Lakh', l: 'Grid-Connected Pumps (Comp. C)' }].map(s => (
-              <div key={s.l} style={{ textAlign: 'center', padding: '0.85rem 1.25rem', background: 'rgba(16,185,129,0.07)', border: '1px solid rgba(16,185,129,0.18)', borderRadius: 10 }}>
-                <div style={{ fontFamily: 'Space Grotesk', fontWeight: 900, fontSize: '1.6rem', color: '#10B981', lineHeight: 1 }}>{s.v}</div>
-                <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', marginTop: 4 }}>{s.l}</div>
+          <div className="kusum-hero-grid" style={{ display: 'grid', gridTemplateColumns: '1.35fr 1fr', gap: '2.5rem', alignItems: 'center' }}>
+            <div>
+              <div style={{ display: 'flex', gap: '0.75rem', marginBottom: '1.25rem', flexWrap: 'wrap' }}>
+                <span style={{ background: 'rgba(16,185,129,0.15)', color: '#10B981', fontSize: '0.72rem', fontWeight: 700, padding: '0.3rem 0.9rem', borderRadius: 100, border: '1px solid rgba(16,185,129,0.3)' }}>🌾 MNRE Scheme</span>
+                <span style={{ background: 'rgba(16,185,129,0.15)', color: '#10B981', fontSize: '0.72rem', fontWeight: 700, padding: '0.3rem 0.9rem', borderRadius: 100, border: '1px solid rgba(16,185,129,0.3)' }}>✓ HAREDA Empanelled Installer</span>
               </div>
-            ))}
-          </div>
-          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-            <a href="#contact-kusum" className="btn-primary" style={{ background: 'linear-gradient(90deg, #10B981, #059669)', borderColor: 'transparent' }}>Apply for PM-KUSUM →</a>
-            <a href="#components" className="btn-outline" style={{ borderColor: 'rgba(16,185,129,0.4)', color: '#10B981' }}>View Components</a>
+              <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', fontWeight: 900, marginBottom: '1rem', lineHeight: 1.1 }}>
+                PM-KUSUM Scheme —<br />
+                <span style={{ background: 'linear-gradient(90deg, #10B981, #34D399)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Solar Power for Every Farmer</span>
+              </h1>
+              <p style={{ color: 'var(--text-secondary)', maxWidth: 620, lineHeight: 1.85, fontSize: '1rem', marginBottom: '2rem' }}>
+                Pradhan Mantri Kisan Urja Suraksha evam Utthaan Mahabhiyan (PM-KUSUM) is India's flagship scheme to solarise agriculture, targeting <strong style={{ color: '#10B981' }}>34,800 MW</strong> of solar capacity by March 2026. Component A lets farmers earn income by selling solar power to the DISCOM. Component C solarises existing grid-connected pumps with net-metering. Suntrik handles everything from application to commissioning.
+              </p>
+              <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', marginBottom: '2.5rem' }}>
+                {[{ v: '34,800 MW', l: 'Target by March 2026' }, { v: '₹34,422 Cr', l: 'Central Outlay' }, { v: '30%', l: 'Central Financial Assistance' }, { v: '35 Lakh', l: 'Grid-Connected Pumps (Comp. C)' }].map(s => (
+                  <div key={s.l} style={{ textAlign: 'center', padding: '0.85rem 1.25rem', background: 'rgba(16,185,129,0.07)', border: '1px solid rgba(16,185,129,0.18)', borderRadius: 10 }}>
+                    <div style={{ fontFamily: 'Space Grotesk', fontWeight: 900, fontSize: '1.6rem', color: '#10B981', lineHeight: 1 }}>{s.v}</div>
+                    <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', marginTop: 4 }}>{s.l}</div>
+                  </div>
+                ))}
+              </div>
+              <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+                <a href="#contact-kusum" className="btn-primary" style={{ background: 'linear-gradient(90deg, #10B981, #059669)', borderColor: 'transparent' }}>Apply for PM-KUSUM →</a>
+                <a href="#components" className="btn-outline" style={{ borderColor: 'rgba(16,185,129,0.4)', color: '#10B981' }}>View Components</a>
+              </div>
+            </div>
+
+            {/* PM portrait */}
+            <div className="kusum-hero-portrait" style={{ position: 'relative', display: 'flex', justifyContent: 'center' }}>
+              <div style={{ position: 'absolute', inset: '-10%', background: 'radial-gradient(ellipse, rgba(16,185,129,0.18) 0%, transparent 68%)', filter: 'blur(40px)', pointerEvents: 'none' }} />
+              <img src="/pm-modi.png" alt="Hon'ble Prime Minister Shri Narendra Modi" loading="eager"
+                style={{ position: 'relative', width: '100%', maxWidth: 380, height: 'auto', filter: 'drop-shadow(0 30px 60px rgba(0,0,0,0.55))' }} />
+            </div>
           </div>
         </div>
       </div>
@@ -135,58 +146,6 @@ export default function KusumPage() {
                       </li>
                     ))}
                   </ul>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* ── Financial Structure ── */}
-      <div style={{ background: '#0a1020', padding: '4rem 0', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-        <div className="container">
-          <h2 style={{ fontSize: 'clamp(1.4rem, 3vw, 2rem)', fontWeight: 800, marginBottom: '0.75rem' }}>Financial Structure</h2>
-          <p style={{ color: 'var(--text-secondary)', lineHeight: 1.8, marginBottom: '2.5rem', fontSize: '0.9rem', maxWidth: 680 }}>
-            Both components carry 30% Central Financial Assistance (CFA). States typically add further support. Revenue flows are different: Component A earns a DISCOM power-purchase tariff; Component C earns net-metering credits.
-          </p>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }} className="kusum-subsidy-grid">
-            {[
-              {
-                label: 'Component A — Ground-Mount Plants',
-                color: '#10B981',
-                rows: [
-                  { label: 'Central Financial Assistance (CFA)', value: '30%', color: '#10B981' },
-                  { label: 'State Government Support', value: '≥ 30%', color: '#3B82F6' },
-                  { label: 'Revenue model', value: 'DISCOM tariff (25 yr PPA)' },
-                  { label: 'Farmer / beneficiary pays', value: '≤ 40% project cost', color: '#FF6B1A', bold: true },
-                ],
-                note: 'Excess land — barren or cultivable — earns lease + power-sale income. DISCOM signs a 25-year Power Purchase Agreement.',
-              },
-              {
-                label: 'Component C — Grid-Connected Pump Solarisation',
-                color: '#3B82F6',
-                rows: [
-                  { label: 'Central Financial Assistance (CFA)', value: '30%', color: '#10B981' },
-                  { label: 'State Government Support', value: 'Varies by state', color: '#3B82F6' },
-                  { label: 'Revenue model', value: 'Net-metering credits' },
-                  { label: 'Farmer benefit', value: 'Free daytime irrigation + grid credits', bold: true },
-                ],
-                note: 'Solarises the existing grid-connected pump. Farmer irrigates free during daylight and earns net-metering credits for surplus fed to the DISCOM.',
-              },
-            ].map(card => (
-              <div key={card.label} style={{ borderRadius: 14, border: `1px solid ${card.color}22`, background: `linear-gradient(160deg, ${card.color}08 0%, rgba(6,10,15,0.98) 60%)`, overflow: 'hidden' }}>
-                <div style={{ height: 4, background: card.color }} />
-                <div style={{ padding: '1.5rem' }}>
-                  <h3 style={{ fontFamily: 'Space Grotesk', fontWeight: 700, fontSize: '0.95rem', color: card.color, marginBottom: '1.1rem' }}>{card.label}</h3>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem', marginBottom: '1rem' }}>
-                    {card.rows.map(r => (
-                      <div key={r.label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.6rem 0.85rem', background: r.bold ? `${card.color}12` : 'rgba(255,255,255,0.03)', border: `1px solid ${r.bold ? card.color + '30' : 'rgba(255,255,255,0.06)'}`, borderRadius: 7 }}>
-                        <span style={{ fontSize: '0.78rem', color: 'var(--text-secondary)' }}>{r.label}</span>
-                        <span style={{ fontFamily: 'Space Grotesk', fontWeight: r.bold ? 800 : 700, color: r.color || 'var(--text-primary)', fontSize: '0.82rem' }}>{r.value}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <p style={{ fontSize: '0.72rem', color: 'var(--text-muted)', lineHeight: 1.65 }}>{card.note}</p>
                 </div>
               </div>
             ))}
@@ -283,7 +242,9 @@ export default function KusumPage() {
       <Footer />
       <style>{`
         @media(max-width:860px){
-          .kusum-intro-grid,.kusum-subsidy-grid { grid-template-columns:1fr !important; }
+          .kusum-hero-grid { grid-template-columns:1fr !important; }
+          .kusum-hero-portrait { max-width:340px; margin:1.5rem auto 0; order:-1; }
+          .kusum-intro-grid { grid-template-columns:1fr !important; }
           .kusum-comp-grid,.kusum-steps-grid { grid-template-columns:1fr !important; }
           .kusum-proj-grid { grid-template-columns:1fr !important; }
         }
