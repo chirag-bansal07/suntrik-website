@@ -4,8 +4,6 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { PROJECTS, TYPE_COLOR, TYPE_ICON } from '../data/projects'
 
-const SG_PROJECTS = PROJECTS.filter(p => p.type === 'PM Surya Ghar')
-
 const SUBSIDY_SLABS = [
   { range: 'Up to 1 kW', central: '₹30,000', total: '₹30,000', note: 'Per household' },
   { range: '1 kW – 2 kW', central: '₹30,000–₹60,000', total: 'Up to ₹60,000', note: 'Per kW above 1 kW: +₹30,000' },
@@ -202,58 +200,22 @@ export default function SuryaGharPage() {
         </div>
       </div>
 
-      {/* ── Our Projects ── */}
-      <div style={{ background: '#0a1020', padding: '4rem 0', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-        <div className="container">
-          <div style={{ marginBottom: '2rem' }}>
-            <span style={{ fontSize: '0.7rem', color: 'var(--brand-orange)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.15em', display: 'block', marginBottom: '0.5rem' }}>Our Work</span>
-            <h2 style={{ fontSize: 'clamp(1.4rem, 3vw, 2rem)', fontWeight: 800 }}>PM Surya Ghar Projects by Suntrik</h2>
-          </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1.25rem' }} className="sg-proj-grid">
-            {SG_PROJECTS.map(p => (
-              <div key={p.id} style={{ borderRadius: 14, overflow: 'hidden', border: '1px solid rgba(255,107,26,0.15)', background: 'rgba(255,107,26,0.04)', display: 'flex' }}>
-                <div style={{ width: 90, flexShrink: 0, background: 'linear-gradient(145deg, rgba(255,107,26,0.2) 0%, transparent)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2rem', borderRight: '1px solid rgba(255,107,26,0.12)' }}>🏠</div>
-                <div style={{ flex: 1, padding: '1.25rem' }}>
-                  <div style={{ display: 'flex', gap: '0.4rem', marginBottom: '0.5rem', flexWrap: 'wrap' }}>
-                    <span style={{ background: 'var(--brand-orange)', color: '#fff', fontSize: '0.6rem', fontWeight: 800, padding: '0.15rem 0.6rem', borderRadius: 100 }}>PM Surya Ghar</span>
-                    <span style={{ background: 'rgba(255,184,48,0.1)', color: 'var(--brand-amber)', fontSize: '0.6rem', fontWeight: 700, padding: '0.15rem 0.6rem', borderRadius: 100, border: '1px solid rgba(255,184,48,0.2)' }}>{p.capacity}</span>
-                    {p.subsidy && <span style={{ background: 'rgba(255,107,26,0.1)', color: 'var(--brand-orange)', fontSize: '0.6rem', fontWeight: 700, padding: '0.15rem 0.6rem', borderRadius: 100 }}>{p.subsidy}</span>}
-                  </div>
-                  <h3 style={{ fontFamily: 'Space Grotesk', fontWeight: 700, fontSize: '1rem', marginBottom: '0.25rem' }}>{p.title}</h3>
-                  <p style={{ fontSize: '0.7rem', color: 'var(--brand-orange)', fontWeight: 600, marginBottom: '0.6rem' }}>📍 {p.location} · {p.year}</p>
-                  <p style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', lineHeight: 1.65, marginBottom: '0.75rem' }}>{p.desc}</p>
-                  <ul style={{ listStyle: 'none', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.3rem' }}>
-                    {p.highlights.map(h => (
-                      <li key={h} style={{ display: 'flex', gap: '0.35rem', fontSize: '0.72rem', color: 'var(--text-muted)' }}>
-                        <span style={{ color: 'var(--brand-orange)', flexShrink: 0 }}>✓</span>{h}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div style={{ textAlign: 'center', marginTop: '1.5rem' }}>
-            <Link to="/projects" className="btn-outline" style={{ textDecoration: 'none' }}>View All Projects →</Link>
-          </div>
-        </div>
-      </div>
-
-      {/* ── Installation Gallery ── */}
+      {/* ── Installation Gallery (horizontal tray) ── */}
       <div style={{ padding: '4rem 0', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
         <div className="container">
           <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
             <span style={{ fontSize: '0.7rem', color: 'var(--brand-orange)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.18em', display: 'block', marginBottom: '0.6rem' }}>Our Installations</span>
             <h2 style={{ fontSize: 'clamp(1.4rem, 3vw, 2rem)', fontWeight: 800, marginBottom: '0.5rem' }}>Real Homes. Real Savings.</h2>
-            <p style={{ color: 'var(--text-secondary)', maxWidth: 500, margin: '0 auto', fontSize: '0.9rem' }}>Every photo is a family across India that now pays zero electricity bills — installed and commissioned by Suntrik.</p>
+            <p style={{ color: 'var(--text-secondary)', maxWidth: 500, margin: '0 auto', fontSize: '0.9rem' }}>Every photo is a family across India that now pays zero electricity bills — installed and commissioned by Suntrik. <span style={{ color: 'var(--brand-orange)' }}>Scroll to explore →</span></p>
           </div>
-          <div style={{ columns: '4 220px', gap: '0.75rem' }}>
-            {Array.from({ length: 40 }, (_, i) => (
-              <img key={i} src={`/gallery/surya-ghar/sg-${String(i + 1).padStart(2, '0')}.jpg`}
-                alt={`Surya Ghar installation ${i + 1}`} loading="lazy"
-                style={{ width: '100%', marginBottom: '0.75rem', borderRadius: 10, display: 'block', border: '1px solid rgba(255,107,26,0.08)' }} />
-            ))}
-          </div>
+        </div>
+        {/* full-bleed scrolling tray */}
+        <div className="sg-gallery-tray" style={{ display: 'flex', gap: '1rem', overflowX: 'auto', padding: '0.5rem 2rem 1.5rem', scrollSnapType: 'x proximity', WebkitOverflowScrolling: 'touch' }}>
+          {Array.from({ length: 40 }, (_, i) => (
+            <img key={i} src={`/gallery/surya-ghar/sg-${String(i + 1).padStart(2, '0')}.jpg`}
+              alt={`Surya Ghar installation ${i + 1}`} loading="lazy"
+              style={{ height: 300, width: 'auto', flexShrink: 0, borderRadius: 12, display: 'block', border: '1px solid rgba(255,107,26,0.12)', scrollSnapAlign: 'center', boxShadow: '0 12px 30px rgba(0,0,0,0.35)' }} />
+          ))}
         </div>
       </div>
 
@@ -329,13 +291,18 @@ export default function SuryaGharPage() {
 
       <Footer />
       <style>{`
+        .sg-gallery-tray::-webkit-scrollbar { height: 8px; }
+        .sg-gallery-tray::-webkit-scrollbar-track { background: rgba(255,255,255,0.04); border-radius: 100px; }
+        .sg-gallery-tray::-webkit-scrollbar-thumb { background: rgba(255,107,26,0.4); border-radius: 100px; }
+        .sg-gallery-tray::-webkit-scrollbar-thumb:hover { background: rgba(255,107,26,0.6); }
+        .sg-gallery-tray { scrollbar-color: rgba(255,107,26,0.4) rgba(255,255,255,0.04); scrollbar-width: thin; }
         @media(max-width:860px){
           .sg-hero-grid { grid-template-columns:1fr !important; }
           .sg-hero-portrait { max-width:340px; margin:1.5rem auto 0; order:-1; }
           .sg-intro-grid,.sg-subsidy-grid { grid-template-columns:1fr !important; }
           .sg-benefits-grid,.sg-steps-grid { grid-template-columns:1fr !important; }
-          .sg-proj-grid { grid-template-columns:1fr !important; }
           .sg-team-grid { grid-template-columns:1fr !important; }
+          .sg-gallery-tray img { height: 220px !important; }
         }
       `}</style>
     </div>

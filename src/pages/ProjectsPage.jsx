@@ -7,6 +7,12 @@ import { PROJECTS, TYPE_COLOR, TYPE_ICON } from '../data/projects'
 
 const FILTERS = ['PM-KUSUM', 'PM Surya Ghar', 'C&I']
 
+// PM Surya Ghar & C&I are shown as photo galleries (not project cards)
+const GALLERY = {
+  'PM Surya Ghar': Array.from({ length: 40 }, (_, i) => `/gallery/surya-ghar/sg-${String(i + 1).padStart(2, '0')}.jpg`),
+  'C&I':           Array.from({ length: 6 },  (_, i) => `/gallery/ci/ci-${String(i + 1).padStart(2, '0')}.jpg`),
+}
+
 export default function ProjectsPage() {
   const [active, setActive] = useState('PM-KUSUM')
   const filtered = PROJECTS.filter(p => p.type === active)
@@ -60,46 +66,74 @@ export default function ProjectsPage() {
             }}>
               {TYPE_ICON[f] || '☀️'} {f}
               <span style={{ background: active === f ? 'rgba(255,255,255,0.25)' : 'rgba(255,255,255,0.08)', borderRadius: 100, padding: '0 0.4rem', fontSize: '0.7rem' }}>
-                {f === 'All' ? PROJECTS.length : PROJECTS.filter(p => p.type === f).length}
+                {GALLERY[f] ? GALLERY[f].length : PROJECTS.filter(p => p.type === f).length}
               </span>
             </button>
           ))}
         </div>
 
-        {/* Cards grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(330px, 1fr))', gap: '1.5rem' }} className="all-proj-grid">
-          <AnimatePresence mode="popLayout">
-            {filtered.map((p, i) => (
-              <motion.div key={p.id} layout
-                initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.45, delay: i * 0.05, ease: [0.16, 1, 0.3, 1] }}
-                whileHover={{ y: -6 }}
-                style={{ borderRadius: 18, overflow: 'hidden', border: `1px solid ${TYPE_COLOR[p.type]}2e`, background: 'rgba(255,255,255,0.03)', cursor: 'pointer', transition: 'border-color 0.25s, box-shadow 0.25s' }}
-                onMouseEnter={e => { e.currentTarget.style.borderColor = `${TYPE_COLOR[p.type]}88`; e.currentTarget.style.boxShadow = '0 20px 50px rgba(0,0,0,0.45)' }}
-                onMouseLeave={e => { e.currentTarget.style.borderColor = `${TYPE_COLOR[p.type]}2e`; e.currentTarget.style.boxShadow = 'none' }}
-              >
-                <div style={{ position: 'relative', height: 260, overflow: 'hidden' }}>
-                  {p.img
-                    ? <img src={p.img} alt={p.location} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-                    : <div style={{ width: '100%', height: '100%', background: `linear-gradient(145deg, ${TYPE_COLOR[p.type]}33 0%, #060A0F 100%)`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '3.5rem' }}>{TYPE_ICON[p.type]}</div>}
-                  {/* gradient scrim for legible text */}
-                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(6,10,15,0.94) 0%, rgba(6,10,15,0.2) 48%, transparent 72%)' }} />
-                  {/* scheme tag */}
-                  <span style={{ position: 'absolute', top: '0.9rem', left: '0.9rem', background: TYPE_COLOR[p.type], color: '#fff', fontSize: '0.64rem', fontWeight: 800, padding: '0.28rem 0.75rem', borderRadius: 100, letterSpacing: '0.04em' }}>{TYPE_ICON[p.type]} {p.type}</span>
-                  {/* subsidy badge (if any) */}
-                  {p.subsidy && (
-                    <span style={{ position: 'absolute', top: '0.9rem', right: '0.9rem', background: 'rgba(6,10,15,0.6)', color: '#fff', fontSize: '0.6rem', fontWeight: 800, padding: '0.28rem 0.7rem', borderRadius: 100, border: '1px solid rgba(255,255,255,0.25)', backdropFilter: 'blur(6px)' }}>{p.subsidy}</span>
-                  )}
-                  {/* capacity + location */}
-                  <div style={{ position: 'absolute', left: '1.2rem', right: '1.2rem', bottom: '1.1rem' }}>
-                    <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 900, fontSize: '2.3rem', lineHeight: 1, color: '#fff', textShadow: '0 2px 18px rgba(0,0,0,0.5)' }}>{p.capacity}</div>
-                    <div style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.9)', fontWeight: 600, marginTop: '0.45rem' }}>📍 {p.location}</div>
+        {active === 'PM-KUSUM' ? (
+          /* ── PM-KUSUM: project cards ── */
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(330px, 1fr))', gap: '1.5rem' }} className="all-proj-grid">
+            <AnimatePresence mode="popLayout">
+              {filtered.map((p, i) => (
+                <motion.div key={p.id} layout
+                  initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.45, delay: i * 0.05, ease: [0.16, 1, 0.3, 1] }}
+                  whileHover={{ y: -6 }}
+                  style={{ borderRadius: 18, overflow: 'hidden', border: `1px solid ${TYPE_COLOR[p.type]}2e`, background: 'rgba(255,255,255,0.03)', cursor: 'pointer', transition: 'border-color 0.25s, box-shadow 0.25s' }}
+                  onMouseEnter={e => { e.currentTarget.style.borderColor = `${TYPE_COLOR[p.type]}88`; e.currentTarget.style.boxShadow = '0 20px 50px rgba(0,0,0,0.45)' }}
+                  onMouseLeave={e => { e.currentTarget.style.borderColor = `${TYPE_COLOR[p.type]}2e`; e.currentTarget.style.boxShadow = 'none' }}
+                >
+                  <div style={{ position: 'relative', height: 260, overflow: 'hidden' }}>
+                    {p.img
+                      ? <img src={p.img} alt={p.location} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                      : <div style={{ width: '100%', height: '100%', background: `linear-gradient(145deg, ${TYPE_COLOR[p.type]}33 0%, #060A0F 100%)`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '3.5rem' }}>{TYPE_ICON[p.type]}</div>}
+                    {/* gradient scrim for legible text */}
+                    <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(6,10,15,0.94) 0%, rgba(6,10,15,0.2) 48%, transparent 72%)' }} />
+                    {/* scheme tag */}
+                    <span style={{ position: 'absolute', top: '0.9rem', left: '0.9rem', background: TYPE_COLOR[p.type], color: '#fff', fontSize: '0.64rem', fontWeight: 800, padding: '0.28rem 0.75rem', borderRadius: 100, letterSpacing: '0.04em' }}>{TYPE_ICON[p.type]} {p.type}</span>
+                    {/* subsidy badge (if any) */}
+                    {p.subsidy && (
+                      <span style={{ position: 'absolute', top: '0.9rem', right: '0.9rem', background: 'rgba(6,10,15,0.6)', color: '#fff', fontSize: '0.6rem', fontWeight: 800, padding: '0.28rem 0.7rem', borderRadius: 100, border: '1px solid rgba(255,255,255,0.25)', backdropFilter: 'blur(6px)' }}>{p.subsidy}</span>
+                    )}
+                    {/* capacity + location */}
+                    <div style={{ position: 'absolute', left: '1.2rem', right: '1.2rem', bottom: '1.1rem' }}>
+                      <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 900, fontSize: '2.3rem', lineHeight: 1, color: '#fff', textShadow: '0 2px 18px rgba(0,0,0,0.5)' }}>{p.capacity}</div>
+                      <div style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.9)', fontWeight: 600, marginTop: '0.45rem' }}>📍 {p.location}</div>
+                    </div>
                   </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </div>
+        ) : (
+          /* ── PM Surya Ghar & C&I: photo gallery + installation team ── */
+          <>
+            <div style={{ columns: '4 240px', columnGap: '0.85rem' }}>
+              {GALLERY[active].map((src, i) => (
+                <img key={src} src={src} alt={`${active} installation ${i + 1}`} loading="lazy"
+                  style={{ width: '100%', marginBottom: '0.85rem', borderRadius: 12, display: 'block', border: `1px solid ${TYPE_COLOR[active]}22` }} />
+              ))}
+            </div>
+
+            {/* Installation team photo */}
+            <div style={{ marginTop: '3.5rem' }}>
+              <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
+                <span style={{ fontSize: '0.7rem', color: TYPE_COLOR[active], fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.18em', display: 'block', marginBottom: '0.5rem' }}>Our Team</span>
+                <h2 style={{ fontSize: 'clamp(1.4rem, 3vw, 2rem)', fontWeight: 800 }}>The Team Behind Every Install</h2>
+              </div>
+              <div style={{ position: 'relative', borderRadius: 18, overflow: 'hidden', border: `1px solid ${TYPE_COLOR[active]}2e`, boxShadow: '0 30px 70px rgba(0,0,0,0.5)' }}>
+                <img src="/gallery/team.jpg" alt="Suntrik installation team" loading="lazy" style={{ width: '100%', display: 'block' }} />
+                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(6,10,15,0.9) 0%, transparent 45%)' }} />
+                <div style={{ position: 'absolute', left: '1.5rem', right: '1.5rem', bottom: '1.4rem' }}>
+                  <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 900, fontSize: 'clamp(1.1rem, 2.5vw, 1.6rem)', color: '#fff' }}>Suntrik Installation Crew</div>
+                  <div style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.85)', fontWeight: 600, marginTop: '0.35rem' }}>13+ NISE-certified technicians · In-house crew, no sub-contractors · Active pan-India</div>
                 </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </div>
+              </div>
+            </div>
+          </>
+        )}
 
         {/* CTA */}
         <div style={{ textAlign: 'center', marginTop: '3rem', padding: '2.5rem', background: 'rgba(255,107,26,0.05)', border: '1px solid rgba(255,107,26,0.15)', borderRadius: 16 }}>
