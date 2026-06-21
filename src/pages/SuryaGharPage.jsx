@@ -228,6 +228,64 @@ export default function SuryaGharPage() {
         </div>
       </div>
 
+      {/* ── Installation Gallery ── */}
+      <div style={{ padding: '4rem 0', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+        <div className="container">
+          <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
+            <span style={{ fontSize: '0.7rem', color: 'var(--brand-orange)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.18em', display: 'block', marginBottom: '0.6rem' }}>Our Installations</span>
+            <h2 style={{ fontSize: 'clamp(1.4rem, 3vw, 2rem)', fontWeight: 800, marginBottom: '0.5rem' }}>Real Homes. Real Savings.</h2>
+            <p style={{ color: 'var(--text-secondary)', maxWidth: 500, margin: '0 auto', fontSize: '0.9rem' }}>Every photo is a family across India that now pays zero electricity bills — installed and commissioned by Suntrik.</p>
+          </div>
+          <div style={{ columns: '4 220px', gap: '0.75rem' }}>
+            {Array.from({ length: 40 }, (_, i) => (
+              <img key={i} src={`/gallery/surya-ghar/sg-${String(i + 1).padStart(2, '0')}.jpg`}
+                alt={`Surya Ghar installation ${i + 1}`} loading="lazy"
+                style={{ width: '100%', marginBottom: '0.75rem', borderRadius: 10, display: 'block', border: '1px solid rgba(255,107,26,0.08)' }} />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── Installation Team ── */}
+      <div style={{ background: '#0a1020', padding: '4rem 0', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+        <div className="container">
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3.5rem', alignItems: 'center' }} className="sg-team-grid">
+            <div style={{ position: 'relative' }}>
+              <img src="/gallery/team.jpg" alt="Suntrik installation team" loading="lazy"
+                style={{ width: '100%', borderRadius: 18, display: 'block', border: '2px solid rgba(255,107,26,0.25)', boxShadow: '0 30px 70px rgba(0,0,0,0.5)' }} />
+              <div style={{ position: 'absolute', bottom: '1.25rem', left: '1.25rem', background: 'rgba(6,10,15,0.75)', backdropFilter: 'blur(8px)', borderRadius: 10, padding: '0.7rem 1rem', border: '1px solid rgba(255,107,26,0.2)' }}>
+                <div style={{ fontFamily: 'Space Grotesk', fontWeight: 900, fontSize: '1.1rem', color: 'var(--brand-orange)' }}>13+ Technicians</div>
+                <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>NISE-certified field crew</div>
+              </div>
+            </div>
+            <div>
+              <span style={{ fontSize: '0.7rem', color: 'var(--brand-orange)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.18em', display: 'block', marginBottom: '0.75rem' }}>Our Team</span>
+              <h2 style={{ fontSize: 'clamp(1.4rem, 3vw, 2rem)', fontWeight: 800, marginBottom: '1rem', lineHeight: 1.2 }}>The People Who Install Your Solar</h2>
+              <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, marginBottom: '1rem', fontSize: '0.9rem' }}>
+                Every Suntrik installation is carried out by our in-house field crew — trained, uniformed, and NISE-certified. They handle everything on-site: structural mounting, module placement, inverter wiring, net-meter cabling, and final commissioning checks.
+              </p>
+              <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '0.9rem', marginBottom: '1.5rem' }}>
+                We don't outsource to local contractors. The same crew that designs your system builds it — ensuring quality, accountability, and the 5-year AMC you can count on.
+              </p>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
+                {[
+                  { icon: '🎓', t: 'NISE-Certified', s: 'Every field engineer' },
+                  { icon: '🔧', t: 'In-House Crew', s: 'No sub-contractors' },
+                  { icon: '🛡️', t: '5-Year AMC', s: 'Residential installs' },
+                  { icon: '📍', t: 'Pan-India', s: 'Active across states' },
+                ].map(c => (
+                  <div key={c.t} style={{ padding: '0.9rem 1rem', background: 'rgba(255,107,26,0.05)', border: '1px solid rgba(255,107,26,0.12)', borderRadius: 10 }}>
+                    <div style={{ fontSize: '1.2rem', marginBottom: '0.3rem' }}>{c.icon}</div>
+                    <div style={{ fontFamily: 'Space Grotesk', fontWeight: 700, fontSize: '0.85rem', color: 'var(--brand-orange)', marginBottom: '0.15rem' }}>{c.t}</div>
+                    <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>{c.s}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* ── FAQs ── */}
       <div style={{ padding: '4rem 0', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
         <div className="container" style={{ maxWidth: 800 }}>
@@ -264,6 +322,7 @@ export default function SuryaGharPage() {
           .sg-intro-grid,.sg-subsidy-grid { grid-template-columns:1fr !important; }
           .sg-benefits-grid,.sg-steps-grid { grid-template-columns:1fr !important; }
           .sg-proj-grid { grid-template-columns:1fr !important; }
+          .sg-team-grid { grid-template-columns:1fr !important; }
         }
       `}</style>
     </div>

@@ -5,11 +5,11 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { PROJECTS, TYPE_COLOR, TYPE_ICON } from '../data/projects'
 
-const FILTERS = ['All', 'PM-KUSUM', 'PM Surya Ghar', 'C&I']
+const FILTERS = ['PM-KUSUM', 'PM Surya Ghar', 'C&I']
 
 export default function ProjectsPage() {
-  const [active, setActive] = useState('All')
-  const filtered = active === 'All' ? PROJECTS : PROJECTS.filter(p => p.type === active)
+  const [active, setActive] = useState('PM-KUSUM')
+  const filtered = PROJECTS.filter(p => p.type === active)
 
   useEffect(() => { window.scrollTo(0, 0) }, [])
 

@@ -22,8 +22,7 @@ export default function Projects() {
       style={{
         position: 'relative', overflow: 'hidden',
         background: 'linear-gradient(175deg, #060A0F 0%, #0A1020 50%, #060A0F 100%)',
-        padding: 'clamp(2rem, 3vh, 3rem) 0',
-        minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center',
+        padding: 'clamp(3.5rem, 7vh, 5.5rem) 0',
       }}
     >
       <div style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none' }}>

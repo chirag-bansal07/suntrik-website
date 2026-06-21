@@ -14,6 +14,7 @@ const HOME_LINKS = [
 const SCHEME_LINKS = [
   { label: '🌾 PM-KUSUM',      shortLabel: 'PM-KUSUM',    to: '/schemes/kusum',      desc: '60% subsidy for farmers' },
   { label: '🏠 PM Surya Ghar', shortLabel: 'Surya Ghar',  to: '/schemes/surya-ghar', desc: '₹78,000 subsidy for homes' },
+  { label: '🏗️ C&I Solar',     shortLabel: 'C&I',         to: '/schemes/ci',         desc: '2-year AMC for commercial' },
 ]
 
 export default function Navbar({ page = false }) {

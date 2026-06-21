@@ -25,6 +25,7 @@ import Atmosphere from './components/Atmosphere'
 import ProjectsPage  from './pages/ProjectsPage'
 import KusumPage     from './pages/KusumPage'
 import SuryaGharPage from './pages/SuryaGharPage'
+import CIPage        from './pages/CIPage'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -103,6 +104,7 @@ export default function App() {
         <Route path="/projects"           element={<ProjectsPage />} />
         <Route path="/schemes/kusum"      element={<KusumPage />} />
         <Route path="/schemes/surya-ghar" element={<SuryaGharPage />} />
+        <Route path="/schemes/ci"         element={<CIPage />} />
       </Routes>
     </BrowserRouter>
   )
