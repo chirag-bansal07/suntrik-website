@@ -67,45 +67,34 @@ export default function ProjectsPage() {
         </div>
 
         {/* Cards grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.25rem' }} className="all-proj-grid">
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(330px, 1fr))', gap: '1.5rem' }} className="all-proj-grid">
           <AnimatePresence mode="popLayout">
             {filtered.map((p, i) => (
               <motion.div key={p.id} layout
                 initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.45, delay: i * 0.05, ease: [0.16, 1, 0.3, 1] }}
-                whileHover={{ y: -5 }}
-                style={{ borderRadius: 14, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.07)', background: 'rgba(255,255,255,0.03)', cursor: 'pointer', display: 'flex', flexDirection: 'column', transition: 'border-color 0.25s' }}
-                onMouseEnter={e => e.currentTarget.style.borderColor = `${TYPE_COLOR[p.type]}44`}
-                onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)'}
+                whileHover={{ y: -6 }}
+                style={{ borderRadius: 18, overflow: 'hidden', border: `1px solid ${TYPE_COLOR[p.type]}2e`, background: 'rgba(255,255,255,0.03)', cursor: 'pointer', transition: 'border-color 0.25s, box-shadow 0.25s' }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor = `${TYPE_COLOR[p.type]}88`; e.currentTarget.style.boxShadow = '0 20px 50px rgba(0,0,0,0.45)' }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor = `${TYPE_COLOR[p.type]}2e`; e.currentTarget.style.boxShadow = 'none' }}
               >
-                {/* Top accent */}
-                <div style={{ height: 3, background: `linear-gradient(90deg, ${TYPE_COLOR[p.type]}, transparent)`, flexShrink: 0 }} />
-                {/* Icon header */}
-                <div style={{ height: p.img ? 150 : 100, background: `linear-gradient(135deg, ${TYPE_COLOR[p.type]}20 0%, #060A0F 100%)`, backgroundImage: p.img ? `url(${p.img})` : undefined, backgroundSize: 'cover', backgroundPosition: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '3rem', position: 'relative', flexShrink: 0 }}>
-                  {!p.img && TYPE_ICON[p.type]}
+                <div style={{ position: 'relative', height: 260, overflow: 'hidden' }}>
+                  {p.img
+                    ? <img src={p.img} alt={p.location} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                    : <div style={{ width: '100%', height: '100%', background: `linear-gradient(145deg, ${TYPE_COLOR[p.type]}33 0%, #060A0F 100%)`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '3.5rem' }}>{TYPE_ICON[p.type]}</div>}
+                  {/* gradient scrim for legible text */}
+                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(6,10,15,0.94) 0%, rgba(6,10,15,0.2) 48%, transparent 72%)' }} />
+                  {/* scheme tag */}
+                  <span style={{ position: 'absolute', top: '0.9rem', left: '0.9rem', background: TYPE_COLOR[p.type], color: '#fff', fontSize: '0.64rem', fontWeight: 800, padding: '0.28rem 0.75rem', borderRadius: 100, letterSpacing: '0.04em' }}>{TYPE_ICON[p.type]} {p.type}</span>
+                  {/* subsidy badge (if any) */}
                   {p.subsidy && (
-                    <div style={{ position: 'absolute', top: '0.6rem', right: '0.6rem', background: 'rgba(16,185,129,0.15)', color: '#10B981', fontSize: '0.6rem', fontWeight: 800, padding: '0.2rem 0.6rem', borderRadius: 100, border: '1px solid rgba(16,185,129,0.3)' }}>
-                      {p.subsidy} Subsidy
-                    </div>
+                    <span style={{ position: 'absolute', top: '0.9rem', right: '0.9rem', background: 'rgba(6,10,15,0.6)', color: '#fff', fontSize: '0.6rem', fontWeight: 800, padding: '0.28rem 0.7rem', borderRadius: 100, border: '1px solid rgba(255,255,255,0.25)', backdropFilter: 'blur(6px)' }}>{p.subsidy}</span>
                   )}
-                </div>
-                {/* Info */}
-                <div style={{ padding: '1.1rem 1.25rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
-                  <div style={{ display: 'flex', gap: '0.4rem', marginBottom: '0.6rem', flexWrap: 'wrap' }}>
-                    <span style={{ background: TYPE_COLOR[p.type], color: '#fff', fontSize: '0.6rem', fontWeight: 800, padding: '0.15rem 0.6rem', borderRadius: 100 }}>{p.type}</span>
-                    <span style={{ background: 'rgba(255,184,48,0.1)', color: 'var(--brand-amber)', fontSize: '0.6rem', fontWeight: 700, padding: '0.15rem 0.6rem', borderRadius: 100, border: '1px solid rgba(255,184,48,0.2)' }}>{p.capacity}</span>
-                    <span style={{ color: 'var(--text-muted)', fontSize: '0.6rem', marginLeft: 'auto', alignSelf: 'center' }}>{p.year}</span>
+                  {/* capacity + location */}
+                  <div style={{ position: 'absolute', left: '1.2rem', right: '1.2rem', bottom: '1.1rem' }}>
+                    <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 900, fontSize: '2.3rem', lineHeight: 1, color: '#fff', textShadow: '0 2px 18px rgba(0,0,0,0.5)' }}>{p.capacity}</div>
+                    <div style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.9)', fontWeight: 600, marginTop: '0.45rem' }}>📍 {p.location}</div>
                   </div>
-                  <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '0.95rem', fontWeight: 700, marginBottom: '0.25rem', lineHeight: 1.3 }}>{p.title}</h3>
-                  <p style={{ fontSize: '0.7rem', color: TYPE_COLOR[p.type], fontWeight: 600, marginBottom: '0.7rem' }}>📍 {p.location}</p>
-                  <p style={{ fontSize: '0.76rem', color: 'var(--text-secondary)', lineHeight: 1.65, marginBottom: '0.85rem', flex: 1 }}>{p.desc}</p>
-                  <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.28rem' }}>
-                    {p.highlights.map(h => (
-                      <li key={h} style={{ display: 'flex', gap: '0.4rem', fontSize: '0.72rem', color: 'var(--text-muted)', lineHeight: 1.35 }}>
-                        <span style={{ color: TYPE_COLOR[p.type], flexShrink: 0 }}>▸</span>{h}
-                      </li>
-                    ))}
-                  </ul>
                 </div>
               </motion.div>
             ))}
