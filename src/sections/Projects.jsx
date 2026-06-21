@@ -32,50 +32,50 @@ export default function Projects() {
 
       <div className="container" style={{ position: 'relative', zIndex: 1 }}>
         {/* Header */}
-        <div ref={headRef} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
+        <div ref={headRef} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '2.25rem', flexWrap: 'wrap', gap: '1rem' }}>
           <div>
             <motion.span className="section-tag" initial={{ opacity: 0, y: 20 }} animate={headIn ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5 }}>Our Work</motion.span>
-            <motion.h2 initial={{ opacity: 0, y: 28 }} animate={headIn ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.65, delay: 0.1 }} style={{ fontSize: 'clamp(1.5rem, 3.2vw, 2.2rem)' }}>
+            <motion.h2 initial={{ opacity: 0, y: 28 }} animate={headIn ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.65, delay: 0.1 }} style={{ fontSize: 'clamp(1.8rem, 3.6vw, 2.6rem)' }}>
               Proven Across <span className="gradient-text">India</span>
             </motion.h2>
           </div>
           <motion.p initial={{ opacity: 0 }} animate={headIn ? { opacity: 1 } : {}} transition={{ duration: 0.6, delay: 0.2 }}
-            style={{ color: 'var(--text-secondary)', maxWidth: 340, lineHeight: 1.75, textAlign: 'right', fontSize: '0.875rem' }} className="proj-subhead">
+            style={{ color: 'var(--text-secondary)', maxWidth: 380, lineHeight: 1.75, textAlign: 'right', fontSize: '0.95rem' }} className="proj-subhead">
             From farmer solar pumps to industrial rooftops — delivered on time, every time.
           </motion.p>
         </div>
 
         <div ref={gridRef}>
           {/* Top row: large featured + 2 stacked */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1.6fr 1fr', gap: '1rem', marginBottom: '1rem' }} className="proj-top-row">
+          <div style={{ display: 'grid', gridTemplateColumns: '1.6fr 1fr', gap: '1.5rem', marginBottom: '1.5rem' }} className="proj-top-row">
 
             {/* Featured */}
             <TiltCard style={{ borderRadius: 16 }} max={6}>
             <motion.div
               initial={{ opacity: 0, y: 32 }} animate={gridIn ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              style={{ borderRadius: 16, overflow: 'hidden', border: `1px solid ${TYPE_COLOR[FEATURED.type]}33`, background: `linear-gradient(140deg, ${TYPE_COLOR[FEATURED.type]}15 0%, rgba(6,10,15,0.98) 65%)`, position: 'relative', cursor: 'pointer', minHeight: 280, height: '100%' }}
+              style={{ borderRadius: 16, overflow: 'hidden', border: `1px solid ${TYPE_COLOR[FEATURED.type]}33`, background: `linear-gradient(140deg, ${TYPE_COLOR[FEATURED.type]}15 0%, rgba(6,10,15,0.98) 65%)`, position: 'relative', cursor: 'pointer', minHeight: 440, height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
               onMouseEnter={e => e.currentTarget.style.borderColor = `${TYPE_COLOR[FEATURED.type]}55`}
               onMouseLeave={e => e.currentTarget.style.borderColor = `${TYPE_COLOR[FEATURED.type]}33`}
             >
               <div style={{ height: 3, background: `linear-gradient(90deg, ${TYPE_COLOR[FEATURED.type]}, transparent)` }} />
-              <div style={{ padding: '1.75rem 2rem' }}>
-                <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.1rem', flexWrap: 'wrap' }}>
-                  <span style={{ background: TYPE_COLOR[FEATURED.type], color: '#fff', fontSize: '0.65rem', fontWeight: 800, padding: '0.2rem 0.75rem', borderRadius: 100 }}>{TYPE_ICON[FEATURED.type]} {FEATURED.type}</span>
-                  <span style={{ background: 'rgba(255,184,48,0.15)', color: 'var(--brand-amber)', fontSize: '0.65rem', fontWeight: 700, padding: '0.2rem 0.75rem', borderRadius: 100, border: '1px solid rgba(255,184,48,0.25)' }}>{FEATURED.capacity}</span>
-                  {FEATURED.subsidy && <span style={{ background: 'rgba(16,185,129,0.15)', color: '#10B981', fontSize: '0.65rem', fontWeight: 700, padding: '0.2rem 0.75rem', borderRadius: 100, border: '1px solid rgba(16,185,129,0.25)' }}>{FEATURED.subsidy} Subsidy</span>}
+              <div style={{ padding: '2.5rem 2.75rem' }}>
+                <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.4rem', flexWrap: 'wrap' }}>
+                  <span style={{ background: TYPE_COLOR[FEATURED.type], color: '#fff', fontSize: '0.72rem', fontWeight: 800, padding: '0.28rem 0.85rem', borderRadius: 100 }}>{TYPE_ICON[FEATURED.type]} {FEATURED.type}</span>
+                  <span style={{ background: 'rgba(255,184,48,0.15)', color: 'var(--brand-amber)', fontSize: '0.72rem', fontWeight: 700, padding: '0.28rem 0.85rem', borderRadius: 100, border: '1px solid rgba(255,184,48,0.25)' }}>{FEATURED.capacity}</span>
+                  {FEATURED.subsidy && <span style={{ background: 'rgba(16,185,129,0.15)', color: '#10B981', fontSize: '0.72rem', fontWeight: 700, padding: '0.28rem 0.85rem', borderRadius: 100, border: '1px solid rgba(16,185,129,0.25)' }}>{FEATURED.subsidy} Subsidy</span>}
                 </div>
-                <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: 'clamp(1.1rem, 2vw, 1.45rem)', fontWeight: 800, marginBottom: '0.35rem', lineHeight: 1.2 }}>{FEATURED.title}</h3>
-                <p style={{ fontSize: '0.75rem', color: TYPE_COLOR[FEATURED.type], fontWeight: 600, marginBottom: '0.85rem' }}>📍 {FEATURED.location} · {FEATURED.year}</p>
-                <p style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', lineHeight: 1.7, marginBottom: '1.1rem', maxWidth: 480 }}>{FEATURED.desc}</p>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.45rem' }}>
+                <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: 'clamp(1.5rem, 2.6vw, 2rem)', fontWeight: 800, marginBottom: '0.5rem', lineHeight: 1.2 }}>{FEATURED.title}</h3>
+                <p style={{ fontSize: '0.88rem', color: TYPE_COLOR[FEATURED.type], fontWeight: 600, marginBottom: '1.1rem' }}>📍 {FEATURED.location} · {FEATURED.year}</p>
+                <p style={{ fontSize: '0.98rem', color: 'var(--text-secondary)', lineHeight: 1.8, marginBottom: '1.6rem', maxWidth: 580 }}>{FEATURED.desc}</p>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.7rem' }}>
                   {FEATURED.highlights.map(h => (
-                    <div key={h} style={{ display: 'flex', gap: '0.4rem', fontSize: '0.73rem', color: 'var(--text-muted)' }}>
+                    <div key={h} style={{ display: 'flex', gap: '0.5rem', fontSize: '0.86rem', color: 'var(--text-muted)' }}>
                       <span style={{ color: TYPE_COLOR[FEATURED.type], flexShrink: 0 }}>▸</span>{h}
                     </div>
                   ))}
                 </div>
               </div>
-              <div style={{ position: 'absolute', bottom: '1rem', right: '1.5rem', fontSize: '6rem', opacity: 0.06, lineHeight: 1, userSelect: 'none', pointerEvents: 'none' }}>{TYPE_ICON[FEATURED.type]}</div>
+              <div style={{ position: 'absolute', bottom: '1.25rem', right: '1.75rem', fontSize: '7.5rem', opacity: 0.06, lineHeight: 1, userSelect: 'none', pointerEvents: 'none' }}>{TYPE_ICON[FEATURED.type]}</div>
             </motion.div>
             </TiltCard>
 
