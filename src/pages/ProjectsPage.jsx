@@ -81,8 +81,8 @@ export default function ProjectsPage() {
                 {/* Top accent */}
                 <div style={{ height: 3, background: `linear-gradient(90deg, ${TYPE_COLOR[p.type]}, transparent)`, flexShrink: 0 }} />
                 {/* Icon header */}
-                <div style={{ height: 100, background: `linear-gradient(135deg, ${TYPE_COLOR[p.type]}20 0%, #060A0F 100%)`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '3rem', position: 'relative', flexShrink: 0 }}>
-                  {TYPE_ICON[p.type]}
+                <div style={{ height: p.img ? 150 : 100, background: `linear-gradient(135deg, ${TYPE_COLOR[p.type]}20 0%, #060A0F 100%)`, backgroundImage: p.img ? `url(${p.img})` : undefined, backgroundSize: 'cover', backgroundPosition: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '3rem', position: 'relative', flexShrink: 0 }}>
+                  {!p.img && TYPE_ICON[p.type]}
                   {p.subsidy && (
                     <div style={{ position: 'absolute', top: '0.6rem', right: '0.6rem', background: 'rgba(16,185,129,0.15)', color: '#10B981', fontSize: '0.6rem', fontWeight: 800, padding: '0.2rem 0.6rem', borderRadius: 100, border: '1px solid rgba(16,185,129,0.3)' }}>
                       {p.subsidy} Subsidy

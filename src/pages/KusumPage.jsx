@@ -224,7 +224,11 @@ export default function KusumPage() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1.25rem' }} className="kusum-proj-grid">
             {KUSUM_PROJECTS.map(p => (
               <div key={p.id} style={{ borderRadius: 14, overflow: 'hidden', border: '1px solid rgba(16,185,129,0.15)', background: 'rgba(16,185,129,0.04)', display: 'flex' }}>
-                <div style={{ width: 90, flexShrink: 0, background: 'linear-gradient(145deg, rgba(16,185,129,0.2) 0%, transparent)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2rem', borderRight: '1px solid rgba(16,185,129,0.12)' }}>🌾</div>
+                {p.img ? (
+                  <div style={{ width: 200, flexShrink: 0, backgroundImage: `url(${p.img})`, backgroundSize: 'cover', backgroundPosition: 'center', borderRight: '1px solid rgba(16,185,129,0.12)' }} />
+                ) : (
+                  <div style={{ width: 90, flexShrink: 0, background: 'linear-gradient(145deg, rgba(16,185,129,0.2) 0%, transparent)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2rem', borderRight: '1px solid rgba(16,185,129,0.12)' }}>🌾</div>
+                )}
                 <div style={{ flex: 1, padding: '1.25rem' }}>
                   <div style={{ display: 'flex', gap: '0.4rem', marginBottom: '0.5rem', flexWrap: 'wrap' }}>
                     <span style={{ background: '#10B981', color: '#fff', fontSize: '0.6rem', fontWeight: 800, padding: '0.15rem 0.6rem', borderRadius: 100 }}>PM-KUSUM</span>

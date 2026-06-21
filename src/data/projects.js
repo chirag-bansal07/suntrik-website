@@ -1,22 +1,21 @@
+// PM-KUSUM ground-mount plants (Rajasthan) — real Suntrik projects with photos
+// extracted from the SGEPL company profile. Capacities/locations are as listed
+// in the profile.
+const kusum = (id, name, cap) => ({
+  id,
+  title: `${name} Ground-Mount Solar`,
+  location: `${name}, Rajasthan`,
+  capacity: `${cap} MWp`,
+  type: 'PM-KUSUM',
+  year: '2024',
+  desc: `${cap} MWp utility-scale ground-mounted solar power plant in ${name}, Rajasthan, developed under PM-KUSUM. Suntrik delivered end-to-end EPC — engineering, module & BOS supply, civil and mounting works, and DISCOM grid interconnection.`,
+  highlights: [`${cap} MWp ground-mount capacity`, 'PM-KUSUM ground-mount plant', 'Turnkey EPC by Suntrik', 'Grid-interconnected in Rajasthan'],
+  img: `/projects/${name.toLowerCase()}.jpg`,
+  typeColor: '#10B981',
+})
+
 export const PROJECTS = [
-  {
-    id: 1,
-    title: 'PM-KUSUM Ground-Mount Solar',
-    location: 'Rohtak, Haryana',
-    capacity: '50 kWp',
-    type: 'PM-KUSUM',
-    year: '2023',
-    desc: 'Turnkey ground-mount installation for a farmer collective under PM-KUSUM Component B. Suntrik managed the complete DPR preparation, HAREDA empanelment, DISCOM grid interconnection, and subsidy disbursement — freeing the farmers from all bureaucratic burden.',
-    highlights: [
-      'HAREDA sanction obtained in 3 weeks',
-      'Complete MNRE Tier-1 component supply',
-      'Power purchase agreement with DHBVN',
-      'System live within 45 days of sanction',
-    ],
-    img: null,
-    typeColor: '#10B981',
-    subsidy: '60%',
-  },
+  kusum(1, 'Bhojasar', '8.48'),
   {
     id: 2,
     title: 'Industrial Rooftop EPC',
@@ -54,19 +53,7 @@ export const PROJECTS = [
     typeColor: '#FF6B1A',
     subsidy: 'Up to ₹78,000',
   },
-  {
-    id: 5,
-    title: 'PM-KUSUM Solar Pump Cluster',
-    location: 'Hisar, Haryana',
-    capacity: '35 kWp',
-    type: 'PM-KUSUM',
-    year: '2023',
-    desc: 'Component B installation replacing diesel irrigation pumps for 8 farmer families. 100% elimination of irrigation electricity cost. Central (30%) and state (30%) subsidy availed.',
-    highlights: ['8 solar pump installations', 'Central + state subsidy availed', 'Zero irrigation cost achieved', 'Diesel pump replacement'],
-    img: null,
-    typeColor: '#10B981',
-    subsidy: '60%',
-  },
+  kusum(5, 'Ransisar', '8.48'),
   {
     id: 6,
     title: 'C&I Rooftop + Net Metering',
@@ -104,6 +91,14 @@ export const PROJECTS = [
     img: null,
     typeColor: '#8B5CF6',
   },
+  kusum(9,  'Girghichiya', '3.98'),
+  kusum(10, 'Nainasar',    '3.28'),
+  kusum(11, 'Tolasar',     '8.48'),
+  kusum(12, 'Malsar',      '8.48'),
+  kusum(13, 'Sawar',       '6.46'),
+  kusum(14, 'Billiyubas',  '5.2'),
+  kusum(15, 'Rampura',     '6.56'),
+  kusum(16, 'Norangdesar', '5.2'),
 ]
 
 export const TYPE_COLOR = {
