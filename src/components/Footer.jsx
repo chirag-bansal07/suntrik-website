@@ -1,4 +1,13 @@
+import { Link } from 'react-router-dom'
 import SuntrikLogo from './SuntrikLogo'
+
+// Footer links that point to real destinations (others are placeholders)
+const LINK_MAP = {
+  'About Us':    '/#about',
+  'Careers':     '/careers',
+  'Contact Us':  '/#contact',
+  'Get a Quote': '/#contact',
+}
 
 const cols = {
   'Company':  ['About Us', 'Leadership Team', 'Careers', 'Blog'],
@@ -65,10 +74,17 @@ export default function Footer() {
               <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.68rem' }}>
                 {items.map(item => (
                   <li key={item}>
-                    <a href="#" style={{ fontSize: '0.83rem', color: 'var(--text-secondary)', transition: 'color 0.2s', lineHeight: 1.4, textDecoration: 'none' }}
-                      onMouseEnter={e => e.target.style.color = 'var(--brand-orange)'}
-                      onMouseLeave={e => e.target.style.color = 'var(--text-secondary)'}
-                    >{item}</a>
+                    {LINK_MAP[item] ? (
+                      <Link to={LINK_MAP[item]} style={{ fontSize: '0.83rem', color: 'var(--text-secondary)', transition: 'color 0.2s', lineHeight: 1.4, textDecoration: 'none' }}
+                        onMouseEnter={e => e.target.style.color = 'var(--brand-orange)'}
+                        onMouseLeave={e => e.target.style.color = 'var(--text-secondary)'}
+                      >{item}</Link>
+                    ) : (
+                      <a href="#" style={{ fontSize: '0.83rem', color: 'var(--text-secondary)', transition: 'color 0.2s', lineHeight: 1.4, textDecoration: 'none' }}
+                        onMouseEnter={e => e.target.style.color = 'var(--brand-orange)'}
+                        onMouseLeave={e => e.target.style.color = 'var(--text-secondary)'}
+                      >{item}</a>
+                    )}
                   </li>
                 ))}
               </ul>
