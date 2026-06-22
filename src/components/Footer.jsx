@@ -89,16 +89,15 @@ export default function Footer() {
 
         {/* ── Office addresses ────────────────────────────── */}
         <div style={{
-          display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem',
+          display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1.5rem',
           padding: '2rem', borderRadius: 12,
           background: 'rgba(255,107,26,0.04)',
           border: '1px solid rgba(255,107,26,0.1)',
           marginBottom: '2rem',
         }} className="address-grid">
           {[
-            { city: 'Jaipur (HO)', line1: 'Suntrik Green Energy Pvt. Ltd.', line2: 'Jaipur, Rajasthan' },
-            { city: 'Sirsa (North)',  line1: 'Suntrik Solutions',               line2: 'Sirsa, Haryana' },
-            { city: 'Bhanipura',     line1: 'SunMount Factory',                 line2: 'Bhanipura, Rajasthan' },
+            { city: 'Head Office — Sirsa', line1: 'Rania Bazar, Sirsa', line2: 'Haryana 125055' },
+            { city: 'Jaipur Office',       line1: '#601 Elemental Mall, DCM', line2: 'Ajmer Road, Jaipur 302201' },
           ].map(a => (
             <div key={a.city}>
               <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--brand-orange)', marginBottom: '0.3rem', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
