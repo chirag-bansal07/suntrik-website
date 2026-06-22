@@ -8,8 +8,10 @@ const HOME_LINKS = [
   { label: 'Services', href: '#services' },
   { label: 'Projects', to: '/projects'   },
   { label: 'Savings',  href: '#savings'  },
-  { label: 'Contact',  href: '#contact'  },
 ]
+
+// Rendered last in the nav, after the scheme tabs
+const CONTACT_LINK = { label: 'Contact', href: '#contact' }
 
 const SCHEME_LINKS = [
   { label: '🌾 PM-KUSUM',      shortLabel: 'PM-KUSUM',    to: '/schemes/kusum',      desc: '60% subsidy for farmers' },
@@ -34,7 +36,7 @@ export default function Navbar({ page = false }) {
   /* ── active section tracker (homepage only) ───────────── */
   useEffect(() => {
     if (page) return
-    const sections = HOME_LINKS.filter(l => l.href).map(l => document.querySelector(l.href))
+    const sections = [...HOME_LINKS, CONTACT_LINK].filter(l => l.href).map(l => document.querySelector(l.href))
     const io = new IntersectionObserver(
       entries => { entries.forEach(e => { if (e.isIntersecting) setActiveLink('#' + e.target.id) }) },
       { threshold: 0.25, rootMargin: '-60px 0px -60px 0px' },
@@ -147,6 +149,31 @@ export default function Navbar({ page = false }) {
                 </li>
               )
             })}
+
+            {/* Contact — pinned last */}
+            <li style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <a
+                href={page ? '/#contact' : '#contact'}
+                onMouseEnter={() => setHovered('#contact')}
+                onMouseLeave={() => setHovered(null)}
+                style={{
+                  display: 'block', padding: '0.45rem 1rem',
+                  fontSize: '0.875rem', fontWeight: 500,
+                  color: activeLink === '#contact' ? 'var(--brand-orange)' : hovered === '#contact' ? '#fff' : 'rgba(255,255,255,0.65)',
+                  textDecoration: 'none', borderRadius: 8,
+                  background: hovered === '#contact' ? 'rgba(255,107,26,0.1)' : 'transparent',
+                  transition: 'color 0.18s, background 0.18s',
+                }}
+              >
+                {CONTACT_LINK.label}
+              </a>
+              {activeLink === '#contact' && (
+                <motion.span layoutId="activeUnderline"
+                  style={{ position: 'absolute', bottom: -2, left: '20%', right: '20%', height: 2, borderRadius: 1, background: 'var(--gradient-sun)', display: 'block' }}
+                  transition={{ type: 'spring', stiffness: 500, damping: 35 }}
+                />
+              )}
+            </li>
           </ul>
 
           {/* ── CTA button (right) ───────────────────────── */}
@@ -241,6 +268,19 @@ export default function Navbar({ page = false }) {
                 {s.label}
               </Link>
             ))}
+            {/* Contact — pinned last */}
+            <a
+              href={page ? '/#contact' : '#contact'}
+              onClick={() => setOpen(false)}
+              style={{
+                display: 'block', padding: '0.9rem 0',
+                fontSize: '1.05rem', fontWeight: 600,
+                borderBottom: '1px solid rgba(255,255,255,0.05)',
+                color: activeLink === '#contact' ? 'var(--brand-orange)' : 'var(--text-primary)', textDecoration: 'none',
+              }}
+            >
+              {CONTACT_LINK.label}
+            </a>
             <motion.div
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.38 }}
               style={{ marginTop: '1.25rem' }}

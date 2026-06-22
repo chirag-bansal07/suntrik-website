@@ -3,12 +3,19 @@ import { motion } from 'framer-motion'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
 
 const contactInfo = [
-  { icon: '📍', label: 'Address', value: 'Suntrik Green Energy Pvt. Ltd., Haryana, India' },
+  { icon: '📍', label: 'Head Office',  value: 'Rania Bazar, Sirsa, Haryana 125055' },
+  { icon: '🏢', label: 'Jaipur Office', value: '#601 Elemental Mall, DCM, Ajmer Road, Jaipur 302201' },
   { icon: '📞', label: 'Phone',   value: '+91 75037 39000' },
   { icon: '✉️', label: 'Email',   value: 'info@suntrik.com' },
   { icon: '🌐', label: 'Website', value: 'www.suntrik.com' },
   { icon: '🕐', label: 'Hours',   value: 'Mon – Sat: 9:00 AM – 6:00 PM' },
 ]
+
+// Enquiries are emailed to these addresses via FormSubmit (no backend needed).
+// NOTE: the first submission triggers a one-time confirmation email to the
+// primary address (info@suntrik.com) that must be clicked to activate delivery.
+const FORM_ENDPOINT = 'https://formsubmit.co/ajax/info@suntrik.com'
+const CC_EMAIL = 'hr.suntrik@gmail.com'
 
 const serviceTypes = [
   'Residential Rooftop (PM Surya Ghar)',
@@ -23,12 +30,41 @@ export default function Contact() {
   const { ref, inView } = useScrollAnimation(0.08)
   const [form, setForm] = useState({ name: '', email: '', phone: '', service: serviceTypes[0], capacity: '', message: '' })
   const [sent, setSent] = useState(false)
+  const [sending, setSending] = useState(false)
+  const [error, setError] = useState('')
 
   const change = e => setForm(f => ({ ...f, [e.target.name]: e.target.value }))
-  const submit = e => {
+  const submit = async e => {
     e.preventDefault()
-    // TODO: wire to Formspree / EmailJS / backend API
-    setSent(true)
+    setSending(true)
+    setError('')
+    try {
+      const res = await fetch(FORM_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          service: form.service,
+          capacity: form.capacity,
+          message: form.message,
+          _cc: CC_EMAIL,
+          _subject: `New website enquiry — ${form.name || 'Suntrik'}`,
+          _template: 'table',
+        }),
+      })
+      const data = await res.json().catch(() => ({}))
+      if (res.ok && (data.success === 'true' || data.success === true)) {
+        setSent(true)
+      } else {
+        setError(data.message || 'Something went wrong. Please try again or email info@suntrik.com directly.')
+      }
+    } catch {
+      setError('Network error. Please try again or email info@suntrik.com directly.')
+    } finally {
+      setSending(false)
+    }
   }
 
   return (
@@ -158,8 +194,12 @@ export default function Contact() {
                   />
                 </div>
 
-                <button type="submit" className="btn-primary" style={{ alignSelf: 'flex-start', marginTop: '0.25rem' }}>
-                  Request Free Assessment →
+                {error && (
+                  <p style={{ color: '#f87171', fontSize: '0.82rem', margin: '0.1rem 0 0' }}>{error}</p>
+                )}
+                <button type="submit" className="btn-primary" disabled={sending}
+                  style={{ alignSelf: 'flex-start', marginTop: '0.25rem', opacity: sending ? 0.6 : 1, cursor: sending ? 'wait' : 'pointer' }}>
+                  {sending ? 'Sending…' : 'Request Free Assessment →'}
                 </button>
               </form>
             )}
