@@ -69,7 +69,7 @@ export default function Navbar({ page = false }) {
 
           {/* ── Logo (left) ──────────────────────────────── */}
           <a href="#hero" style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', textDecoration: 'none', height: '100%' }}>
-            <SuntrikLogo width={100} className="nav-logo" />
+            <SuntrikLogo width={90} className="nav-logo" />
           </a>
 
           {/* ── Centered nav links ───────────────────────── */}
@@ -98,7 +98,7 @@ export default function Navbar({ page = false }) {
               const isHovered = hovered === target
               const linkStyle = {
                 display: 'block', padding: '0.45rem 1rem',
-                fontSize: '0.875rem', fontWeight: 500,
+                fontSize: '1rem', fontWeight: 500,
                 color: isActive ? 'var(--brand-orange)' : isHovered ? '#fff' : 'rgba(255,255,255,0.65)',
                 textDecoration: 'none', borderRadius: 8,
                 background: isHovered ? 'rgba(255,107,26,0.1)' : 'transparent',
@@ -136,7 +136,7 @@ export default function Navbar({ page = false }) {
                     onMouseLeave={() => setHovered(null)}
                     style={{
                       display: 'block', padding: '0.45rem 1rem',
-                      fontSize: '0.875rem', fontWeight: 500,
+                      fontSize: '1rem', fontWeight: 500,
                       color: isHov ? '#fff' : 'rgba(255,255,255,0.65)',
                       textDecoration: 'none', borderRadius: 8,
                       background: isHov ? 'rgba(255,107,26,0.1)' : 'transparent',
@@ -157,7 +157,7 @@ export default function Navbar({ page = false }) {
                 onMouseLeave={() => setHovered(null)}
                 style={{
                   display: 'block', padding: '0.45rem 1rem',
-                  fontSize: '0.875rem', fontWeight: 500,
+                  fontSize: '1rem', fontWeight: 500,
                   color: activeLink === '#contact' ? 'var(--brand-orange)' : hovered === '#contact' ? '#fff' : 'rgba(255,255,255,0.65)',
                   textDecoration: 'none', borderRadius: 8,
                   background: hovered === '#contact' ? 'rgba(255,107,26,0.1)' : 'transparent',
@@ -299,7 +299,7 @@ export default function Navbar({ page = false }) {
 
       <style>{`
         .nav-logo {
-          width: 100px !important;
+          width: 90px !important;
           height: auto;
           max-width: none;
           object-fit: contain;
