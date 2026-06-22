@@ -69,7 +69,7 @@ export default function KusumPage() {
               </p>
               <div className="kusum-hero-stats" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.6rem', marginBottom: '2.5rem' }}>
                 {[{ v: '34,800 MW', l: 'Target by March 2026' }, { v: '₹34,422 Cr', l: 'Central Outlay' }, { v: '30%', l: 'Central Financial Assistance' }, { v: '35 Lakh', l: 'Grid-Connected Pumps (Comp. C)' }].map(s => (
-                  <div key={s.l} style={{ textAlign: 'center', padding: '0.7rem 0.5rem', background: 'rgba(16,185,129,0.07)', border: '1px solid rgba(16,185,129,0.18)', borderRadius: 10 }}>
+                  <div key={s.l} style={{ textAlign: 'center', padding: '0.7rem 0.5rem', background: 'rgba(16,185,129,0.07)', border: '1px solid rgba(16,185,129,0.18)', borderRadius: 10, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                     <div style={{ fontFamily: 'Space Grotesk', fontWeight: 900, fontSize: '1.15rem', color: '#10B981', lineHeight: 1.1, whiteSpace: 'nowrap' }}>{s.v}</div>
                     <div style={{ fontSize: '0.6rem', color: 'var(--text-muted)', marginTop: 4, lineHeight: 1.3 }}>{s.l}</div>
                   </div>
@@ -85,7 +85,7 @@ export default function KusumPage() {
             <div className="kusum-hero-portrait" style={{ position: 'relative', alignSelf: 'stretch', minHeight: 340 }}>
               <div style={{ position: 'absolute', inset: '10% -6% 0 6%', background: 'radial-gradient(ellipse at bottom, rgba(16,185,129,0.22) 0%, transparent 65%)', filter: 'blur(45px)', pointerEvents: 'none' }} />
               <img src="/pm-modi.png" alt="Hon'ble Prime Minister Shri Narendra Modi" loading="eager"
-                style={{ position: 'absolute', bottom: 'calc(-4rem - 40px)', right: -100, width: '100%', maxWidth: 540, height: 'auto', transform: 'scale(1.82)', transformOrigin: 'bottom right', filter: 'drop-shadow(0 24px 45px rgba(0,0,0,0.55))' }} />
+                style={{ position: 'absolute', bottom: 'calc(-4rem - 40px)', right: -200, width: '100%', maxWidth: 540, height: 'auto', transform: 'scale(1.82)', transformOrigin: 'bottom right', filter: 'drop-shadow(0 24px 45px rgba(0,0,0,0.55))' }} />
             </div>
           </div>
         </div>
