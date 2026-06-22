@@ -4,7 +4,7 @@ import { useScrollAnimation } from '../hooks/useScrollAnimation'
 
 const contactInfo = [
   { icon: '📍', label: 'Address', value: 'Suntrik Green Energy Pvt. Ltd., Haryana, India' },
-  { icon: '📞', label: 'Phone',   value: '+91 XXXXX XXXXX' },
+  { icon: '📞', label: 'Phone',   value: '+91 75037 39000' },
   { icon: '✉️', label: 'Email',   value: 'info@suntrik.com' },
   { icon: '🌐', label: 'Website', value: 'www.suntrik.com' },
   { icon: '🕐', label: 'Hours',   value: 'Mon – Sat: 9:00 AM – 6:00 PM' },
@@ -141,8 +141,8 @@ export default function Contact() {
                 {/* Service type */}
                 <div>
                   <label style={labelStyle}>Service Required</label>
-                  <select name="service" value={form.service} onChange={change} style={inputStyle}>
-                    {serviceTypes.map(t => <option key={t} value={t}>{t}</option>)}
+                  <select name="service" value={form.service} onChange={change} style={{ ...inputStyle, colorScheme: 'dark', cursor: 'pointer' }}>
+                    {serviceTypes.map(t => <option key={t} value={t} style={{ background: '#0d1320', color: '#fff' }}>{t}</option>)}
                   </select>
                 </div>
 
