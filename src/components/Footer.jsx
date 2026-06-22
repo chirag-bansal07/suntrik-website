@@ -17,9 +17,9 @@ export default function Footer() {
 
           {/* ── Brand column ──────────────────────────────── */}
           <div>
-            <div style={{ marginBottom: '1.25rem' }}>
+            <div style={{ marginBottom: '1.5rem' }}>
               <a href="#hero" style={{ display: 'inline-block' }}>
-                <SuntrikLogo width={80} />
+                <SuntrikLogo width={170} />
               </a>
             </div>
 
@@ -29,17 +29,6 @@ export default function Footer() {
               Part of the Suntrik Group alongside its distribution arm
               and <em>SunMount</em> (mounting structures).
             </p>
-
-            {/* Certification badges */}
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginBottom: '1.5rem' }}>
-              {CERTS.map(b => (
-                <span key={b} style={{
-                  fontSize: '0.62rem', fontWeight: 600, padding: '0.18rem 0.6rem',
-                  background: 'rgba(255,107,26,0.08)', color: 'var(--brand-orange)',
-                  border: '1px solid rgba(255,107,26,0.18)', borderRadius: 100,
-                }}>{b}</span>
-              ))}
-            </div>
 
             {/* Social icons */}
             <div style={{ display: 'flex', gap: '0.5rem' }}>
@@ -84,6 +73,24 @@ export default function Footer() {
                 ))}
               </ul>
             </div>
+          ))}
+        </div>
+
+        {/* ── Certifications strip ─────────────────────────── */}
+        <div style={{
+          display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem',
+          padding: '1.25rem 0', marginBottom: '2rem',
+          borderTop: '1px solid rgba(255,255,255,0.06)', borderBottom: '1px solid rgba(255,255,255,0.06)',
+        }}>
+          <span style={{ fontSize: '0.7rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.12em', marginRight: '0.6rem' }}>
+            Certifications &amp; Empanelments
+          </span>
+          {CERTS.map(b => (
+            <span key={b} style={{
+              fontSize: '0.65rem', fontWeight: 600, padding: '0.22rem 0.7rem',
+              background: 'rgba(255,107,26,0.08)', color: 'var(--brand-orange)',
+              border: '1px solid rgba(255,107,26,0.18)', borderRadius: 100,
+            }}>{b}</span>
           ))}
         </div>
 
