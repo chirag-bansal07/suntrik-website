@@ -68,9 +68,17 @@ export default function Navbar({ page = false }) {
         }}>
 
           {/* ── Logo (left) ──────────────────────────────── */}
-          <a href="#hero" style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', textDecoration: 'none', height: '100%' }}>
-            <SuntrikLogo width={90} className="nav-logo" />
-          </a>
+          {page ? (
+            <Link to="/" aria-label="Suntrik — home" style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', textDecoration: 'none', height: '100%' }}>
+              <SuntrikLogo width={90} className="nav-logo" />
+            </Link>
+          ) : (
+            <a href="#hero" aria-label="Suntrik — home"
+              onClick={e => { e.preventDefault(); window.__lenis ? window.__lenis.scrollTo(0) : window.scrollTo({ top: 0, behavior: 'smooth' }) }}
+              style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', textDecoration: 'none', height: '100%' }}>
+              <SuntrikLogo width={90} className="nav-logo" />
+            </a>
+          )}
 
           {/* ── Centered nav links ───────────────────────── */}
           <ul
