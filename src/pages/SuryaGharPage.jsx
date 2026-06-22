@@ -213,13 +213,18 @@ export default function SuryaGharPage() {
             <p style={{ color: 'var(--text-secondary)', maxWidth: 500, margin: '0 auto', fontSize: '0.9rem' }}>Every photo is a family across India that now pays zero electricity bills — installed and commissioned by Suntrik. <span style={{ color: 'var(--brand-orange)' }}>Scroll to explore →</span></p>
           </div>
         </div>
-        {/* full-bleed scrolling tray */}
-        <div className="sg-gallery-tray" style={{ display: 'flex', gap: '1rem', overflowX: 'auto', padding: '0.5rem 2rem 1.5rem', scrollSnapType: 'x proximity', WebkitOverflowScrolling: 'touch' }}>
-          {Array.from({ length: 40 }, (_, i) => (
-            <img key={i} src={`/gallery/surya-ghar/sg-${String(i + 1).padStart(2, '0')}.jpg`}
-              alt={`Surya Ghar installation ${i + 1}`} loading="lazy"
-              style={{ height: 300, width: 'auto', flexShrink: 0, borderRadius: 12, display: 'block', border: '1px solid rgba(255,107,26,0.12)', scrollSnapAlign: 'center', boxShadow: '0 12px 30px rgba(0,0,0,0.35)' }} />
-          ))}
+        {/* full-bleed auto-scrolling marquee (duplicated set for a seamless loop) */}
+        <div className="sg-gallery-marquee" style={{ overflow: 'hidden', padding: '0.5rem 0 1.5rem' }}>
+          <div className="sg-gallery-track" style={{ display: 'flex', width: 'max-content' }}>
+            {Array.from({ length: 80 }, (_, idx) => {
+              const n = idx % 40
+              return (
+                <img key={idx} src={`/gallery/surya-ghar/sg-${String(n + 1).padStart(2, '0')}.jpg`}
+                  alt={`Surya Ghar installation ${n + 1}`} loading="lazy" aria-hidden={idx >= 40}
+                  style={{ height: 300, width: 'auto', flexShrink: 0, marginRight: '1rem', borderRadius: 12, display: 'block', border: '1px solid rgba(255,107,26,0.12)', boxShadow: '0 12px 30px rgba(0,0,0,0.35)' }} />
+              )
+            })}
+          </div>
         </div>
       </div>
 
@@ -295,19 +300,19 @@ export default function SuryaGharPage() {
 
       <Footer />
       <style>{`
-        .sg-gallery-tray::-webkit-scrollbar { height: 8px; }
-        .sg-gallery-tray::-webkit-scrollbar-track { background: rgba(255,255,255,0.04); border-radius: 100px; }
-        .sg-gallery-tray::-webkit-scrollbar-thumb { background: rgba(255,107,26,0.4); border-radius: 100px; }
-        .sg-gallery-tray::-webkit-scrollbar-thumb:hover { background: rgba(255,107,26,0.6); }
-        .sg-gallery-tray { scrollbar-color: rgba(255,107,26,0.4) rgba(255,255,255,0.04); scrollbar-width: thin; }
+        .sg-gallery-track { animation: sg-marquee 90s linear infinite; }
+        .sg-gallery-marquee:hover .sg-gallery-track { animation-play-state: paused; }
+        @keyframes sg-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+        @media (prefers-reduced-motion: reduce) { .sg-gallery-track { animation: none; } }
         @media(max-width:860px){
+          .sg-gallery-track { animation-duration: 55s; }
+          .sg-gallery-track img { height: 220px !important; }
           .sg-hero-grid { grid-template-columns:1fr !important; }
           .sg-hero-portrait { order:-1; min-height:0 !important; }
           .sg-hero-portrait img { position:static !important; bottom:auto !important; right:auto !important; transform:none !important; max-width:280px !important; margin:1rem auto 0 !important; display:block; }
           .sg-intro-grid,.sg-subsidy-grid { grid-template-columns:1fr !important; }
           .sg-benefits-grid,.sg-steps-grid { grid-template-columns:1fr !important; }
           .sg-team-grid { grid-template-columns:1fr !important; }
-          .sg-gallery-tray img { height: 220px !important; }
         }
       `}</style>
     </div>

@@ -63,13 +63,13 @@ export default function Navbar({ page = false }) {
           display: 'grid',
           gridTemplateColumns: '200px 1fr 200px',
           alignItems: 'center',
-          height: 112,
+          height: 90,
           padding: '0 2rem',
         }}>
 
           {/* ── Logo (left) ──────────────────────────────── */}
           <a href="#hero" style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', textDecoration: 'none', height: '100%' }}>
-            <SuntrikLogo width={140} className="nav-logo" />
+            <SuntrikLogo width={110} className="nav-logo" />
           </a>
 
           {/* ── Centered nav links ───────────────────────── */}
@@ -224,7 +224,7 @@ export default function Navbar({ page = false }) {
             exit={{    opacity: 0,  y: -14 }}
             transition={{ duration: 0.22 }}
             style={{
-              position: 'fixed', top: 112, left: 0, right: 0, zIndex: 999,
+              position: 'fixed', top: 90, left: 0, right: 0, zIndex: 999,
               background: 'rgba(5,9,14,0.98)', backdropFilter: 'blur(24px)',
               borderBottom: '1px solid rgba(255,107,26,0.12)',
               padding: '1rem 1.75rem 1.75rem',
@@ -299,7 +299,7 @@ export default function Navbar({ page = false }) {
 
       <style>{`
         .nav-logo {
-          width: 140px !important;
+          width: 110px !important;
           height: auto;
           max-width: none;
           object-fit: contain;
