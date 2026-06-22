@@ -7,6 +7,7 @@ const HOME_LINKS = [
   { label: 'About',    href: '#about'    },
   { label: 'Services', href: '#services' },
   { label: 'Projects', to: '/projects'   },
+  { label: 'Careers',  to: '/careers'    },
 ]
 
 // Rendered last in the nav, after the scheme tabs
