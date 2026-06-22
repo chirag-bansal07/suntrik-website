@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
+import Savings from '../sections/Savings'
 import { PROJECTS, TYPE_COLOR, TYPE_ICON } from '../data/projects'
 
 const SUBSIDY_SLABS = [
@@ -199,6 +200,9 @@ export default function SuryaGharPage() {
           </div>
         </div>
       </div>
+
+      {/* ── Solar Savings ── */}
+      <Savings />
 
       {/* ── Installation Gallery (horizontal tray) ── */}
       <div style={{ padding: '4rem 0', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>

@@ -11,7 +11,6 @@ import Services from './sections/Services'
 import ProjectReels from './sections/ProjectReels'
 import Stats from './sections/Stats'
 import WhyUs from './sections/WhyUs'
-import Savings from './sections/Savings'
 import Testimonials from './sections/Testimonials'
 import Team from './sections/Team'
 import Contact from './sections/Contact'
@@ -57,7 +56,6 @@ function HomePage() {
         <ProjectReels />
         <Stats />
         <WhyUs />
-        <Savings />
         <Testimonials />
         <Team />
         <Contact />
