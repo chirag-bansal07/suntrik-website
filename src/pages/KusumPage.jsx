@@ -64,14 +64,14 @@ export default function KusumPage() {
                 PM-KUSUM Scheme —<br />
                 <span style={{ background: 'linear-gradient(90deg, #10B981, #34D399)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Solar Power for Every Farmer</span>
               </h1>
-              <p style={{ color: 'var(--text-secondary)', maxWidth: 620, lineHeight: 1.85, fontSize: '1rem', marginBottom: '2rem' }}>
-                Pradhan Mantri Kisan Urja Suraksha evam Utthaan Mahabhiyan (PM-KUSUM) is India's flagship scheme to solarise agriculture, targeting <strong style={{ color: '#10B981' }}>34,800 MW</strong> of solar capacity by March 2026. Component A lets farmers earn income by selling solar power to the DISCOM. Component C solarises existing grid-connected pumps with net-metering. Suntrik handles everything from application to commissioning.
+              <p style={{ color: 'var(--text-secondary)', maxWidth: 620, lineHeight: 1.8, fontSize: '1rem', marginBottom: '2rem' }}>
+                <strong style={{ color: '#10B981' }}>PM-KUSUM</strong> solarises Indian agriculture: Component A lets farmers earn by selling solar power to the DISCOM, and Component C solarises grid-connected pumps with net-metering. Suntrik handles it end to end — application to commissioning.
               </p>
-              <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', marginBottom: '2.5rem' }}>
+              <div className="kusum-hero-stats" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.6rem', marginBottom: '2.5rem' }}>
                 {[{ v: '34,800 MW', l: 'Target by March 2026' }, { v: '₹34,422 Cr', l: 'Central Outlay' }, { v: '30%', l: 'Central Financial Assistance' }, { v: '35 Lakh', l: 'Grid-Connected Pumps (Comp. C)' }].map(s => (
-                  <div key={s.l} style={{ textAlign: 'center', padding: '0.85rem 1.25rem', background: 'rgba(16,185,129,0.07)', border: '1px solid rgba(16,185,129,0.18)', borderRadius: 10 }}>
-                    <div style={{ fontFamily: 'Space Grotesk', fontWeight: 900, fontSize: '1.6rem', color: '#10B981', lineHeight: 1 }}>{s.v}</div>
-                    <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', marginTop: 4 }}>{s.l}</div>
+                  <div key={s.l} style={{ textAlign: 'center', padding: '0.7rem 0.5rem', background: 'rgba(16,185,129,0.07)', border: '1px solid rgba(16,185,129,0.18)', borderRadius: 10 }}>
+                    <div style={{ fontFamily: 'Space Grotesk', fontWeight: 900, fontSize: '1.15rem', color: '#10B981', lineHeight: 1.1, whiteSpace: 'nowrap' }}>{s.v}</div>
+                    <div style={{ fontSize: '0.6rem', color: 'var(--text-muted)', marginTop: 4, lineHeight: 1.3 }}>{s.l}</div>
                   </div>
                 ))}
               </div>
@@ -243,6 +243,7 @@ export default function KusumPage() {
       <style>{`
         @media(max-width:860px){
           .kusum-hero-grid { grid-template-columns:1fr !important; }
+          .kusum-hero-stats { grid-template-columns:repeat(2,1fr) !important; }
           .kusum-hero-portrait { order:-1; min-height:0 !important; }
           .kusum-hero-portrait img { position:static !important; bottom:auto !important; right:auto !important; transform:none !important; max-width:280px !important; margin:1rem auto 0 !important; display:block; }
           .kusum-intro-grid { grid-template-columns:1fr !important; }
