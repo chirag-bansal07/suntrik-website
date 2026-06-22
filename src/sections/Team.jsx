@@ -10,9 +10,9 @@ import { useScrollAnimation } from '../hooks/useScrollAnimation'
 import TiltCard from '../components/ui/TiltCard'
 
 const TEAM = [
-  { name: 'Vinay Bansal',  title: 'Director', exp: '29+ yrs', bio: 'Three decades of operations and finance leadership steering Suntrik\'s growth and execution.', accent: '#FF6B1A', photo: '/team/vinay.jpg',   tags: ['Operations', 'Finance', 'Strategy'] },
-  { name: 'Rajat Goyal',   title: 'Director', exp: 'NISE',    bio: 'NISE-certified solar engineer leading project design, execution, and on-site quality across India.', accent: '#10B981', photo: '/team/rajat.jpg',   tags: ['Solar Engineering', 'Execution', 'Quality'] },
-  { name: 'Sarthak Goyal', title: 'Director', exp: '8+ yrs',  bio: '8+ years in solar distribution and operations, driving supply, sourcing, and on-time delivery.', accent: '#FFB830', photo: '/team/sarthak.jpg', tags: ['Distribution', 'Operations', 'Supply Chain'] },
+  { name: 'Vinay Bansal',  title: 'Director', exp: '29+ yrs', bio: 'Three decades of operations and finance leadership steering Suntrik\'s growth and execution.', accent: '#FF6B1A', photo: '/team/vinay.png',   tags: ['Operations', 'Finance', 'Strategy'] },
+  { name: 'Rajat Goyal',   title: 'Director', exp: 'NISE',    bio: 'NISE-certified solar engineer leading project design, execution, and on-site quality across India.', accent: '#10B981', photo: '/team/rajat.png',   tags: ['Solar Engineering', 'Execution', 'Quality'] },
+  { name: 'Sarthak Goyal', title: 'Director', exp: '8+ yrs',  bio: '8+ years in solar distribution and operations, driving supply, sourcing, and on-time delivery.', accent: '#FFB830', photo: '/team/sarthak.png', tags: ['Distribution', 'Operations', 'Supply Chain'] },
 ]
 
 const initials = name => name.split(' ').filter(Boolean).slice(0, 2).map(w => w[0]).join('')
