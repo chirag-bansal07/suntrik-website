@@ -130,7 +130,7 @@ export default function KusumPage() {
             <h2 style={{ fontSize: 'clamp(1.4rem, 3vw, 2rem)', fontWeight: 800, marginBottom: '0.6rem' }}>Components Suntrik Executes</h2>
             <p style={{ color: 'var(--text-secondary)', maxWidth: 500, margin: '0 auto' }}>Suntrik is HAREDA-empanelled for Component A and Component C across Rajasthan and Haryana.</p>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.25rem' }} className="kusum-comp-grid">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1.5rem', maxWidth: 780, margin: '0 auto' }} className="kusum-comp-grid">
             {COMPONENTS.map(c => (
               <div key={c.id} style={{ borderRadius: 14, overflow: 'hidden', border: `1px solid ${c.color}22`, background: `linear-gradient(160deg, ${c.color}10 0%, rgba(6,10,15,0.98) 60%)` }}>
                 <div style={{ height: 4, background: c.color }} />
