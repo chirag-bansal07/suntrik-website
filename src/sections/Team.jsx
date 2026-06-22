@@ -56,7 +56,7 @@ export default function Team() {
         </div>
 
         {/* Member grid */}
-        <div ref={gridRef} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.25rem', maxWidth: 1080, margin: '0 auto' }} className="team-grid">
+        <div ref={gridRef} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '2.5rem', maxWidth: 1120, margin: '0 auto' }} className="team-grid">
           {TEAM.map((m, i) => (
             <TiltCard key={m.name} max={7} style={{ borderRadius: 16 }}>
               <motion.div
