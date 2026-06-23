@@ -55,8 +55,8 @@ export default function Team() {
           </motion.h2>
         </div>
 
-        {/* Member grid */}
-        <div ref={gridRef} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '2.5rem', maxWidth: 1120, margin: '0 auto' }} className="team-grid">
+        {/* Member grid — fixed 3-up so 3 founders never form an awkward 2+1 */}
+        <div ref={gridRef} style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2.5rem', maxWidth: 1120, margin: '0 auto' }} className="team-grid">
           {TEAM.map((m, i) => (
             <TiltCard key={m.name} max={7} style={{ borderRadius: 16 }}>
               <motion.div
@@ -100,6 +100,12 @@ export default function Team() {
           ))}
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 860px) {
+          .team-grid { grid-template-columns: 1fr !important; max-width: 400px !important; gap: 1.75rem !important; }
+        }
+      `}</style>
     </section>
   )
 }
