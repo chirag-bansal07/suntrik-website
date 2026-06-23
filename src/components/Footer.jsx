@@ -36,7 +36,7 @@ export default function Footer() {
               India's trusted Solar EPC partner — delivering advisory, engineering, turnkey
               installation, and lifetime O&amp;M for homes, businesses, and farms since 2018.
               Part of the Suntrik Group alongside its distribution arm
-              and <em>SunMount</em> (mounting structures).
+              and <a href="https://sunmount.in" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--brand-orange)', textDecoration: 'underline', textUnderlineOffset: '2px' }}><em>SunMount</em></a> (mounting structures).
             </p>
 
             {/* Social icons */}

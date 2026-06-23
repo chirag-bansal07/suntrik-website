@@ -220,7 +220,7 @@ export default function SuryaGharPage() {
               const n = idx % 40
               return (
                 <img key={idx} src={`/gallery/surya-ghar/sg-${String(n + 1).padStart(2, '0')}.jpg`}
-                  alt={`Surya Ghar installation ${n + 1}`} loading="lazy" aria-hidden={idx >= 40}
+                  alt={`PM Surya Ghar installation ${n + 1}`} loading="lazy" aria-hidden={idx >= 40}
                   style={{ height: 300, width: 'auto', flexShrink: 0, marginRight: '1rem', borderRadius: 12, display: 'block', border: '1px solid rgba(255,107,26,0.12)', boxShadow: '0 12px 30px rgba(0,0,0,0.35)' }} />
               )
             })}

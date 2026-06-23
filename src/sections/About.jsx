@@ -25,6 +25,19 @@ const ORBIT_RINGS = [
   { size: 620, dur: 38, dir:  1, dotSz:  5, color: '#FF6B1A', dotPos: 'top',    opacity: 0.06 },
 ]
 
+// Render milestone text with any "SunMount" mention linked to sunmount.in
+function withSunMountLink(text) {
+  return text.split('SunMount').flatMap((part, i) =>
+    i === 0
+      ? [part]
+      : [
+          <a key={i} href="https://sunmount.in" target="_blank" rel="noopener noreferrer"
+            style={{ color: 'var(--brand-orange)', textDecoration: 'underline', textUnderlineOffset: '2px' }}>SunMount</a>,
+          part,
+        ]
+  )
+}
+
 export default function About() {
   const sectionRef = useRef(null)
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start end', 'end start'] })
@@ -239,7 +252,7 @@ export default function About() {
                         fontSize: '1rem', color: 'var(--brand-orange)', flexShrink: 0,
                       }}>{m.year}</span>
                       <span style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
-                        {m.event}
+                        {withSunMountLink(m.event)}
                       </span>
                     </div>
                   </motion.div>

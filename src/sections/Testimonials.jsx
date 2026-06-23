@@ -5,39 +5,48 @@ import { useScrollAnimation } from '../hooks/useScrollAnimation'
 const testimonials = [
   {
     id: 1,
-    name: 'Suresh Bansal',
-    role: 'Director, Bansal Steel Works',
-    location: 'Faridabad, Haryana',
-    text: "Suntrik handled our 180 kWp industrial rooftop from design to DISCOM approval without us lifting a finger. The system went live on schedule and our unit's electricity cost dropped by 65% in the first month.",
+    name: 'Sanjay Bhaambhu',
+    role: 'Local Guide',
+    location: 'Google Review',
+    text: "I recently hired Suntrik for my solar energy needs, and I am extremely satisfied with their services. Rajat and his team were highly professional, delivering top-quality solutions that perfectly met my requirements. What impressed me the most was their ability to offer competitive pricing without compromising on the quality of their work. I highly recommend Suntrik for anyone seeking reliable and cost-effective solar energy solutions.",
     rating: 5,
     avatar: 'SB',
   },
   {
     id: 2,
-    name: 'Manpreet Kaur',
-    role: 'Homeowner (PM Surya Ghar)',
-    location: 'Panipat, Haryana',
-    text: "I was worried about the subsidy process being complicated, but Suntrik's team managed everything — registration, inspection, subsidy disbursement. My 8 kW system cost me almost nothing after the government benefit.",
+    name: 'Abhishek Sharma',
+    role: 'Verified Customer',
+    location: 'Sirsa, Haryana',
+    text: "Best vendor in Sirsa for solar installation and other services. Smooth and hassle free process. Best quality products used. The employee (Yogesh) is very understanding and helpful. Recommended.",
     rating: 5,
-    avatar: 'MK',
+    avatar: 'AS',
   },
   {
     id: 3,
-    name: 'Ramesh Yadav',
-    role: 'Farmer, PM-KUSUM Beneficiary',
-    location: 'Rohtak, Haryana',
-    text: "Our farmer group was skeptical about solar pumps but Suntrik explained every step, got the scheme approved, and installed the system in 10 days. No electricity bills for irrigation now — it changed our economics.",
+    name: 'Gaurav Soni',
+    role: 'Local Guide',
+    location: 'Google Review',
+    text: "Dear Suntrik Solutions, I wanted to express my gratitude for the excellent service and expertise you provided in installing the solar rooftop on my property. Your team was knowledgeable, professional, and courteous throughout the entire process, and I am thrilled with the final product.",
     rating: 5,
-    avatar: 'RY',
+    avatar: 'GS',
   },
   {
     id: 4,
-    name: 'Priya Sharma',
-    role: 'CFO, Logistics Hub Pvt. Ltd.',
-    location: 'Gurugram, Haryana',
-    text: "From the detailed PVsyst simulation report to the 24/7 monitoring portal, Suntrik brought a level of technical rigour we hadn't seen from other EPC vendors. Our 300 kWp plant is performing above the guaranteed yield.",
+    name: 'Yogesh Kumar',
+    role: 'Verified Customer',
+    location: 'Google Review',
+    text: "Good work with excellent installation and ever been used best quality in material.",
+    rating: 4,
+    avatar: 'YK',
+  },
+  {
+    id: 5,
+    name: 'Sahil Mehta',
+    role: 'Verified Customer',
+    location: 'Google Review',
+    text: "Good Quality Material at very Reasonable Prices. 100% Recommended.",
     rating: 5,
-    avatar: 'PS',
+    avatar: 'SM',
   },
 ]
 
@@ -76,7 +85,7 @@ export default function Testimonials() {
         <div ref={ref} style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
           <motion.span className="section-tag" style={{ justifyContent: 'center' }}
             initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5 }}>
-            Client Stories
+            Google Reviews
           </motion.span>
           <motion.h2
             initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.65, delay: 0.1 }}
