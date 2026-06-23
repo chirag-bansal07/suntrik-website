@@ -38,7 +38,7 @@ function Reel({ r, inView, delay }) {
       animate={inView ? { opacity: 1, y: r.featured ? -26 : 0 } : {}}
       transition={{ duration: 0.7, delay, ease: [0.16, 1, 0.3, 1] }}
       whileHover={{ scale: 1.03 }}
-      className="reel-card"
+      className={`reel-card${r.featured ? ' reel-featured' : ''}`}
       style={{
         position: 'relative', width: r.featured ? 326 : 296, aspectRatio: '9 / 16',
         borderRadius: 26, overflow: 'hidden', flexShrink: 0,
@@ -135,6 +135,7 @@ export default function ProjectReels() {
         @keyframes reelPulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
         @media (max-width: 760px) {
           .reel-card { width: 78vw !important; max-width: 320px; }
+          .reel-featured { transform: none !important; }
         }
       `}</style>
     </section>

@@ -182,7 +182,7 @@ const SERVICES = [
 // ── Arrow connector (between process steps) ───────────────────────────────
 function Arrow() {
   return (
-    <div style={{
+    <div className="process-arrow" style={{
       flexShrink: 0, display: 'flex', alignItems: 'center',
       padding: '0 0.25rem', color: 'rgba(255,107,26,0.4)',
     }}>
@@ -400,11 +400,13 @@ export default function Services() {
       </div>
 
       <style>{`
-        @media(max-width:700px){
-          .process-row > div { flex: 1 1 140px !important; }
+        @media(max-width:760px){
+          .process-row { gap: 0.85rem !important; }
+          .process-arrow { display: none !important; }
+          .process-row > div { flex: 0 1 calc(50% - 0.45rem) !important; max-width: none !important; }
         }
-        @media(max-width:520px){
-          .process-row svg[width="24"] { display:none; }
+        @media(max-width:400px){
+          .process-row > div { flex: 0 1 100% !important; }
         }
       `}</style>
     </section>
