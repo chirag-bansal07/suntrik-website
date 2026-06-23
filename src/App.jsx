@@ -53,12 +53,12 @@ function HomePage() {
       <main>
         <Hero />
         <About />
-        <Services />
-        <ProjectReels />
-        <Stats />
-        <WhyUs />
-        <Testimonials />
         <Team />
+        <ProjectReels />
+        <Testimonials />
+        <Services />
+        <WhyUs />
+        <Stats />
         <Contact />
       </main>
       <Footer />
