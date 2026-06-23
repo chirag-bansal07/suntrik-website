@@ -41,7 +41,7 @@ const FAQS = [
 ]
 
 export default function KusumPage() {
-  useEffect(() => { window.scrollTo(0, 0) }, [])
+  useEffect(() => { window.scrollTo(0, 0); document.title = 'PM-KUSUM Solar Scheme | Suntrik Green Energy' }, [])
 
   return (
     <div style={{ background: '#060A0F', minHeight: '100vh', color: 'var(--text-primary)' }}>

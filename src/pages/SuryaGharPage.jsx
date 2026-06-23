@@ -39,7 +39,7 @@ const FAQS = [
 ]
 
 export default function SuryaGharPage() {
-  useEffect(() => { window.scrollTo(0, 0) }, [])
+  useEffect(() => { window.scrollTo(0, 0); document.title = 'PM Surya Ghar Yojana | Suntrik Green Energy' }, [])
 
   return (
     <div style={{ background: '#060A0F', minHeight: '100vh', color: 'var(--text-primary)' }}>

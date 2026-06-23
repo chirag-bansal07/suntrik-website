@@ -98,7 +98,7 @@ export default function CareersPage() {
   const [role, setRole] = useState('')
   const formRef = useRef(null)
 
-  useEffect(() => { window.scrollTo(0, 0) }, [])
+  useEffect(() => { window.scrollTo(0, 0); document.title = 'Careers | Suntrik Green Energy — Join Our Solar Team' }, [])
 
   const applyTo = title => {
     setRole(title)

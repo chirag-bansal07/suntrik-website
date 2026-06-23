@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import Lenis from 'lenis'
 import { gsap } from 'gsap'
@@ -21,19 +21,21 @@ import CustomCursor from './components/CustomCursor'
 import ScrollProgress from './components/ScrollProgress'
 import Atmosphere from './components/Atmosphere'
 
-import ProjectsPage  from './pages/ProjectsPage'
-import KusumPage     from './pages/KusumPage'
-import SuryaGharPage from './pages/SuryaGharPage'
-import CIPage        from './pages/CIPage'
-import CareersPage   from './pages/CareersPage'
-
 import { Analytics }     from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/react'
+
+// Route pages are code-split so the homepage ships a smaller initial bundle
+const ProjectsPage  = lazy(() => import('./pages/ProjectsPage'))
+const KusumPage     = lazy(() => import('./pages/KusumPage'))
+const SuryaGharPage = lazy(() => import('./pages/SuryaGharPage'))
+const CIPage        = lazy(() => import('./pages/CIPage'))
+const CareersPage   = lazy(() => import('./pages/CareersPage'))
 
 gsap.registerPlugin(ScrollTrigger)
 
 function HomePage() {
   useEffect(() => {
+    document.title = 'Suntrik Green Energy | Solar EPC Company in India'
     const lenis = new Lenis({
       duration: 1.2,
       easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -101,14 +103,16 @@ export default function App() {
       <ScrollProgress />
       <Atmosphere />
       <ScrollToTop />
-      <Routes>
-        <Route path="/"                   element={<HomePage />} />
-        <Route path="/projects"           element={<ProjectsPage />} />
-        <Route path="/schemes/kusum"      element={<KusumPage />} />
-        <Route path="/schemes/surya-ghar" element={<SuryaGharPage />} />
-        <Route path="/schemes/ci"         element={<CIPage />} />
-        <Route path="/careers"            element={<CareersPage />} />
-      </Routes>
+      <Suspense fallback={<div style={{ minHeight: '100vh', background: '#060A0F' }} />}>
+        <Routes>
+          <Route path="/"                   element={<HomePage />} />
+          <Route path="/projects"           element={<ProjectsPage />} />
+          <Route path="/schemes/kusum"      element={<KusumPage />} />
+          <Route path="/schemes/surya-ghar" element={<SuryaGharPage />} />
+          <Route path="/schemes/ci"         element={<CIPage />} />
+          <Route path="/careers"            element={<CareersPage />} />
+        </Routes>
+      </Suspense>
       <Analytics />
       <SpeedInsights />
     </BrowserRouter>

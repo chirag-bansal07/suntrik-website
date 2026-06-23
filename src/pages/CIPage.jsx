@@ -15,7 +15,7 @@ const HIGHLIGHTS = [
 ]
 
 export default function CIPage() {
-  useEffect(() => { window.scrollTo(0, 0) }, [])
+  useEffect(() => { window.scrollTo(0, 0); document.title = 'Commercial & Industrial Solar | Suntrik Green Energy' }, [])
 
   return (
     <div style={{ background: '#060A0F', minHeight: '100vh', color: 'var(--text-primary)' }}>

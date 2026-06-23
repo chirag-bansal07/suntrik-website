@@ -17,7 +17,7 @@ export default function ProjectsPage() {
   const [active, setActive] = useState('PM-KUSUM')
   const filtered = PROJECTS.filter(p => p.type === active)
 
-  useEffect(() => { window.scrollTo(0, 0) }, [])
+  useEffect(() => { window.scrollTo(0, 0); document.title = 'Projects | Suntrik Green Energy — Solar EPC India' }, [])
 
   return (
     <div style={{ background: '#060A0F', minHeight: '100vh', color: 'var(--text-primary)' }}>
