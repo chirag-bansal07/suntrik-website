@@ -27,6 +27,9 @@ import SuryaGharPage from './pages/SuryaGharPage'
 import CIPage        from './pages/CIPage'
 import CareersPage   from './pages/CareersPage'
 
+import { Analytics }     from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/react'
+
 gsap.registerPlugin(ScrollTrigger)
 
 function HomePage() {
@@ -106,6 +109,8 @@ export default function App() {
         <Route path="/schemes/ci"         element={<CIPage />} />
         <Route path="/careers"            element={<CareersPage />} />
       </Routes>
+      <Analytics />
+      <SpeedInsights />
     </BrowserRouter>
   )
 }
