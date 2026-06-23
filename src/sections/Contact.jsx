@@ -120,7 +120,7 @@ export default function Contact() {
                 Scheme-Ready Installer
               </p>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-                {['PM Surya Ghar', 'PM-KUSUM', 'HAREDA Approved', 'MNRE Empanelled'].map(badge => (
+                {['PM Surya Ghar', 'PM-KUSUM', 'HAREDA Approved', 'MSME Registered'].map(badge => (
                   <span key={badge} style={{
                     fontSize: '0.7rem', fontWeight: 600, padding: '0.3rem 0.8rem',
                     background: 'rgba(255,107,26,0.1)', color: 'var(--brand-orange)',

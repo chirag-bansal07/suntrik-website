@@ -43,7 +43,7 @@ const FEATURES = [
     ),
     stat: 'NISE Certified',
     statSub: 'mandatory for MNRE projects',
-    bullets: ['NISE-certified installation leads', 'PVsyst & AutoCAD design team', 'MNRE-empanelled organisation'],
+    bullets: ['NISE-certified installation leads', 'PVsyst & AutoCAD design team', 'MSME-registered organisation'],
   },
   {
     num: '03',
