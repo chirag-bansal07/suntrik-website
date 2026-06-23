@@ -62,7 +62,7 @@ export default function Navbar({ page = false }) {
         <div style={{
           maxWidth: 1360, margin: '0 auto',
           display: 'grid',
-          gridTemplateColumns: '200px 1fr 200px',
+          gridTemplateColumns: 'auto 1fr auto',
           alignItems: 'center',
           height: 90,
           padding: '0 2rem',
@@ -313,11 +313,11 @@ export default function Navbar({ page = false }) {
           max-width: none;
           object-fit: contain;
         }
-        @media (max-width: 820px) {
+        @media (max-width: 1120px) {
           .desktop-nav { display: none !important; }
           .hamburger   { display: flex !important; }
         }
-        @media (max-width: 820px) {
+        @media (max-width: 1120px) {
           nav > div { grid-template-columns: 1fr auto !important; }
         }
       `}</style>
