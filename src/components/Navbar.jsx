@@ -7,10 +7,11 @@ const HOME_LINKS = [
   { label: 'About',    href: '#about'  },
   { label: 'Projects', to: '/projects' },
   { label: 'Blog',     to: '/blog'     },
-  { label: 'Careers',  to: '/careers'  },
 ]
 
-// Rendered last in the nav, after the scheme tabs
+// Rendered after the scheme tabs, just before Contact
+const CAREERS_LINK = { label: 'Careers', to: '/careers' }
+// Rendered last in the nav, after Careers
 const CONTACT_LINK = { label: 'Contact', href: '#contact' }
 
 const SCHEME_LINKS = [
@@ -158,6 +159,25 @@ export default function Navbar({ page = false }) {
               )
             })}
 
+            {/* Careers — just before Contact */}
+            <li style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <Link
+                to={CAREERS_LINK.to}
+                onMouseEnter={() => setHovered(CAREERS_LINK.to)}
+                onMouseLeave={() => setHovered(null)}
+                style={{
+                  display: 'block', padding: '0.45rem 1rem',
+                  fontSize: '1rem', fontWeight: 500,
+                  color: hovered === CAREERS_LINK.to ? '#fff' : 'rgba(255,255,255,0.65)',
+                  textDecoration: 'none', borderRadius: 8,
+                  background: hovered === CAREERS_LINK.to ? 'rgba(255,107,26,0.1)' : 'transparent',
+                  transition: 'color 0.18s, background 0.18s',
+                }}
+              >
+                {CAREERS_LINK.label}
+              </Link>
+            </li>
+
             {/* Contact — pinned last */}
             <li style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
               <a
@@ -276,6 +296,18 @@ export default function Navbar({ page = false }) {
                 {s.label}
               </Link>
             ))}
+            {/* Careers — just before Contact */}
+            <Link to={CAREERS_LINK.to}
+              onClick={() => setOpen(false)}
+              style={{
+                display: 'block', padding: '0.9rem 0',
+                fontSize: '1.05rem', fontWeight: 600,
+                borderBottom: '1px solid rgba(255,255,255,0.05)',
+                color: 'var(--text-primary)', textDecoration: 'none',
+              }}
+            >
+              {CAREERS_LINK.label}
+            </Link>
             {/* Contact — pinned last */}
             <a
               href={page ? '/#contact' : '#contact'}
