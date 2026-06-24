@@ -5,6 +5,7 @@ import SuntrikLogo from './SuntrikLogo'
 const LINK_MAP = {
   'About Us':    '/#about',
   'Careers':     '/careers',
+  'Blog':        '/blog',
   'Contact Us':  '/#contact',
   'Get a Quote': '/#contact',
 }

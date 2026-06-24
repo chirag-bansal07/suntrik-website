@@ -30,6 +30,8 @@ const KusumPage     = lazy(() => import('./pages/KusumPage'))
 const SuryaGharPage = lazy(() => import('./pages/SuryaGharPage'))
 const CIPage        = lazy(() => import('./pages/CIPage'))
 const CareersPage   = lazy(() => import('./pages/CareersPage'))
+const BlogPage      = lazy(() => import('./pages/BlogPage'))
+const BlogPostPage  = lazy(() => import('./pages/BlogPostPage'))
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -111,6 +113,8 @@ export default function App() {
           <Route path="/schemes/surya-ghar" element={<SuryaGharPage />} />
           <Route path="/schemes/ci"         element={<CIPage />} />
           <Route path="/careers"            element={<CareersPage />} />
+          <Route path="/blog"               element={<BlogPage />} />
+          <Route path="/blog/:slug"         element={<BlogPostPage />} />
         </Routes>
       </Suspense>
       <Analytics />

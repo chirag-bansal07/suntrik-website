@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom'
 import SuntrikLogo from './SuntrikLogo'
 
 const HOME_LINKS = [
-  { label: 'About',    href: '#about'    },
-  { label: 'Services', href: '#services' },
-  { label: 'Projects', to: '/projects'   },
-  { label: 'Careers',  to: '/careers'    },
+  { label: 'About',    href: '#about'  },
+  { label: 'Projects', to: '/projects' },
+  { label: 'Blog',     to: '/blog'     },
+  { label: 'Careers',  to: '/careers'  },
 ]
 
 // Rendered last in the nav, after the scheme tabs
