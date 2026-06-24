@@ -69,6 +69,15 @@ export default function Hero() {
     syncSize()
     window.addEventListener('resize', syncSize, { passive: true })
 
+    // First-load smoothness: ScrollTrigger can mis-measure the pinned hero
+    // before the preloader hides / fonts / layout settle — which made the first
+    // scroll-through janky (it self-corrected only after a full pass). Refresh
+    // after window load and a couple of beats so it's smooth from the start.
+    const refresh = () => ScrollTrigger.refresh()
+    window.addEventListener('load', refresh)
+    const rt1 = setTimeout(refresh, 400)
+    const rt2 = setTimeout(refresh, 1400)
+
     // ── 2. Stream frames from disk — draw each one as it arrives ────
     fetch(`${FRAMES_PATH}/manifest.json`)
       .then(r => r.ok ? r.json() : Promise.reject('Run: npm run extract-frames'))
@@ -76,6 +85,7 @@ export default function Hero() {
         if (cancelled) return
         const imgs = new Array(count)
         framesRef.current = imgs
+        let loaded = 0
 
         for (let i = 0; i < count; i++) {
           const img = new Image()
@@ -87,7 +97,9 @@ export default function Hero() {
             // scroll-through is a pure GPU blit instead of a synchronous decode.
             const ready = img.decode ? img.decode().catch(() => {}) : Promise.resolve()
             ready.then(() => {
-              if (!cancelled && i === 0) drawCover(ctx, img, canvas.width, canvas.height)
+              if (cancelled) return
+              if (i === 0) drawCover(ctx, img, canvas.width, canvas.height)
+              if (++loaded === count) ScrollTrigger.refresh()  // all frames decoded → final recalc
             })
           }
           img.src = `${FRAMES_PATH}/frame-${String(i + 1).padStart(4, '0')}.jpg`
@@ -163,6 +175,8 @@ export default function Hero() {
       cancelled = true
       gc.revert()
       window.removeEventListener('resize', syncSize)
+      window.removeEventListener('load', refresh)
+      clearTimeout(rt1); clearTimeout(rt2)
     }
   }, [isMobile])
 

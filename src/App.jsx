@@ -20,6 +20,7 @@ import Preloader from './components/Preloader'
 import CustomCursor from './components/CustomCursor'
 import ScrollProgress from './components/ScrollProgress'
 import Atmosphere from './components/Atmosphere'
+import WhatsAppButton from './components/WhatsAppButton'
 
 import { Analytics }     from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/react'
@@ -117,6 +118,7 @@ export default function App() {
           <Route path="/blog/:slug"         element={<BlogPostPage />} />
         </Routes>
       </Suspense>
+      <WhatsAppButton />
       <Analytics />
       <SpeedInsights />
     </BrowserRouter>
