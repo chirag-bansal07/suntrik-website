@@ -198,13 +198,13 @@ export default function Hero() {
         display: isMobile ? 'flex' : 'block', alignItems: 'center',
       }}
     >
-      {/* ── Background: canvas (desktop) or static poster (mobile) ──── */}
-      {isMobile ? (
-        <div style={{
-          position: 'absolute', inset: 0, zIndex: 0,
-          backgroundImage: `url(${POSTER})`, backgroundSize: 'cover', backgroundPosition: 'center',
-        }} />
-      ) : (
+      {/* ── Background: poster paints instantly (no blank flash); on desktop the
+            canvas scrubs frames on top once they've loaded ── */}
+      <div style={{
+        position: 'absolute', inset: 0, zIndex: 0,
+        backgroundImage: `url(${POSTER})`, backgroundSize: 'cover', backgroundPosition: 'center',
+      }} />
+      {!isMobile && (
         <canvas
           ref={canvasRef}
           style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', zIndex: 0 }}
