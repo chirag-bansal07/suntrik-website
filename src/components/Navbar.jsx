@@ -65,20 +65,20 @@ export default function Navbar({ page = false }) {
           display: 'grid',
           gridTemplateColumns: 'auto 1fr auto',
           alignItems: 'center',
-          height: 90,
+          height: 74,
           padding: '0 2rem',
         }}>
 
           {/* ── Logo (left) ──────────────────────────────── */}
           {page ? (
             <Link to="/" aria-label="Suntrik — home" style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', textDecoration: 'none', height: '100%' }}>
-              <SuntrikLogo width={90} className="nav-logo" />
+              <SuntrikLogo width={72} className="nav-logo" />
             </Link>
           ) : (
             <a href="#hero" aria-label="Suntrik — home"
               onClick={e => { e.preventDefault(); window.__lenis ? window.__lenis.scrollTo(0) : window.scrollTo({ top: 0, behavior: 'smooth' }) }}
               style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', textDecoration: 'none', height: '100%' }}>
-              <SuntrikLogo width={90} className="nav-logo" />
+              <SuntrikLogo width={72} className="nav-logo" />
             </a>
           )}
 
@@ -253,7 +253,7 @@ export default function Navbar({ page = false }) {
             exit={{    opacity: 0,  y: -14 }}
             transition={{ duration: 0.22 }}
             style={{
-              position: 'fixed', top: 90, left: 0, right: 0, zIndex: 999,
+              position: 'fixed', top: 74, left: 0, right: 0, zIndex: 999,
               background: 'rgba(5,9,14,0.98)', backdropFilter: 'blur(24px)',
               borderBottom: '1px solid rgba(255,107,26,0.12)',
               padding: '1rem 1.75rem 1.75rem',
@@ -340,7 +340,7 @@ export default function Navbar({ page = false }) {
 
       <style>{`
         .nav-logo {
-          width: 90px !important;
+          width: 72px !important;
           height: auto;
           max-width: none;
           object-fit: contain;

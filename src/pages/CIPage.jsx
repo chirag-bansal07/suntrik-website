@@ -54,6 +54,22 @@ export default function CIPage() {
         </div>
       </div>
 
+      {/* ── Video showcase (main) ── */}
+      <div style={{ padding: '4rem 0', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+        <div className="container">
+          <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+            <span style={{ fontSize: '0.7rem', color: '#8B5CF6', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.18em', display: 'block', marginBottom: '0.6rem' }}>Watch</span>
+            <h2 style={{ fontSize: 'clamp(1.4rem, 3vw, 2rem)', fontWeight: 800 }}>Suntrik C&amp;I — In Action</h2>
+          </div>
+          <video
+            src="/ci-showcase.mp4"
+            poster="/gallery/ci/ci-01.jpg"
+            autoPlay muted loop playsInline controls preload="metadata"
+            style={{ display: 'block', margin: '0 auto', maxWidth: '100%', maxHeight: '76vh', borderRadius: 18, border: '1px solid rgba(139,92,246,0.25)', boxShadow: '0 30px 80px rgba(0,0,0,0.55)', background: '#000' }}
+          />
+        </div>
+      </div>
+
       {/* ── What We Offer ── */}
       <div style={{ background: '#0a1020', padding: '4rem 0', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
         <div className="container">

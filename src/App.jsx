@@ -86,7 +86,7 @@ function ScrollToTop() {
     const scrollToTarget = (attempts) => {
       const el = document.getElementById(id)
       if (el) {
-        if (window.__lenis) window.__lenis.scrollTo(el, { offset: -90 })
+        if (window.__lenis) window.__lenis.scrollTo(el, { offset: -74 })
         else el.scrollIntoView({ behavior: 'smooth', block: 'start' })
       } else if (attempts > 0) {
         timer = setTimeout(() => scrollToTarget(attempts - 1), 120)

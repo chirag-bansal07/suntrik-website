@@ -247,16 +247,16 @@ export default function Hero() {
               Solar EPC Company · India
             </div>
 
-            <h1 ref={h1Ref} style={{
-              fontSize: 'clamp(2.3rem, 6.5vw, 5.2rem)',
-              lineHeight: 1.06, marginBottom: '1.4rem',
+            <h1 ref={h1Ref} className="hero-h1" style={{
+              fontSize: 'clamp(2rem, 5vw, 4.3rem)',
+              lineHeight: 1.07, marginBottom: '1.3rem',
               color: '#fff', textShadow: '0 2px 40px rgba(0,0,0,0.45)',
             }}>
               Engineering a&nbsp;<br />
               <span className="gradient-text">Cleaner Tomorrow</span>
             </h1>
 
-            <p ref={subRef} style={{
+            <p ref={subRef} className="hero-sub" style={{
               fontSize: 'clamp(0.95rem, 1.75vw, 1.15rem)',
               color: 'rgba(240,244,255,0.8)', lineHeight: 1.8,
               maxWidth: 540, marginBottom: isMobile ? '1.75rem' : '2.2rem',
@@ -277,7 +277,7 @@ export default function Hero() {
               </Magnetic>
             </div>
 
-            <div ref={statsRef} style={{
+            <div ref={statsRef} className="hero-stats" style={{
               display: 'flex', gap: isMobile ? '1.1rem 1.75rem' : '2.5rem', flexWrap: 'wrap',
               paddingTop: '1.75rem', borderTop: '1px solid rgba(255,255,255,0.1)',
             }}>
@@ -306,6 +306,19 @@ export default function Hero() {
           </div>
         </div>
       </div>
+
+      <style>{`
+        /* 13" / short laptops: shrink hero so nothing gets clipped */
+        @media (max-height: 860px) and (min-width: 769px) {
+          .hero-h1   { font-size: clamp(1.8rem, 3.6vw, 3.1rem) !important; margin-bottom: 1rem !important; }
+          .hero-sub  { font-size: 0.95rem !important; line-height: 1.6 !important; margin-bottom: 1.4rem !important; }
+          .hero-stats { padding-top: 1.15rem !important; }
+        }
+        @media (max-height: 720px) and (min-width: 769px) {
+          .hero-h1   { font-size: clamp(1.7rem, 3.2vw, 2.7rem) !important; }
+          .hero-sub  { margin-bottom: 1.1rem !important; }
+        }
+      `}</style>
     </section>
   )
 }
