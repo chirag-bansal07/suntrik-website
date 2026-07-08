@@ -5,6 +5,10 @@ import Footer from '../components/Footer'
 import Savings from '../sections/Savings'
 import { PROJECTS, TYPE_COLOR, TYPE_ICON } from '../data/projects'
 
+// Installation-team / equipment shots excluded from the residential slider
+const SG_EXCLUDED = new Set([3, 4, 6, 7, 16, 38])
+const SG_SLIDER_NUMS = Array.from({ length: 40 }, (_, i) => i + 1).filter(n => !SG_EXCLUDED.has(n))
+
 const SUBSIDY_SLABS = [
   { range: 'Up to 1 kW', central: '₹30,000', total: '₹30,000', note: 'Per household' },
   { range: '1 kW – 2 kW', central: '₹30,000–₹60,000', total: 'Up to ₹60,000', note: 'Per kW above 1 kW: +₹30,000' },
@@ -216,14 +220,11 @@ export default function SuryaGharPage() {
         {/* full-bleed auto-scrolling marquee (duplicated set for a seamless loop) */}
         <div className="sg-gallery-marquee" style={{ overflow: 'hidden', padding: '0.5rem 0 1.5rem' }}>
           <div className="sg-gallery-track" style={{ display: 'flex', width: 'max-content' }}>
-            {Array.from({ length: 80 }, (_, idx) => {
-              const n = idx % 40
-              return (
-                <img key={idx} src={`/gallery/surya-ghar/sg-${String(n + 1).padStart(2, '0')}.jpg`}
-                  alt={`PM Surya Ghar installation ${n + 1}`} loading="lazy" aria-hidden={idx >= 40}
-                  style={{ height: 300, width: 'auto', flexShrink: 0, marginRight: '1rem', borderRadius: 12, display: 'block', border: '1px solid rgba(255,107,26,0.12)', boxShadow: '0 12px 30px rgba(0,0,0,0.35)' }} />
-              )
-            })}
+            {[...SG_SLIDER_NUMS, ...SG_SLIDER_NUMS].map((n, idx) => (
+              <img key={idx} src={`/gallery/surya-ghar/sg-${String(n).padStart(2, '0')}.jpg`}
+                alt={`PM Surya Ghar installation ${n}`} loading="lazy" aria-hidden={idx >= SG_SLIDER_NUMS.length}
+                style={{ height: 300, width: 'auto', flexShrink: 0, marginRight: '1rem', borderRadius: 12, display: 'block', border: '1px solid rgba(255,107,26,0.12)', boxShadow: '0 12px 30px rgba(0,0,0,0.35)' }} />
+            ))}
           </div>
         </div>
       </div>
