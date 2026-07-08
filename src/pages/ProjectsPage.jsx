@@ -4,12 +4,13 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { PROJECTS, TYPE_COLOR, TYPE_ICON } from '../data/projects'
+import { SG_ALL_NUMS, sgSrc } from '../data/suryaGharGallery'
 
 const FILTERS = ['PM-KUSUM', 'PM Surya Ghar', 'C&I']
 
 // PM Surya Ghar & C&I are shown as photo galleries (not project cards)
 const GALLERY = {
-  'PM Surya Ghar': Array.from({ length: 40 }, (_, i) => `/gallery/surya-ghar/sg-${String(i + 1).padStart(2, '0')}.jpg`),
+  'PM Surya Ghar': SG_ALL_NUMS.map(sgSrc),
   'C&I':           Array.from({ length: 6 },  (_, i) => `/gallery/ci/ci-${String(i + 1).padStart(2, '0')}.jpg`),
 }
 

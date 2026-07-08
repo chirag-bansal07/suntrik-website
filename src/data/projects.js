@@ -49,7 +49,7 @@ export const PROJECTS = [
     year: '2024',
     desc: '22 rooftop systems installed for a gated community under PM Surya Ghar Muft Bijli Yojana — subsidy handled end-to-end, from national portal registration to disbursement.',
     highlights: ['PM Surya Ghar subsidy end-to-end', '22 homes in 60 days', 'Subsidy disbursement handled', '300 free units/month per home'],
-    img: '/gallery/surya-ghar/sg-06.jpg',
+    img: '/gallery/surya-ghar/sg-19.jpg',
     typeColor: '#FF6B1A',
     subsidy: 'Up to ₹78,000',
   },

@@ -9,7 +9,7 @@
  *   category  'Government Policy' | 'Company Update'
  *   date      'YYYY-MM-DD'
  *   author    name
- *   cover     image path under /public (e.g. '/gallery/surya-ghar/sg-06.jpg')
+ *   cover     image path under /public (e.g. '/gallery/surya-ghar/sg-19.jpg')
  *   excerpt   1–2 line summary for cards & previews
  *   body      array of blocks:
  *               { type: 'p',     text: '...' }
@@ -33,7 +33,7 @@ export const POSTS = [
     category: 'Government Policy',
     date: '2024-06-15',
     author: 'Suntrik Editorial',
-    cover: '/gallery/surya-ghar/sg-06.jpg',
+    cover: '/gallery/surya-ghar/sg-19.jpg',
     excerpt: 'Up to ₹78,000 subsidy, 300 free units a month, and a near-zero electricity bill — here is exactly how PM Surya Ghar works and how to claim it.',
     body: [
       { type: 'p', text: 'Launched on 13 February 2024 with a ₹75,021 crore outlay, PM Surya Ghar Muft Bijli Yojana is the world\'s largest domestic rooftop solar programme — targeting 1 crore Indian households by March 2027.' },
