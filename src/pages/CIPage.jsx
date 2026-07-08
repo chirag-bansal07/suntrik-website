@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 
-const CI_PHOTOS = Array.from({ length: 6 }, (_, i) => `/gallery/ci/ci-${String(i + 1).padStart(2, '0')}.jpg`)
+const CI_PHOTOS = Array.from({ length: 3 }, (_, i) => `/gallery/ci/ci-${String(i + 1).padStart(2, '0')}.jpg`)
 
 const HIGHLIGHTS = [
   { icon: '⚡', title: 'Up to 1 MW+', desc: 'We design and commission rooftop and ground-mount systems for factories, warehouses, hospitals, schools, and commercial complexes.' },
@@ -54,22 +54,6 @@ export default function CIPage() {
         </div>
       </div>
 
-      {/* ── Video showcase (main) ── */}
-      <div style={{ padding: '4rem 0', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-        <div className="container">
-          <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-            <span style={{ fontSize: '0.7rem', color: '#8B5CF6', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.18em', display: 'block', marginBottom: '0.6rem' }}>Watch</span>
-            <h2 style={{ fontSize: 'clamp(1.4rem, 3vw, 2rem)', fontWeight: 800 }}>Suntrik C&amp;I — In Action</h2>
-          </div>
-          <video
-            src="/ci-showcase.mp4"
-            poster="/gallery/ci/ci-01.jpg"
-            autoPlay muted loop playsInline controls preload="metadata"
-            style={{ display: 'block', margin: '0 auto', maxWidth: '100%', maxHeight: '76vh', borderRadius: 18, border: '1px solid rgba(139,92,246,0.25)', boxShadow: '0 30px 80px rgba(0,0,0,0.55)', background: '#000' }}
-          />
-        </div>
-      </div>
-
       {/* ── What We Offer ── */}
       <div style={{ background: '#0a1020', padding: '4rem 0', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
         <div className="container">
@@ -99,6 +83,13 @@ export default function CIPage() {
             <h2 style={{ fontSize: 'clamp(1.4rem, 3vw, 2rem)', fontWeight: 800, marginBottom: '0.5rem' }}>C&I Projects Gallery</h2>
             <p style={{ color: 'var(--text-secondary)', maxWidth: 500, margin: '0 auto', fontSize: '0.9rem' }}>Factories, commercial complexes, and industrial plants powered by Suntrik — built to perform for 25+ years.</p>
           </div>
+          {/* Main video display */}
+          <video
+            src="/ci-showcase.mp4"
+            poster="/gallery/ci/ci-01.jpg"
+            autoPlay muted loop playsInline controls preload="metadata"
+            style={{ display: 'block', margin: '0 auto 1.5rem', maxWidth: '100%', maxHeight: '76vh', borderRadius: 16, border: '1px solid rgba(139,92,246,0.25)', boxShadow: '0 30px 80px rgba(0,0,0,0.55)', background: '#000' }}
+          />
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '1rem' }} className="ci-gallery-grid">
             {CI_PHOTOS.map((src, i) => (
               <div key={i} style={{ borderRadius: 14, overflow: 'hidden', border: '1px solid rgba(139,92,246,0.15)', background: '#06090e', aspectRatio: '16/10' }}>
