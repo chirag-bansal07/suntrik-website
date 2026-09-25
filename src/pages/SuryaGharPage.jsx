@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import Savings from '../sections/Savings'
 import { PROJECTS, TYPE_COLOR, TYPE_ICON } from '../data/projects'
+import { SURYA_GHAR_FAQS as FAQS } from '../data/faqs'
 import { SG_SLIDER_NUMS, sgSrc } from '../data/suryaGharGallery'
 
 const SUBSIDY_SLABS = [
@@ -31,16 +32,9 @@ const STEPS = [
   { n: '06', title: 'Subsidy Disbursement', desc: 'After commissioning, Suntrik submits the disbursement claim on the national portal. The subsidy is credited directly to your registered bank account within 30 days.' },
 ]
 
-const FAQS = [
-  { q: 'Who is eligible for PM Surya Ghar Muft Bijli Yojana?', a: 'Any Indian household with a valid electricity connection (single residential meter), a suitable rooftop, and Aadhaar-linked bank account is eligible. Rented properties require landlord NOC.' },
-  { q: 'How much does a 3 kW system cost after subsidy?', a: 'A 3 kW system typically costs ₹1,80,000–₹2,10,000 installed (MNRE benchmark). After the ₹78,000 central subsidy, the net cost is approximately ₹1,00,000–₹1,30,000. Bank loans are available for the remainder.' },
-  { q: 'Will I actually get 300 free units per month?', a: 'A 3 kW system in India generates approximately 360–400 units per month (340 sunny days × 4 units/kW/day). This exceeds the 300-unit threshold, so most households effectively have zero electricity bills.' },
-  { q: 'How does net metering work?', a: 'When your solar panels generate more than your household consumes, the surplus is exported to the DISCOM grid and credited to your electricity account. This credit offsets your night-time or cloudy-day grid consumption.' },
-  { q: 'Does Suntrik handle the entire process or do I have to do anything?', a: 'Suntrik handles everything — portal registration, DISCOM application, installation, inspection coordination, and subsidy disbursement. You need to provide your documents (Aadhaar, consumer number, bank details) and be available for the DISCOM inspection visit.' },
-]
 
 export default function SuryaGharPage() {
-  useEffect(() => { window.scrollTo(0, 0); document.title = 'PM Surya Ghar Yojana | Suntrik Green Energy' }, [])
+  useEffect(() => { window.scrollTo(0, 0) }, [])
 
   return (
     <div style={{ background: '#060A0F', minHeight: '100vh', color: 'var(--text-primary)' }}>

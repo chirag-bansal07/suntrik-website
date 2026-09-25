@@ -244,7 +244,7 @@ export default function Hero() {
           <div style={{ maxWidth: 700 }}>
 
             <div ref={tagRef} className="section-tag" style={{ marginBottom: '1.1rem' }}>
-              Solar EPC Company · India
+              Solar Company · Sirsa, Haryana
             </div>
 
             <h1 ref={h1Ref} className="hero-h1" style={{
@@ -263,8 +263,8 @@ export default function Hero() {
               textShadow: '0 1px 12px rgba(0,0,0,0.4)',
             }}>
               Suntrik delivers end-to-end solar EPC — site survey, engineering
-              design, turnkey installation, and lifetime O&amp;M — across
-              India.
+              design, turnkey installation, and lifetime O&amp;M — from Sirsa
+              across Haryana, Rajasthan and beyond.
             </p>
 
             <div ref={btnsRef} style={{ display: 'flex', gap: '0.85rem', flexWrap: 'wrap', marginBottom: isMobile ? '2.25rem' : '3.25rem' }}>

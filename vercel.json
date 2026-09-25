@@ -1,5 +1,22 @@
 {
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.suntrik.com"
+        }
+      ],
+      "destination": "https://suntrik.com/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/blog/what-is-operations-maintenance-om-and-why-is-it-important",
+      "destination": "/blog",
+      "permanent": true
+    }
   ]
 }

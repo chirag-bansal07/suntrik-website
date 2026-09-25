@@ -24,6 +24,7 @@ import WhatsAppButton from './components/WhatsAppButton'
 
 import { Analytics }     from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/react'
+import RouteMeta from './seo/RouteMeta'
 
 // Route pages are code-split so the homepage ships a smaller initial bundle
 const ProjectsPage  = lazy(() => import('./pages/ProjectsPage'))
@@ -33,12 +34,12 @@ const CIPage        = lazy(() => import('./pages/CIPage'))
 const CareersPage   = lazy(() => import('./pages/CareersPage'))
 const BlogPage      = lazy(() => import('./pages/BlogPage'))
 const BlogPostPage  = lazy(() => import('./pages/BlogPostPage'))
+const NotFoundPage  = lazy(() => import('./pages/NotFoundPage'))
 
 gsap.registerPlugin(ScrollTrigger)
 
 function HomePage() {
   useEffect(() => {
-    document.title = 'Suntrik Green Energy | Solar EPC Company in India'
     const lenis = new Lenis({
       duration: 1.2,
       easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -98,6 +99,25 @@ function ScrollToTop() {
   return null
 }
 
+// Shared by the browser app and the build-time prerender (src/entry-server.jsx)
+export function AppRoutes() {
+  return (
+    <Suspense fallback={<div style={{ minHeight: '100vh', background: '#060A0F' }} />}>
+      <Routes>
+        <Route path="/"                   element={<HomePage />} />
+        <Route path="/projects"           element={<ProjectsPage />} />
+        <Route path="/schemes/kusum"      element={<KusumPage />} />
+        <Route path="/schemes/surya-ghar" element={<SuryaGharPage />} />
+        <Route path="/schemes/ci"         element={<CIPage />} />
+        <Route path="/careers"            element={<CareersPage />} />
+        <Route path="/blog"               element={<BlogPage />} />
+        <Route path="/blog/:slug"         element={<BlogPostPage />} />
+        <Route path="*"                   element={<NotFoundPage />} />
+      </Routes>
+    </Suspense>
+  )
+}
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -106,18 +126,8 @@ export default function App() {
       <ScrollProgress />
       <Atmosphere />
       <ScrollToTop />
-      <Suspense fallback={<div style={{ minHeight: '100vh', background: '#060A0F' }} />}>
-        <Routes>
-          <Route path="/"                   element={<HomePage />} />
-          <Route path="/projects"           element={<ProjectsPage />} />
-          <Route path="/schemes/kusum"      element={<KusumPage />} />
-          <Route path="/schemes/surya-ghar" element={<SuryaGharPage />} />
-          <Route path="/schemes/ci"         element={<CIPage />} />
-          <Route path="/careers"            element={<CareersPage />} />
-          <Route path="/blog"               element={<BlogPage />} />
-          <Route path="/blog/:slug"         element={<BlogPostPage />} />
-        </Routes>
-      </Suspense>
+      <RouteMeta />
+      <AppRoutes />
       <WhatsAppButton />
       <Analytics />
       <SpeedInsights />

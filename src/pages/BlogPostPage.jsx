@@ -38,7 +38,6 @@ export default function BlogPostPage() {
 
   useEffect(() => {
     window.scrollTo(0, 0)
-    document.title = post ? `${post.title} | Suntrik Blog` : 'Article not found | Suntrik'
   }, [post])
 
   if (!post) {

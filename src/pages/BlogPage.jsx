@@ -48,7 +48,7 @@ export default function BlogPage() {
   const [query, setQuery] = useState('')
   const [openPost, setOpenPost] = useState(null)
 
-  useEffect(() => { window.scrollTo(0, 0); document.title = 'Blog | Suntrik Green Energy — Solar Policy & Updates' }, [])
+  useEffect(() => { window.scrollTo(0, 0) }, [])
 
   // Lock background scroll + close on Escape while the modal is open
   useEffect(() => {
