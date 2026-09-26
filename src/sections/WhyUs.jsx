@@ -223,7 +223,7 @@ export default function WhyUs() {
                     WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
                     lineHeight: 1, marginBottom: 2,
                   }}>{f.stat}</div>
-                  <div style={{ fontSize: '0.59rem', color: 'var(--text-muted)', lineHeight: 1.3, maxWidth: 62 }}>{f.statSub}</div>
+                  <div className="whyus-statsub" style={{ fontSize: '0.59rem', color: 'var(--text-muted)', lineHeight: 1.3, maxWidth: 62 }}>{f.statSub}</div>
                 </div>
               </div>
 
@@ -232,12 +232,12 @@ export default function WhyUs() {
                 <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: '0.88rem', marginBottom: '0.4rem', lineHeight: 1.25 }}>
                   {f.title}
                 </h3>
-                <p style={{ fontSize: '0.73rem', color: 'var(--text-secondary)', lineHeight: 1.62, marginBottom: '0.55rem' }}>
+                <p className="whyus-desc" style={{ fontSize: '0.73rem', color: 'var(--text-secondary)', lineHeight: 1.62, marginBottom: '0.55rem' }}>
                   {f.desc}
                 </p>
                 <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.26rem' }}>
                   {f.bullets.map(b => (
-                    <li key={b} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.4rem', fontSize: '0.7rem', color: 'var(--text-muted)', lineHeight: 1.38 }}>
+                    <li key={b} className="whyus-bullet" style={{ display: 'flex', alignItems: 'flex-start', gap: '0.4rem', fontSize: '0.7rem', color: 'var(--text-muted)', lineHeight: 1.38 }}>
                       <span style={{ color: 'var(--brand-orange)', flexShrink: 0 }}>▸</span>
                       {b}
                     </li>
@@ -273,6 +273,10 @@ export default function WhyUs() {
         }
         @media(max-width:560px){
           .whyus-grid { grid-template-columns: 1fr !important; }
+          /* single column has room — keep body text at a legible ≥12px on phones */
+          .whyus-desc   { font-size: 0.88rem !important; }
+          .whyus-bullet { font-size: 0.82rem !important; }
+          .whyus-statsub { font-size: 0.72rem !important; }
         }
       `}</style>
     </section>
