@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://suntrik.com/sitemap.xml
+Sitemap: https://www.suntrik.com/sitemap.xml

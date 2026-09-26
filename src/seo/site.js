@@ -9,7 +9,7 @@
 import { POSTS, getPost } from '../data/blog'
 import { SURYA_GHAR_FAQS, KUSUM_FAQS } from '../data/faqs'
 
-export const SITE_URL = 'https://suntrik.com'
+export const SITE_URL = 'https://www.suntrik.com'
 export const SITE_NAME = 'Suntrik Green Energy'
 export const DEFAULT_IMAGE = '/hero-frames/frame-0001.jpg'
 
