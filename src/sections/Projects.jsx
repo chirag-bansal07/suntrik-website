@@ -92,7 +92,7 @@ export default function Projects() {
                   <div style={{ width: 72, flexShrink: 0, background: `linear-gradient(145deg, ${TYPE_COLOR[p.type]}18 0%, transparent 100%)`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.6rem' }}>{TYPE_ICON[p.type]}</div>
                   <div style={{ flex: 1, padding: '1rem', display: 'flex', flexDirection: 'column', justifyContent: 'center', minWidth: 0 }}>
                     <div style={{ display: 'flex', gap: '0.35rem', marginBottom: '0.3rem', flexWrap: 'wrap', alignItems: 'center' }}>
-                      <span style={{ background: TYPE_COLOR[p.type], color: '#fff', fontSize: '0.55rem', fontWeight: 800, padding: '0.12rem 0.5rem', borderRadius: 100 }}>{p.type}</span>
+                      <span style={{ background: TYPE_COLOR[p.type], color: '#0b0f14', fontSize: '0.55rem', fontWeight: 800, padding: '0.12rem 0.5rem', borderRadius: 100 }}>{p.type}</span>
                       <span style={{ color: 'var(--brand-amber)', fontSize: '0.6rem', fontWeight: 700 }}>{p.capacity}</span>
                     </div>
                     <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '0.88rem', fontWeight: 700, marginBottom: '0.18rem', lineHeight: 1.25, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{p.title}</h3>

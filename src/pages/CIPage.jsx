@@ -66,7 +66,7 @@ export default function CIPage() {
               <div key={h.title} style={{ padding: '1.4rem', background: 'rgba(139,92,246,0.04)', border: '1px solid rgba(139,92,246,0.12)', borderRadius: 12, display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
                 <div style={{ width: 46, height: 46, borderRadius: 10, background: 'rgba(139,92,246,0.1)', border: '1px solid rgba(139,92,246,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.3rem', flexShrink: 0 }}>{h.icon}</div>
                 <div>
-                  <h3 style={{ fontFamily: 'Space Grotesk', fontWeight: 700, fontSize: '0.88rem', marginBottom: '0.35rem', color: '#8B5CF6' }}>{h.title}</h3>
+                  <h3 style={{ fontFamily: 'Space Grotesk', fontWeight: 700, fontSize: '0.88rem', marginBottom: '0.35rem', color: '#A78BFA' }}>{h.title}</h3>
                   <p style={{ fontSize: '0.77rem', color: 'var(--text-secondary)', lineHeight: 1.65 }}>{h.desc}</p>
                 </div>
               </div>
@@ -114,14 +114,14 @@ export default function CIPage() {
           <h2 style={{ fontSize: 'clamp(1.4rem, 3vw, 2rem)', fontWeight: 800, marginBottom: '1.25rem' }}>Net Metering or Open Access?</h2>
           <div className="ci-highlights-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.1rem' }}>
             <div style={{ padding: '1.4rem', background: 'rgba(139,92,246,0.04)', border: '1px solid rgba(139,92,246,0.12)', borderRadius: 12 }}>
-              <h3 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '0.5rem', color: '#8B5CF6' }}>Rooftop with net metering</h3>
+              <h3 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '0.5rem', color: '#A78BFA' }}>Rooftop with net metering</h3>
               <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', lineHeight: 1.75 }}>
                 Panels go on your own roof or premises. Power you use during the day cuts your grid purchase; surplus is exported and credited against your bill through a net meter from your DISCOM.
                 It suits factories, warehouses, schools and hospitals with a large, shade-free roof, and the approval is handled by the local DISCOM.
               </p>
             </div>
             <div style={{ padding: '1.4rem', background: 'rgba(139,92,246,0.04)', border: '1px solid rgba(139,92,246,0.12)', borderRadius: 12 }}>
-              <h3 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '0.5rem', color: '#8B5CF6' }}>Ground-mount with open access</h3>
+              <h3 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '0.5rem', color: '#A78BFA' }}>Ground-mount with open access</h3>
               <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', lineHeight: 1.75 }}>
                 A larger plant is built on land elsewhere and the power is wheeled to your facility over the grid. It suits high-consumption users whose roof is too small for their demand.
                 It needs state open-access approval and involves transmission and wheeling charges set by the state regulator, so we model the landed cost before you commit.

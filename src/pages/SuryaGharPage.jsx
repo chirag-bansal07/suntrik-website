@@ -187,7 +187,7 @@ export default function SuryaGharPage() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }} className="sg-steps-grid">
             {STEPS.map(s => (
               <div key={s.n} style={{ padding: '1.5rem', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,107,26,0.1)', borderRadius: 12 }}>
-                <div style={{ fontFamily: 'Space Grotesk', fontWeight: 900, fontSize: '2.5rem', color: 'rgba(255,107,26,0.15)', lineHeight: 1, marginBottom: '0.75rem' }}>{s.n}</div>
+                <div className="step-num" data-n={s.n} aria-hidden="true" style={{ fontFamily: 'Space Grotesk', fontWeight: 900, fontSize: '2.5rem', color: 'rgba(255,107,26,0.15)', lineHeight: 1, marginBottom: '0.75rem' }} />
                 <h3 style={{ fontFamily: 'Space Grotesk', fontWeight: 700, fontSize: '0.9rem', marginBottom: '0.5rem', color: 'var(--brand-orange)' }}>{s.title}</h3>
                 <p style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', lineHeight: 1.7 }}>{s.desc}</p>
               </div>

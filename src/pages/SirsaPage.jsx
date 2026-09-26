@@ -92,8 +92,8 @@ export default function SirsaPage() {
               <strong style={{ color: 'var(--text-primary)' }}>Suntrik Green Energy Pvt. Ltd.</strong><br />
               Rania Bazar, near Red Cross Office<br />
               Sirsa, Haryana 125055<br />
-              Phone / WhatsApp: <a href="tel:+917503739000" style={{ color: 'var(--brand-orange)' }}>+91 75037 39000</a><br />
-              Email: <a href="mailto:info@suntrik.com" style={{ color: 'var(--brand-orange)' }}>info@suntrik.com</a>
+              Phone / WhatsApp: <a href="tel:+917503739000" style={{ color: 'var(--brand-orange)', textDecoration: 'underline' }}>+91 75037 39000</a><br />
+              Email: <a href="mailto:info@suntrik.com" style={{ color: 'var(--brand-orange)', textDecoration: 'underline' }}>info@suntrik.com</a>
             </address>
             <a href={MAPS_URL} target="_blank" rel="noopener noreferrer" className="btn-outline" style={{ display: 'inline-block', marginTop: '1.2rem', textDecoration: 'none' }}>Open in Google Maps</a>
           </div>

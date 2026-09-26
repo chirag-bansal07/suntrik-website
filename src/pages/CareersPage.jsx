@@ -133,49 +133,49 @@ export default function CareersPage() {
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }} className="careers-form-row">
                 <div>
-                  <label style={labelStyle}>Full Name *</label>
-                  <input name="name" required placeholder="Your name" style={inputStyle} />
+                  <label htmlFor="apply-name" style={labelStyle}>Full Name *</label>
+                  <input id="apply-name" name="name" required placeholder="Your name" style={inputStyle} />
                 </div>
                 <div>
-                  <label style={labelStyle}>Email *</label>
-                  <input name="email" type="email" required placeholder="you@example.com" style={inputStyle} />
-                </div>
-              </div>
-
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }} className="careers-form-row">
-                <div>
-                  <label style={labelStyle}>Phone *</label>
-                  <input name="phone" type="tel" required placeholder="+91 XXXXX XXXXX" style={inputStyle} />
-                </div>
-                <div>
-                  <label style={labelStyle}>Current City</label>
-                  <input name="city" placeholder="e.g. Jaipur" style={inputStyle} />
+                  <label htmlFor="apply-email" style={labelStyle}>Email *</label>
+                  <input id="apply-email" name="email" type="email" required placeholder="you@example.com" style={inputStyle} />
                 </div>
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }} className="careers-form-row">
                 <div>
-                  <label style={labelStyle}>Position Applying For *</label>
-                  <select name="position" required value={role} onChange={e => setRole(e.target.value)} style={{ ...inputStyle, colorScheme: 'dark', cursor: 'pointer' }}>
+                  <label htmlFor="apply-phone" style={labelStyle}>Phone *</label>
+                  <input id="apply-phone" name="phone" type="tel" required placeholder="+91 XXXXX XXXXX" style={inputStyle} />
+                </div>
+                <div>
+                  <label htmlFor="apply-city" style={labelStyle}>Current City</label>
+                  <input id="apply-city" name="city" placeholder="e.g. Jaipur" style={inputStyle} />
+                </div>
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }} className="careers-form-row">
+                <div>
+                  <label htmlFor="apply-position" style={labelStyle}>Position Applying For *</label>
+                  <select id="apply-position" name="position" required value={role} onChange={e => setRole(e.target.value)} style={{ ...inputStyle, colorScheme: 'dark', cursor: 'pointer' }}>
                     <option value="" disabled style={{ background: '#0d1320', color: '#fff' }}>Select a role…</option>
                     {JOBS.map(j => <option key={j.id} value={j.title} style={{ background: '#0d1320', color: '#fff' }}>{j.title}</option>)}
                     <option value="Other / General Application" style={{ background: '#0d1320', color: '#fff' }}>Other / General Application</option>
                   </select>
                 </div>
                 <div>
-                  <label style={labelStyle}>Total Experience</label>
-                  <input name="experience" placeholder="e.g. 3 years" style={inputStyle} />
+                  <label htmlFor="apply-experience" style={labelStyle}>Total Experience</label>
+                  <input id="apply-experience" name="experience" placeholder="e.g. 3 years" style={inputStyle} />
                 </div>
               </div>
 
               <div>
-                <label style={labelStyle}>Resume / CV * <span style={{ color: 'var(--text-muted)', fontWeight: 400 }}>(PDF or DOC, max 5 MB)</span></label>
-                <input name="resume" type="file" accept=".pdf,.doc,.docx" required style={{ ...inputStyle, padding: '0.6rem 1rem', cursor: 'pointer' }} />
+                <label htmlFor="apply-resume" style={labelStyle}>Resume / CV * <span style={{ color: 'var(--text-muted)', fontWeight: 400 }}>(PDF or DOC, max 5 MB)</span></label>
+                <input id="apply-resume" name="resume" type="file" accept=".pdf,.doc,.docx" required style={{ ...inputStyle, padding: '0.6rem 1rem', cursor: 'pointer' }} />
               </div>
 
               <div>
-                <label style={labelStyle}>Cover Note</label>
-                <textarea name="message" rows={4} placeholder="Tell us briefly why you'd be a great fit — relevant projects, notice period, current/expected CTC, etc."
+                <label htmlFor="apply-message" style={labelStyle}>Cover Note</label>
+                <textarea id="apply-message" name="message" rows={4} placeholder="Tell us briefly why you'd be a great fit — relevant projects, notice period, current/expected CTC, etc."
                   style={{ ...inputStyle, resize: 'vertical', fontFamily: 'Inter, sans-serif', lineHeight: 1.6 }} />
               </div>
 

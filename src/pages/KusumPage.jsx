@@ -156,7 +156,7 @@ export default function KusumPage() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }} className="kusum-steps-grid">
             {STEPS.map((s, i) => (
               <div key={s.n} style={{ padding: '1.5rem', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(16,185,129,0.1)', borderRadius: 12, position: 'relative' }}>
-                <div style={{ fontFamily: 'Space Grotesk', fontWeight: 900, fontSize: '2.5rem', color: 'rgba(16,185,129,0.15)', lineHeight: 1, marginBottom: '0.75rem' }}>{s.n}</div>
+                <div className="step-num" data-n={s.n} aria-hidden="true" style={{ fontFamily: 'Space Grotesk', fontWeight: 900, fontSize: '2.5rem', color: 'rgba(16,185,129,0.15)', lineHeight: 1, marginBottom: '0.75rem' }} />
                 <h3 style={{ fontFamily: 'Space Grotesk', fontWeight: 700, fontSize: '0.9rem', marginBottom: '0.5rem', color: '#10B981' }}>{s.title}</h3>
                 <p style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', lineHeight: 1.7 }}>{s.desc}</p>
               </div>
@@ -186,7 +186,7 @@ export default function KusumPage() {
                   {/* gradient scrim for legible text */}
                   <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(6,10,15,0.94) 0%, rgba(6,10,15,0.2) 48%, transparent 72%)' }} />
                   {/* scheme tag */}
-                  <span style={{ position: 'absolute', top: '0.9rem', left: '0.9rem', background: '#10B981', color: '#fff', fontSize: '0.64rem', fontWeight: 800, padding: '0.28rem 0.75rem', borderRadius: 100, letterSpacing: '0.04em' }}>🌾 PM-KUSUM</span>
+                  <span style={{ position: 'absolute', top: '0.9rem', left: '0.9rem', background: '#10B981', color: '#0b0f14', fontSize: '0.64rem', fontWeight: 800, padding: '0.28rem 0.75rem', borderRadius: 100, letterSpacing: '0.04em' }}>🌾 PM-KUSUM</span>
                   {/* capacity + location */}
                   <div style={{ position: 'absolute', left: '1.2rem', right: '1.2rem', bottom: '1.1rem' }}>
                     <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 900, fontSize: '2.3rem', lineHeight: 1, color: '#fff', textShadow: '0 2px 18px rgba(0,0,0,0.5)' }}>{p.capacity}</div>

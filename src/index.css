@@ -210,3 +210,8 @@ input.calc-range::-moz-range-thumb {
 
 /* Visually hidden, still read by screen readers */
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+/* Links inside running text are underlined so they don't rely on colour alone */
+p a:not([class]) { text-decoration: underline; text-underline-offset: 2px; }
+/* Decorative step numbers (01, 02…) drawn from data-n so they are not read as text */
+.step-num::before { content: attr(data-n); }

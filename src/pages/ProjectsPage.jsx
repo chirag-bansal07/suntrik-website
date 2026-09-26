@@ -113,7 +113,7 @@ export default function ProjectsPage() {
                     {/* gradient scrim for legible text */}
                     <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(6,10,15,0.94) 0%, rgba(6,10,15,0.2) 48%, transparent 72%)' }} />
                     {/* scheme tag */}
-                    <span style={{ position: 'absolute', top: '0.9rem', left: '0.9rem', background: TYPE_COLOR[p.type], color: '#fff', fontSize: '0.64rem', fontWeight: 800, padding: '0.28rem 0.75rem', borderRadius: 100, letterSpacing: '0.04em' }}>{TYPE_ICON[p.type]} {p.type}</span>
+                    <span style={{ position: 'absolute', top: '0.9rem', left: '0.9rem', background: TYPE_COLOR[p.type], color: '#0b0f14', fontSize: '0.64rem', fontWeight: 800, padding: '0.28rem 0.75rem', borderRadius: 100, letterSpacing: '0.04em' }}>{TYPE_ICON[p.type]} {p.type}</span>
                     {/* subsidy badge (if any) */}
                     {p.subsidy && (
                       <span style={{ position: 'absolute', top: '0.9rem', right: '0.9rem', background: 'rgba(6,10,15,0.6)', color: '#fff', fontSize: '0.6rem', fontWeight: 800, padding: '0.28rem 0.7rem', borderRadius: 100, border: '1px solid rgba(255,255,255,0.25)', backdropFilter: 'blur(6px)' }}>{p.subsidy}</span>

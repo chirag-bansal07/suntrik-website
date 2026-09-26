@@ -65,11 +65,11 @@ export default function Footer() {
           {/* ── Link columns ──────────────────────────────── */}
           {Object.entries(cols).map(([col, items]) => (
             <div key={col}>
-              <h4 style={{
+              <h3 style={{
                 fontFamily: 'Space Grotesk, sans-serif', fontSize: '0.78rem', fontWeight: 700,
                 color: 'var(--text-primary)', marginBottom: '1.2rem',
                 letterSpacing: '0.07em', textTransform: 'uppercase',
-              }}>{col}</h4>
+              }}>{col}</h3>
               <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.68rem' }}>
                 {items.map(item => (
                   <li key={item}>
