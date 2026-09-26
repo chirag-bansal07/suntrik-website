@@ -84,3 +84,16 @@ Desktop homepage: 89. CLS is 0.00–0.01 on every page. Lab scores vary ±5 betw
 
 ## Limitations
 No Search Console, GA4, CrUX, rank-tracking or backlink data were available. Scores are lab-based and from this audit's method; rankings will lag the changes by weeks until Google recrawls. Resubmit `https://www.suntrik.com/sitemap.xml` in Search Console and request indexing for the two rewritten guides and /solar-company-sirsa.
+
+## Update — Local SEO (26 Sep, later): 52 → 78; overall 83 → 84
+
+The Google Business Profile is claimed and active ("Suntrik Solutions", Solar Energy Company, 4.9★ from 35 reviews, owner replies, phone +91 75037 39000). The site now matches and links to it:
+- Address wording from GBP ("Rania Bazar, B Block, Subhash Chowk") on site, footer, contact section and schema
+- Opening hours Mon–Sat 10:00–19:00 on site and in `openingHoursSpecification`
+- `geo` 29.5311993, 75.0242521; `hasMap` and `sameAs` → the GBP listing
+- LocalBusiness named "Suntrik Solutions" (as on GBP/JustDial/FB/IG), parent organisation Suntrik Green Energy Pvt. Ltd.
+- Sirsa page: embedded map, hours, Google rating with link to read/write reviews
+
+Schema 87 → 92 → weighted total 84.
+
+Remaining (owner): update JustDial phone/email/address wording; edit Bing Places "About" (still says NISE-certified, copied from the old site); ask every customer for a Google review; create Apple Business Connect listing.

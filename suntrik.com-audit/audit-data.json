@@ -1,9 +1,9 @@
 {
   "summary": {
-    "health_score": 83,
+    "health_score": 84,
     "audit_date": "2026-09-26",
     "business_type": "Local service business (hybrid) — solar EPC, Sirsa, Haryana",
-    "local_seo_score": 52,
+    "local_seo_score": 78,
     "top_findings": [
       "Blog posts thin (342-414 words) and stale (newest April 2024), anonymous author",
       "/blog does not link to posts in HTML; posts have 1-3 internal links",
@@ -139,7 +139,7 @@
     {
       "name": "Schema / Structured Data",
       "weight": 0.1,
-      "score": 87,
+      "score": 92,
       "what_works": [
         "Organization",
         "LocalBusiness with sameAs/areaServed",
