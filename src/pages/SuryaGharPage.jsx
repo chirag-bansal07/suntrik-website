@@ -27,7 +27,7 @@ const STEPS = [
   { n: '01', title: 'Registration on National Portal', desc: 'Suntrik registers your household on pmsuryaghar.gov.in using your Aadhaar, electricity consumer number, and bank details. This takes one working day.' },
   { n: '02', title: 'DISCOM Feasibility Check', desc: 'We submit a feasibility application to your DISCOM (DHBVN/DHEVCL) for net-metering connection approval. Suntrik tracks and follows up until approved.' },
   { n: '03', title: 'System Design & Quotation', desc: 'Our engineers design the optimal system for your roof — load analysis, shading study, module layout — and provide a detailed cost sheet including post-subsidy outlay.' },
-  { n: '04', title: 'Turnkey Installation', desc: 'Suntrik\'s NISE-certified team installs the complete rooftop system: modules, grid-tied inverter, net-metering cabling, and monitoring device.' },
+  { n: '04', title: 'Turnkey Installation', desc: 'Suntrik\'s in-house team installs the complete rooftop system: modules, grid-tied inverter, net-metering cabling, and monitoring device.' },
   { n: '05', title: 'DISCOM Inspection & Net Meter', desc: 'We coordinate the DISCOM site inspection, net-meter installation, and issue the official commissioning certificate — required for subsidy release.' },
   { n: '06', title: 'Subsidy Disbursement', desc: 'After commissioning, Suntrik submits the disbursement claim on the national portal. The subsidy is credited directly to your registered bank account within 30 days.' },
 ]
@@ -229,21 +229,21 @@ export default function SuryaGharPage() {
                 style={{ width: '100%', borderRadius: 18, display: 'block', border: '2px solid rgba(255,107,26,0.25)', boxShadow: '0 30px 70px rgba(0,0,0,0.5)' }} />
               <div style={{ position: 'absolute', bottom: '1.25rem', left: '1.25rem', background: 'rgba(6,10,15,0.75)', backdropFilter: 'blur(8px)', borderRadius: 10, padding: '0.7rem 1rem', border: '1px solid rgba(255,107,26,0.2)' }}>
                 <div style={{ fontFamily: 'Space Grotesk', fontWeight: 900, fontSize: '1.1rem', color: 'var(--brand-orange)' }}>13+ Technicians</div>
-                <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>NISE-certified field crew</div>
+                <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>In-house field crew</div>
               </div>
             </div>
             <div>
               <span style={{ fontSize: '0.7rem', color: 'var(--brand-orange)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.18em', display: 'block', marginBottom: '0.75rem' }}>Our Team</span>
               <h2 style={{ fontSize: 'clamp(1.4rem, 3vw, 2rem)', fontWeight: 800, marginBottom: '1rem', lineHeight: 1.2 }}>The People Who Install Your Solar</h2>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, marginBottom: '1rem', fontSize: '0.9rem' }}>
-                Every Suntrik installation is carried out by our in-house field crew — trained, uniformed, and NISE-certified. They handle everything on-site: structural mounting, module placement, inverter wiring, net-meter cabling, and final commissioning checks.
+                Every Suntrik installation is carried out by our in-house field crew — trained and uniformed. They handle everything on-site: structural mounting, module placement, inverter wiring, net-meter cabling, and final commissioning checks.
               </p>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '0.9rem', marginBottom: '1.5rem' }}>
                 We don't outsource to local contractors. The same crew that designs your system builds it — ensuring quality, accountability, and the 5-year AMC you can count on.
               </p>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
                 {[
-                  { icon: '🎓', t: 'NISE-Certified', s: 'Every field engineer' },
+                  { icon: '🎓', t: 'Trained Crew', s: 'Every field engineer' },
                   { icon: '🔧', t: 'In-House Crew', s: 'No sub-contractors' },
                   { icon: '🛡️', t: '5-Year AMC', s: 'Residential installs' },
                   { icon: '📍', t: 'Pan-India', s: 'Active across states' },

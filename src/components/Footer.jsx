@@ -17,7 +17,7 @@ const cols = {
   'Support':  ['Contact Us', 'Get a Quote', 'FAQs', 'Warranty & AMC'],
 }
 
-const CERTS = ['NISE Certified', 'ISO Certified', 'MSME Registered', 'PM-KUSUM', 'PM Surya Ghar', 'DHBVN Empanelled', 'JJVVNL', 'RRECL']
+const CERTS = ['ISO Certified', 'MSME Registered', 'PM-KUSUM', 'PM Surya Ghar', 'DHBVN Empanelled', 'JJVVNL', 'RRECL']
 
 export default function Footer() {
   return (

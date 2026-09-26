@@ -44,7 +44,7 @@ export const POSTS = [
       { type: 'p', text: 'A 3 kW system generates roughly 360–400 units per month in India (≈340 sunny days × 4 units/kW/day). That exceeds the 300-unit free threshold, so most households effectively reach a zero electricity bill — while surplus units earn net-metering credits.' },
       { type: 'quote', text: 'Combined with net-metering, most households achieve near-zero bills and a payback period of just 2–3 years.' },
       { type: 'h2', text: 'How Suntrik handles it end to end' },
-      { type: 'p', text: 'Suntrik manages the entire journey — national portal registration, DISCOM feasibility, system design, NISE-certified installation, inspection, net-meter, and subsidy disbursement follow-up — so you only provide your documents once.' },
+      { type: 'p', text: 'Suntrik manages the entire journey — national portal registration, DISCOM feasibility, system design, installation, inspection, net-meter, and subsidy disbursement follow-up — so you only provide your documents once.' },
     ],
   },
   {
@@ -76,7 +76,7 @@ export const POSTS = [
     body: [
       { type: 'p', text: 'Incorporated in 2024 as Suntrik Green Energy Pvt. Ltd. (originally founded in 2018 as Suntrik Solutions), our team now has 80 MWp of PM-KUSUM ground-mount orders under execution across Rajasthan and Haryana, with an active order book exceeding ₹150 crore.' },
       { type: 'h2', text: 'Built on in-house capability' },
-      { type: 'p', text: 'Every project is delivered by our own NISE-certified field crew — no sub-contracting. The same engineers who design your plant build and commission it, ensuring accountability and the quality our 5-year AMC depends on.' },
+      { type: 'p', text: 'Every project is delivered by our own trained in-house field crew — no sub-contracting. The same engineers who design your plant build and commission it, ensuring accountability and the quality our 5-year AMC depends on.' },
       { type: 'ul', items: ['150 MW+ cumulative capacity installed', '1,000+ clients across homes, farms and industries', 'In-house mounting structures via SunMount'] },
       { type: 'p', text: 'As government schemes like PM Surya Ghar and PM-KUSUM accelerate India\'s energy transition, we remain committed to delivering bankable, end-to-end solar EPC across the country.' },
     ],

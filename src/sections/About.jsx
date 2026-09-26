@@ -147,7 +147,7 @@ export default function About() {
             </p>
             <p style={{ color: 'var(--text-secondary)', lineHeight: 1.75, fontSize: '0.875rem' }}>
               We serve residential homeowners, commercial establishments, industrial plants and farming
-              communities — delivering full-cycle EPC with NISE-certified professionals, managing
+              communities — delivering full-cycle EPC with an in-house engineering team, managing
               every government scheme, DISCOM approval, and net-metering connection on your behalf.
             </p>
           </div>

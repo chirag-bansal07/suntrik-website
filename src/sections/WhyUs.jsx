@@ -29,8 +29,8 @@ const FEATURES = [
   },
   {
     num: '02',
-    title: 'NISE-Certified Engineering Team',
-    desc: "Every installation is led by professionals certified by the National Institute of Solar Energy — the standard required for all MNRE-subsidised projects. Our engineers bring PVsyst simulation expertise and AutoCAD system design to every project.",
+    title: 'In-House Engineering Team',
+    desc: "Every installation is led by our own engineers — no sub-contracting. They bring PVsyst simulation expertise and AutoCAD system design to every project.",
     icon: (
       <svg width="36" height="36" viewBox="0 0 48 48" fill="none">
         <rect x="8" y="12" width="32" height="24" rx="4" stroke="url(#wg2)" strokeWidth="1.6"/>
@@ -41,9 +41,9 @@ const FEATURES = [
         </linearGradient></defs>
       </svg>
     ),
-    stat: 'NISE Certified',
-    statSub: 'mandatory for MNRE projects',
-    bullets: ['NISE-certified installation leads', 'PVsyst & AutoCAD design team', 'MSME-registered organisation'],
+    stat: 'In-House',
+    statSub: 'design to commissioning',
+    bullets: ['In-house installation leads', 'PVsyst & AutoCAD design team', 'MSME-registered organisation'],
   },
   {
     num: '03',

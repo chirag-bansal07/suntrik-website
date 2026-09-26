@@ -65,7 +65,7 @@ const ACCRED = [
     title: 'MNRE Empanelled Installer',
     badge: 'Central Approved', badgeColor: '#FF6B1A',
     desc: 'Recognised by the Ministry of New and Renewable Energy — required for accessing central government subsidies, MNRE-tied financing, and Tier-1 component procurement.',
-    points: ['PM-KUSUM central subsidy', 'PM Surya Ghar central subsidy', 'MNRE Tier-1 module procurement', 'NISE-certified engineering team'],
+    points: ['PM-KUSUM central subsidy', 'PM Surya Ghar central subsidy', 'MNRE Tier-1 module procurement', 'In-house engineering team'],
   },
 ]
 

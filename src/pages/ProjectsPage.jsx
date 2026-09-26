@@ -129,7 +129,7 @@ export default function ProjectsPage() {
                 <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(6,10,15,0.9) 0%, transparent 45%)' }} />
                 <div style={{ position: 'absolute', left: '1.5rem', right: '1.5rem', bottom: '1.4rem' }}>
                   <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 900, fontSize: 'clamp(1.1rem, 2.5vw, 1.6rem)', color: '#fff' }}>Suntrik Installation Crew</div>
-                  <div style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.85)', fontWeight: 600, marginTop: '0.35rem' }}>13+ NISE-certified technicians · In-house crew, no sub-contractors · Active pan-India</div>
+                  <div style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.85)', fontWeight: 600, marginTop: '0.35rem' }}>13+ trained technicians · In-house crew, no sub-contractors · Active pan-India</div>
                 </div>
               </div>
             </div>
@@ -139,7 +139,7 @@ export default function ProjectsPage() {
         {/* CTA */}
         <div style={{ textAlign: 'center', marginTop: '3rem', padding: '2.5rem', background: 'rgba(255,107,26,0.05)', border: '1px solid rgba(255,107,26,0.15)', borderRadius: 16 }}>
           <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '1.4rem', fontWeight: 700, marginBottom: '0.75rem' }}>Have a project in mind?</h3>
-          <p style={{ color: 'var(--text-secondary)', marginBottom: '1.25rem', maxWidth: 420, margin: '0 auto 1.25rem' }}>Get a free feasibility assessment from our NISE-certified engineers within 24 hours.</p>
+          <p style={{ color: 'var(--text-secondary)', marginBottom: '1.25rem', maxWidth: 420, margin: '0 auto 1.25rem' }}>Get a free feasibility assessment from our engineers within 24 hours.</p>
           <Link to="/#contact" className="btn-primary" style={{ textDecoration: 'none' }}>Get Free Assessment →</Link>
         </div>
       </div>

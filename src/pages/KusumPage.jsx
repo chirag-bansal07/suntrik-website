@@ -27,7 +27,7 @@ const STEPS = [
   { n: '01', title: 'Application on PM-KUSUM Portal', desc: 'Suntrik registers you on the official MNRE/HAREDA portal, submits your land details, Aadhaar, and electricity connection documents.' },
   { n: '02', title: 'DPR Preparation & Submission', desc: 'Our engineers prepare the Detailed Project Report — site survey, load calculation, single-line diagram, and equipment specifications per MNRE norms.' },
   { n: '03', title: 'HAREDA Sanction', desc: 'We follow up with HAREDA and the State Nodal Agency to obtain the official sanction letter — typically within 3–4 weeks of submission.' },
-  { n: '04', title: 'Turnkey Installation', desc: 'Suntrik\'s NISE-certified team installs the complete system: modules, inverters, mounting, cabling, and pump controller. MNRE Tier-1 components only.' },
+  { n: '04', title: 'Turnkey Installation', desc: 'Suntrik\'s in-house team installs the complete system: modules, inverters, mounting, cabling, and pump controller. MNRE Tier-1 components only.' },
   { n: '05', title: 'DISCOM Inspection & Commissioning', desc: 'We coordinate the DISCOM inspection, net-metering / PPA connection, and official commissioning certificate.' },
   { n: '06', title: 'Subsidy Disbursement', desc: 'Suntrik tracks and coordinates the subsidy disbursement from HAREDA/MNRE directly to your account. Your full subsidy benefit is credited without any follow-up from your side.' },
 ]

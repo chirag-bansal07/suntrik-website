@@ -61,7 +61,7 @@ const PROCESS = [
         </linearGradient></defs>
       </svg>
     ),
-    title: 'Installation', desc: 'NISE teams, DISCOM liaison, net-metering, commissioning & testing',
+    title: 'Installation', desc: 'In-house teams, DISCOM liaison, net-metering, commissioning & testing',
   },
   {
     n: '05', icon: (
@@ -141,8 +141,8 @@ const SERVICES = [
       </svg>
     ),
     title: 'Installation & Commissioning',
-    desc: 'Turnkey rooftop and ground-mount installation by NISE-certified engineers, with full safety compliance and DISCOM approvals.',
-    points: ['NISE-certified install teams', 'Net-metering & DISCOM liaison', 'Grid sync & commissioning test'],
+    desc: 'Turnkey rooftop and ground-mount installation by our in-house engineers, with full safety compliance and DISCOM approvals.',
+    points: ['In-house install teams', 'Net-metering & DISCOM liaison', 'Grid sync & commissioning test'],
   },
   {
     id: 5,
