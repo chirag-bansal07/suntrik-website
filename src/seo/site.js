@@ -8,6 +8,7 @@
  */
 import { POSTS, getPost } from '../data/blog'
 import { SURYA_GHAR_FAQS, KUSUM_FAQS, SIRSA_FAQS } from '../data/faqs'
+import { JOBS, JOBS_POSTED } from '../data/jobs'
 
 export const SITE_URL = 'https://www.suntrik.com'
 export const SITE_NAME = 'Suntrik Green Energy'
@@ -47,15 +48,15 @@ export const BUSINESS = {
 const ROUTES = {
   '/': {
     name: 'Home',
-    title: 'Solar Company in Sirsa, Haryana | Suntrik Green Energy',
-    description: 'Suntrik Green Energy (Suntrik Solutions), Rania Bazar, Sirsa — rooftop solar, PM Surya Ghar subsidy, PM-KUSUM and commercial solar EPC across Haryana & Rajasthan.',
+    title: 'Suntrik Green Energy — Solar EPC Company in Haryana & Rajasthan',
+    description: 'Solar EPC from Sirsa, Haryana since 2018: rooftop solar with PM Surya Ghar subsidy, PM-KUSUM for farmers and commercial solar across Haryana & Rajasthan.',
     lastmod: '2026-09-26',
     priority: '1.0',
   },
   '/solar-company-sirsa': {
     name: 'Solar Company in Sirsa',
     title: 'Solar Company in Sirsa — Rooftop, PM Surya Ghar & KUSUM | Suntrik',
-    description: 'Suntrik, Rania Bazar, Sirsa: rooftop solar with up to ₹78,000 PM Surya Ghar subsidy, PM-KUSUM for farmers and commercial solar. Free site survey — +91 75037 39000.',
+    description: 'Suntrik, Rania Bazar, Sirsa: rooftop solar with up to ₹78,000 subsidy, PM-KUSUM for farmers and commercial solar. Free site survey: +91 75037 39000.',
     lastmod: '2026-09-26',
     priority: '0.9',
     faqs: SIRSA_FAQS,
@@ -63,37 +64,40 @@ const ROUTES = {
   '/projects': {
     name: 'Projects',
     title: 'Solar Projects — PM-KUSUM, Rooftop & C&I | Suntrik Green Energy',
-    description: 'Ground-mount PM-KUSUM plants, PM Surya Ghar rooftop installations and commercial & industrial solar projects delivered by Suntrik across Haryana and Rajasthan.',
+    description: 'PM-KUSUM ground-mount plants, PM Surya Ghar rooftops and commercial solar projects delivered by Suntrik across Haryana and Rajasthan.',
     lastmod: '2026-09-25',
     priority: '0.8',
   },
   '/schemes/surya-ghar': {
     name: 'PM Surya Ghar',
     title: 'PM Surya Ghar Yojana in Haryana — Subsidy up to ₹78,000 | Suntrik',
-    description: 'Get PM Surya Ghar rooftop solar in Sirsa and across Haryana. Suntrik handles portal registration, DHBVN net metering, installation and the ₹78,000 subsidy claim.',
+    description: 'PM Surya Ghar rooftop solar in Haryana: up to ₹78,000 central subsidy plus state aid. Suntrik handles registration, DHBVN net metering and claims.',
     lastmod: '2026-09-25',
     priority: '0.9',
     faqs: SURYA_GHAR_FAQS,
+    service: { name: 'PM Surya Ghar rooftop solar installation', type: 'Rooftop solar installation' },
   },
   '/schemes/kusum': {
     name: 'PM-KUSUM',
     title: 'PM-KUSUM Solar in Haryana & Rajasthan — Component A & C | Suntrik',
-    description: 'PM-KUSUM Component A ground-mount plants and Component C pump solarisation for farmers in Haryana and Rajasthan — application, HAREDA coordination, EPC and subsidy.',
+    description: 'PM-KUSUM Component A solar plants and Component C pump solarisation for farmers in Haryana and Rajasthan: application, HAREDA liaison, EPC.',
     lastmod: '2026-09-25',
     priority: '0.9',
     faqs: KUSUM_FAQS,
+    service: { name: 'PM-KUSUM solar plants and pump solarisation', type: 'Agricultural solar EPC' },
   },
   '/schemes/ci': {
     name: 'Commercial & Industrial Solar',
     title: 'Commercial & Industrial Solar EPC | Suntrik Green Energy',
-    description: 'Rooftop and ground-mount solar for factories, warehouses, hospitals and schools — PVsyst-verified yield, net metering, open access, CAPEX or OPEX models.',
+    description: 'Rooftop and ground-mount solar for factories, warehouses, hospitals and schools — PVsyst-verified yield, net metering, open access, CAPEX or OPEX.',
+    service: { name: 'Commercial & industrial solar EPC', type: 'Commercial solar installation' },
     lastmod: '2026-09-25',
     priority: '0.8',
   },
   '/careers': {
     name: 'Careers',
     title: 'Careers in Solar — Jobs at Suntrik Green Energy, Sirsa',
-    description: 'Join Suntrik Green Energy — open roles in solar engineering, site execution and sales for rooftop, ground-mount and PM-KUSUM projects in Haryana and Rajasthan.',
+    description: 'Open roles at Suntrik Green Energy in solar design, project management, site execution, sales and marketing across Haryana and Rajasthan.',
     lastmod: '2026-09-25',
     priority: '0.5',
   },
@@ -126,6 +130,8 @@ export function getMeta(pathname) {
     const jsonLd = [breadcrumbs(path, route.name)]
     if (path === '/') jsonLd.unshift(organization(), localBusiness(), website())
     if (route.faqs) jsonLd.push(faqPage(route.faqs))
+    if (route.service) jsonLd.push(service(route.service, url))
+    if (path === '/careers') jsonLd.push(...JOBS.map(jobPosting))
     return { title: route.title, description: route.description, url, image: abs(DEFAULT_IMAGE), type: 'website', jsonLd: jsonLd.filter(Boolean) }
   }
 
@@ -133,7 +139,8 @@ export function getMeta(pathname) {
   const post = blog && getPost(blog[1])
   if (post) {
     return {
-      title: `${post.title} | Suntrik Blog`,
+      // Keep the <title> within ~60 chars: long headlines drop the suffix
+      title: post.title.length <= 46 ? `${post.title} | Suntrik Blog` : post.title,
       description: post.excerpt,
       url,
       image: abs(post.cover),
@@ -210,6 +217,37 @@ function website() {
     name: SITE_NAME,
     publisher: { '@id': `${SITE_URL}/#organization` },
     inLanguage: 'en-IN',
+  }
+}
+
+function service({ name, type }, url) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name,
+    serviceType: type,
+    url,
+    provider: { '@id': `${SITE_URL}/#business` },
+    areaServed: BUSINESS.areaServed.map(n => ({ '@type': 'Place', name: n })),
+  }
+}
+
+function jobPosting(job) {
+  // e.g. 'Jalore, Rajasthan' or 'Jaipur (Office-based)'
+  const [rawCity, rawRegion] = job.location.split(',').map(s => s.trim())
+  const city = rawCity.replace(/\s*\(.*\)$/, '')
+  const region = rawRegion || { Jaipur: 'Rajasthan', Jalore: 'Rajasthan', Sirsa: 'Haryana' }[city]
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'JobPosting',
+    title: job.title,
+    description: `<p>${job.summary}</p><ul>${job.points.map(p => `<li>${p}</li>`).join('')}</ul><p>Skills: ${job.skills.join(', ')}</p>`,
+    datePosted: JOBS_POSTED,
+    employmentType: 'FULL_TIME',
+    hiringOrganization: { '@type': 'Organization', name: BUSINESS.legalName, sameAs: `${SITE_URL}/`, logo: `${SITE_URL}/Suntrik-logo.png` },
+    jobLocation: { '@type': 'Place', address: { '@type': 'PostalAddress', addressLocality: city, addressRegion: region, addressCountry: 'IN' } },
+    directApply: true,
+    url: `${SITE_URL}/careers#openings`,
   }
 }
 

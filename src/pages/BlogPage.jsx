@@ -6,7 +6,9 @@ import Footer from '../components/Footer'
 import { POSTS, CATEGORIES, CATEGORY_COLOR } from '../data/blog'
 
 const fmtDate = d => new Date(d).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
-const readTime = post => Math.max(2, Math.round(post.body.reduce((n, b) => n + (b.text || (b.items || []).join(' ') || '').split(/\s+/).length, 0) / 200))
+// Covers stay .jpg in blog.js (used for og:image); pages show the WebP copy
+const webp = src => src.replace(/\.jpe?g$/, '.webp')
+const readTime = post => Math.max(2, Math.round(post.body.filter(b => b.type !== 'links').reduce((n, b) => n + (b.text || (b.items || []).join(' ') || '').split(/\s+/).length, 0) / 200))
 
 function Badge({ category }) {
   const c = CATEGORY_COLOR[category] || '#FF6B1A'
@@ -32,6 +34,21 @@ function Block({ block }) {
           ))}
         </ul>
       )
+    case 'links':
+      return (
+        <div style={{ margin: '1.75rem 0', padding: '1rem 1.25rem', borderRadius: 12, border: '1px solid rgba(255,255,255,0.08)', background: 'rgba(255,255,255,0.03)' }}>
+          <div style={{ fontWeight: 700, fontSize: '0.9rem', marginBottom: '0.5rem' }}>{block.title}</div>
+          <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+            {block.items.map(it => (
+              <li key={it.href} style={{ fontSize: '0.92rem', lineHeight: 1.6 }}>
+                {it.href.startsWith('/')
+                  ? <Link to={it.href} style={{ color: 'var(--brand-orange)' }}>{it.label} →</Link>
+                  : <a href={it.href} target="_blank" rel="noopener" style={{ color: 'var(--brand-orange)' }}>{it.label} ↗</a>}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
     case 'quote':
       return (
         <blockquote style={{ margin: '1.5rem 0', padding: '0.9rem 1.4rem', borderLeft: '3px solid var(--brand-orange)', background: 'rgba(255,107,26,0.06)', borderRadius: '0 10px 10px 0', fontStyle: 'italic', fontSize: '1rem', lineHeight: 1.7 }}>
@@ -41,6 +58,16 @@ function Block({ block }) {
     default:
       return <p style={{ color: 'var(--text-secondary)', fontSize: '0.97rem', lineHeight: 1.85, marginBottom: '1rem' }}>{block.text}</p>
   }
+}
+
+// Card titles are real links so crawlers can follow them to each post. A plain
+// click is left to the card (opens the preview modal); modified clicks open the page.
+function PostLink({ post, children, style }) {
+  const onClick = e => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) { e.stopPropagation(); return }
+    e.preventDefault()
+  }
+  return <Link to={`/blog/${post.slug}`} onClick={onClick} style={{ color: 'inherit', textDecoration: 'none', ...style }}>{children}</Link>
 }
 
 export default function BlogPage() {
@@ -113,16 +140,16 @@ export default function BlogPage() {
           <motion.div whileHover={{ y: -4 }} onClick={() => setOpenPost(featured)} className="blog-featured"
             style={{ cursor: 'pointer', display: 'grid', gridTemplateColumns: '1.1fr 1fr', gap: 0, borderRadius: 18, overflow: 'hidden', border: '1px solid rgba(255,107,26,0.18)', background: 'rgba(255,255,255,0.03)' }}>
             <div style={{ position: 'relative', minHeight: 280, aspectRatio: '16/10' }}>
-              <img src={featured.cover} alt={featured.title} loading="eager" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+              <img src={webp(featured.cover)} alt={featured.title} loading="eager" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
             <div style={{ padding: '2rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
               <div style={{ display: 'flex', gap: '0.6rem', alignItems: 'center', marginBottom: '0.9rem', flexWrap: 'wrap' }}>
                 <Badge category={featured.category} />
                 <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>Featured · {fmtDate(featured.date)}</span>
               </div>
-              <h2 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 800, fontSize: 'clamp(1.3rem, 2.4vw, 1.9rem)', lineHeight: 1.2, marginBottom: '0.75rem' }}>{featured.title}</h2>
+              <h2 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 800, fontSize: 'clamp(1.3rem, 2.4vw, 1.9rem)', lineHeight: 1.2, marginBottom: '0.75rem' }}><PostLink post={featured}>{featured.title}</PostLink></h2>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.75, fontSize: '0.92rem', marginBottom: '1.25rem' }}>{featured.excerpt}</p>
-              <span className="btn-primary" style={{ alignSelf: 'flex-start' }}>Read Article →</span>
+              <PostLink post={featured} style={{ alignSelf: 'flex-start' }}><span className="btn-primary">Read Article →</span></PostLink>
             </div>
           </motion.div>
         </div>
@@ -140,11 +167,11 @@ export default function BlogPage() {
                 onMouseEnter={e => e.currentTarget.style.borderColor = `${CATEGORY_COLOR[p.category]}66`}
                 onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'}>
                 <div style={{ position: 'relative', aspectRatio: '16/9', overflow: 'hidden' }}>
-                  <img src={p.cover} alt={p.title} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                  <img src={webp(p.cover)} alt={p.title} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
                   <div style={{ position: 'absolute', top: '0.85rem', left: '0.85rem' }}><Badge category={p.category} /></div>
                 </div>
                 <div style={{ padding: '1.25rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
-                  <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: '1.05rem', lineHeight: 1.3, marginBottom: '0.5rem' }}>{p.title}</h3>
+                  <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: '1.05rem', lineHeight: 1.3, marginBottom: '0.5rem' }}><PostLink post={p}>{p.title}</PostLink></h3>
                   <p style={{ fontSize: '0.84rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '1rem' }}>{p.excerpt}</p>
                   <div style={{ marginTop: 'auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.72rem', color: 'var(--text-muted)' }}>
                     <span>{fmtDate(p.date)}</span>
@@ -180,7 +207,7 @@ export default function BlogPage() {
                 style={{ position: 'absolute', top: '1rem', right: '1rem', zIndex: 3, width: 38, height: 38, borderRadius: '50%', background: 'rgba(6,10,15,0.6)', border: '1px solid rgba(255,255,255,0.22)', color: '#fff', fontSize: '1.25rem', cursor: 'pointer', backdropFilter: 'blur(6px)', display: 'flex', alignItems: 'center', justifyContent: 'center', lineHeight: 1 }}>×</button>
 
               <div style={{ aspectRatio: '16/8', overflow: 'hidden' }}>
-                <img src={openPost.cover} alt={openPost.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                <img src={webp(openPost.cover)} alt={openPost.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
               </div>
 
               <div style={{ padding: 'clamp(1.4rem, 4vw, 2.25rem)' }}>

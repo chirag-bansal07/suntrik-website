@@ -4,7 +4,7 @@ import { prerenderToNodeStream } from 'react-dom/static'
 import { StaticRouter } from 'react-router-dom'
 import { AppRoutes } from './App'
 
-export { allRoutes, getMeta, NOT_FOUND_META, SITE_URL } from './seo/site'
+export { allRoutes, getMeta, NOT_FOUND_META, SITE_URL, BUSINESS } from './seo/site'
 export { renderHead } from './seo/head'
 
 export async function render(url) {

@@ -8,10 +8,13 @@ import { SG_ALL_NUMS, sgSrc } from '../data/suryaGharGallery'
 
 const FILTERS = ['PM-KUSUM', 'PM Surya Ghar', 'C&I']
 
+const KUSUM = PROJECTS.filter(p => p.type === 'PM-KUSUM')
+const KUSUM_MWP = KUSUM.reduce((n, p) => n + parseFloat(p.capacity), 0).toFixed(2).replace(/\.?0+$/, '')
+
 // PM Surya Ghar & C&I are shown as photo galleries (not project cards)
 const GALLERY = {
   'PM Surya Ghar': SG_ALL_NUMS.map(sgSrc),
-  'C&I':           Array.from({ length: 6 },  (_, i) => `/gallery/ci/ci-${String(i + 1).padStart(2, '0')}.jpg`),
+  'C&I':           Array.from({ length: 6 },  (_, i) => `/gallery/ci/ci-${String(i + 1).padStart(2, '0')}.webp`),
 }
 
 export default function ProjectsPage() {
@@ -36,7 +39,7 @@ export default function ProjectsPage() {
         <div className="container" style={{ position: 'relative' }}>
           <span className="section-tag" style={{ justifyContent: 'center', marginBottom: '1rem' }}>Portfolio</span>
           <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', fontWeight: 900, marginBottom: '1rem', lineHeight: 1.1 }}>
-            All Projects
+            Solar Projects by Suntrik
           </h1>
           <p style={{ color: 'var(--text-secondary)', maxWidth: 520, margin: '0 auto', lineHeight: 1.8 }}>
             Every installation Suntrik has delivered — from PM-KUSUM farmer clusters to large industrial rooftops across India.
@@ -50,6 +53,23 @@ export default function ProjectsPage() {
             ))}
           </div>
         </div>
+      </div>
+
+      {/* Portfolio summary — generated from src/data/projects.js */}
+      <div className="container" style={{ paddingTop: '2.5rem', maxWidth: 860 }}>
+        <h2 style={{ fontSize: 'clamp(1.2rem, 2.4vw, 1.6rem)', fontWeight: 800, marginBottom: '0.75rem' }}>Our Solar Portfolio</h2>
+        <p style={{ color: 'var(--text-secondary)', lineHeight: 1.8, marginBottom: '0.75rem' }}>
+          Suntrik has delivered {KUSUM.length} PM-KUSUM ground-mount solar plants in Rajasthan totalling {KUSUM_MWP} MWp —
+          at {KUSUM.map(p => p.location.split(',')[0]).join(', ')}. Each plant was built end to end by Suntrik: engineering,
+          module and balance-of-system supply, civil and mounting works, and DISCOM grid interconnection.
+        </p>
+        <p style={{ color: 'var(--text-secondary)', lineHeight: 1.8 }}>
+          Alongside the utility-scale work, our Sirsa-based team installs home rooftop systems under{' '}
+          <Link to="/schemes/surya-ghar" style={{ color: 'var(--brand-orange)' }}>PM Surya Ghar</Link> and{' '}
+          <Link to="/schemes/ci" style={{ color: 'var(--brand-orange)' }}>commercial &amp; industrial rooftops</Link>.
+          Use the filters below to browse each category. Read how the{' '}
+          <Link to="/blog/pm-kusum-component-a-c-explained" style={{ color: 'var(--brand-orange)' }}>PM-KUSUM scheme works</Link>.
+        </p>
       </div>
 
       {/* Filter + Grid */}
@@ -113,7 +133,7 @@ export default function ProjectsPage() {
           <>
             <div style={{ columns: '4 240px', columnGap: '0.85rem' }}>
               {GALLERY[active].map((src, i) => (
-                <img key={src} src={src} alt={`${active} installation ${i + 1}`} loading="lazy"
+                <img key={src} src={src} alt={`${active === 'C&I' ? 'Commercial & industrial' : active} solar installation by Suntrik, photo ${i + 1}`} loading="lazy"
                   style={{ width: '100%', marginBottom: '0.85rem', borderRadius: 12, display: 'block', border: `1px solid ${TYPE_COLOR[active]}22` }} />
               ))}
             </div>
@@ -125,7 +145,7 @@ export default function ProjectsPage() {
                 <h2 style={{ fontSize: 'clamp(1.4rem, 3vw, 2rem)', fontWeight: 800 }}>The Team Behind Every Install</h2>
               </div>
               <div style={{ position: 'relative', borderRadius: 18, overflow: 'hidden', border: `1px solid ${TYPE_COLOR[active]}2e`, boxShadow: '0 30px 70px rgba(0,0,0,0.5)' }}>
-                <img src="/gallery/team.jpg" alt="Suntrik installation team" loading="lazy" style={{ width: '100%', display: 'block' }} />
+                <img src="/gallery/team.webp" alt="Suntrik installation team" loading="lazy" style={{ width: '100%', display: 'block' }} />
                 <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(6,10,15,0.9) 0%, transparent 45%)' }} />
                 <div style={{ position: 'absolute', left: '1.5rem', right: '1.5rem', bottom: '1.4rem' }}>
                   <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 900, fontSize: 'clamp(1.1rem, 2.5vw, 1.6rem)', color: '#fff' }}>Suntrik Installation Crew</div>

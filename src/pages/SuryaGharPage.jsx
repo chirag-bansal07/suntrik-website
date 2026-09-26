@@ -213,7 +213,7 @@ export default function SuryaGharPage() {
           <div className="sg-gallery-track" style={{ display: 'flex', width: 'max-content' }}>
             {[...SG_SLIDER_NUMS, ...SG_SLIDER_NUMS].map((n, idx) => (
               <img key={idx} src={sgSrc(n)}
-                alt={`PM Surya Ghar installation ${n}`} loading="lazy" aria-hidden={idx >= SG_SLIDER_NUMS.length}
+                alt={`PM Surya Ghar home rooftop solar installed by Suntrik, photo ${n}`} loading="lazy" aria-hidden={idx >= SG_SLIDER_NUMS.length}
                 style={{ height: 300, width: 'auto', flexShrink: 0, marginRight: '1rem', borderRadius: 12, display: 'block', border: '1px solid rgba(255,107,26,0.12)', boxShadow: '0 12px 30px rgba(0,0,0,0.35)' }} />
             ))}
           </div>
@@ -225,7 +225,7 @@ export default function SuryaGharPage() {
         <div className="container">
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3.5rem', alignItems: 'center' }} className="sg-team-grid">
             <div style={{ position: 'relative' }}>
-              <img src="/gallery/team.jpg" alt="Suntrik installation team" loading="lazy"
+              <img src="/gallery/team.webp" alt="Suntrik installation team" loading="lazy"
                 style={{ width: '100%', borderRadius: 18, display: 'block', border: '2px solid rgba(255,107,26,0.25)', boxShadow: '0 30px 70px rgba(0,0,0,0.5)' }} />
               <div style={{ position: 'absolute', bottom: '1.25rem', left: '1.25rem', background: 'rgba(6,10,15,0.75)', backdropFilter: 'blur(8px)', borderRadius: 10, padding: '0.7rem 1rem', border: '1px solid rgba(255,107,26,0.2)' }}>
                 <div style={{ fontFamily: 'Space Grotesk', fontWeight: 900, fontSize: '1.1rem', color: 'var(--brand-orange)' }}>13+ Technicians</div>
@@ -263,7 +263,8 @@ export default function SuryaGharPage() {
       {/* ── FAQs ── */}
       <div style={{ padding: '4rem 0', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
         <div className="container" style={{ maxWidth: 800 }}>
-          <h2 style={{ fontSize: 'clamp(1.4rem, 3vw, 2rem)', fontWeight: 800, marginBottom: '2rem', textAlign: 'center' }}>Frequently Asked Questions</h2>
+          <h2 style={{ fontSize: 'clamp(1.4rem, 3vw, 2rem)', fontWeight: 800, marginBottom: '0.75rem', textAlign: 'center' }}>Frequently Asked Questions</h2>
+          <p style={{ textAlign: 'center', color: 'var(--text-secondary)', marginBottom: '2rem' }}>Full walkthrough, including Haryana's extra state subsidy: <Link to="/blog/pm-surya-ghar-subsidy-guide" style={{ color: 'var(--brand-orange)' }}>PM Surya Ghar subsidy in Haryana — 2026 guide</Link></p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
             {FAQS.map(f => (
               <div key={f.q} style={{ padding: '1.25rem 1.5rem', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,107,26,0.1)', borderRadius: 10 }}>

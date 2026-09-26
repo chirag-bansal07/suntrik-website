@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 
-const CI_PHOTOS = Array.from({ length: 3 }, (_, i) => `/gallery/ci/ci-${String(i + 1).padStart(2, '0')}.jpg`)
+const CI_PHOTOS = Array.from({ length: 3 }, (_, i) => `/gallery/ci/ci-${String(i + 1).padStart(2, '0')}.webp`)
 
 const HIGHLIGHTS = [
   { icon: '⚡', title: 'Up to 1 MW+', desc: 'We design and commission rooftop and ground-mount systems for factories, warehouses, hospitals, schools, and commercial complexes.' },
@@ -75,6 +75,66 @@ export default function CIPage() {
         </div>
       </div>
 
+      {/* ── Ownership models ── */}
+      <div style={{ padding: '4rem 0', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+        <div className="container" style={{ maxWidth: 960 }}>
+          <h2 style={{ fontSize: 'clamp(1.4rem, 3vw, 2rem)', fontWeight: 800, marginBottom: '0.6rem' }}>CAPEX or OPEX: Which Model Suits Your Business?</h2>
+          <p style={{ color: 'var(--text-secondary)', lineHeight: 1.8, marginBottom: '1.5rem' }}>
+            There are two ways to put solar on a commercial or industrial site. The right one depends on whether you want to own the plant and how much capital you want to commit.
+          </p>
+          <div style={{ overflowX: 'auto' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem', minWidth: 560 }}>
+              <thead>
+                <tr style={{ textAlign: 'left', color: '#8B5CF6' }}>
+                  {['', 'CAPEX (you own it)', 'OPEX / PPA (developer owns it)'].map(h => <th key={h} style={{ padding: '0.7rem 0.9rem', borderBottom: '1px solid rgba(139,92,246,0.3)' }}>{h}</th>)}
+                </tr>
+              </thead>
+              <tbody style={{ color: 'var(--text-secondary)' }}>
+                {[
+                  ['Upfront investment', 'You pay for the plant', 'None — the developer invests'],
+                  ['What you pay', 'Only maintenance after installation', 'A fixed tariff per unit of solar power used'],
+                  ['Savings', 'Highest over the plant\'s life', 'Lower, but from day one with no capital'],
+                  ['Tax benefit', 'Accelerated depreciation on the asset', 'Tariff is an operating expense'],
+                  ['Maintenance', 'Your responsibility (AMC available)', 'Handled by the developer'],
+                  ['Best for', 'Businesses with capital and a long-term site', 'Businesses that want savings without capex'],
+                ].map(r => (
+                  <tr key={r[0]}>
+                    {r.map((c, i) => <td key={i} style={{ padding: '0.7rem 0.9rem', borderBottom: '1px solid rgba(255,255,255,0.06)', color: i === 0 ? 'var(--text-primary)' : undefined, fontWeight: i === 0 ? 600 : 400 }}>{c}</td>)}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Net metering vs open access ── */}
+      <div style={{ padding: '4rem 0', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+        <div className="container" style={{ maxWidth: 960 }}>
+          <h2 style={{ fontSize: 'clamp(1.4rem, 3vw, 2rem)', fontWeight: 800, marginBottom: '1.25rem' }}>Net Metering or Open Access?</h2>
+          <div className="ci-highlights-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.1rem' }}>
+            <div style={{ padding: '1.4rem', background: 'rgba(139,92,246,0.04)', border: '1px solid rgba(139,92,246,0.12)', borderRadius: 12 }}>
+              <h3 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '0.5rem', color: '#8B5CF6' }}>Rooftop with net metering</h3>
+              <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', lineHeight: 1.75 }}>
+                Panels go on your own roof or premises. Power you use during the day cuts your grid purchase; surplus is exported and credited against your bill through a net meter from your DISCOM.
+                It suits factories, warehouses, schools and hospitals with a large, shade-free roof, and the approval is handled by the local DISCOM.
+              </p>
+            </div>
+            <div style={{ padding: '1.4rem', background: 'rgba(139,92,246,0.04)', border: '1px solid rgba(139,92,246,0.12)', borderRadius: 12 }}>
+              <h3 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '0.5rem', color: '#8B5CF6' }}>Ground-mount with open access</h3>
+              <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', lineHeight: 1.75 }}>
+                A larger plant is built on land elsewhere and the power is wheeled to your facility over the grid. It suits high-consumption users whose roof is too small for their demand.
+                It needs state open-access approval and involves transmission and wheeling charges set by the state regulator, so we model the landed cost before you commit.
+              </p>
+            </div>
+          </div>
+          <p style={{ color: 'var(--text-secondary)', lineHeight: 1.8, marginTop: '1.5rem' }}>
+            Not sure which fits? Our engineers review your last 12 months of electricity bills, sanctioned load and roof area, and recommend the model with the best return.{' '}
+            <Link to="/projects" style={{ color: '#8B5CF6' }}>See our projects</Link> or <Link to="/solar-company-sirsa" style={{ color: '#8B5CF6' }}>visit our Sirsa office</Link>.
+          </p>
+        </div>
+      </div>
+
       {/* ── Installation Gallery ── */}
       <div id="gallery" style={{ padding: '4rem 0', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
         <div className="container">
@@ -86,14 +146,14 @@ export default function CIPage() {
           {/* Main video display */}
           <video
             src="/ci-showcase.mp4"
-            poster="/gallery/ci/ci-01.jpg"
+            poster="/gallery/ci/ci-01.webp"
             autoPlay muted loop playsInline controls preload="metadata"
             style={{ display: 'block', margin: '0 auto 1.5rem', maxWidth: '100%', maxHeight: '76vh', borderRadius: 16, border: '1px solid rgba(139,92,246,0.25)', boxShadow: '0 30px 80px rgba(0,0,0,0.55)', background: '#000' }}
           />
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '1rem' }} className="ci-gallery-grid">
             {CI_PHOTOS.map((src, i) => (
               <div key={i} style={{ borderRadius: 14, overflow: 'hidden', border: '1px solid rgba(139,92,246,0.15)', background: '#06090e', aspectRatio: '16/10' }}>
-                <img src={src} alt={`C&I installation ${i + 1}`} loading="lazy"
+                <img src={src} alt={`Commercial rooftop solar plant installed by Suntrik, photo ${i + 1}`} loading="lazy"
                   style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
               </div>
             ))}

@@ -17,7 +17,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const dist = path.join(root, 'dist')
 const ssrDir = path.join(root, 'dist-ssr')
 
-const { render, renderHead, allRoutes, getMeta, NOT_FOUND_META, SITE_URL } =
+const { render, renderHead, allRoutes, getMeta, NOT_FOUND_META, SITE_URL, BUSINESS } =
   await import(pathToFileURL(path.join(ssrDir, 'entry-server.js')).href)
 
 const template = fs.readFileSync(path.join(dist, 'index.html'), 'utf8')
@@ -60,5 +60,18 @@ ${routes.map(r => `  <url>
 `
 write('sitemap.xml', sitemap)
 console.log(`  ✓ sitemap.xml (${routes.length} URLs)`)
+
+// llms.txt — plain-text map of the site for AI assistants (https://llmstxt.org)
+const a = BUSINESS.address
+const llms = `# ${BUSINESS.name}
+
+> Solar EPC company headquartered in ${a.streetAddress}, ${a.addressLocality}, ${a.addressRegion} ${a.postalCode}, India (founded ${BUSINESS.foundingDate} as ${BUSINESS.alternateName}). Rooftop solar under PM Surya Ghar, PM-KUSUM solar plants and pump solarisation for farmers, and commercial & industrial solar across Haryana and Rajasthan. Phone ${BUSINESS.telephone}, email ${BUSINESS.email}.
+
+## Pages
+
+${routes.map(r => { const m = getMeta(r.path); return `- [${m.title}](${m.url}): ${m.description}` }).join('\n')}
+`
+write('llms.txt', llms)
+console.log('  ✓ llms.txt')
 
 fs.rmSync(ssrDir, { recursive: true, force: true })

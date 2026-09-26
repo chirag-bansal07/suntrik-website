@@ -18,4 +18,4 @@ const SG_SLIDER_EXCLUDED = new Set([16, 38])
 
 export const SG_SLIDER_NUMS = SG_ALL_NUMS.filter(n => !SG_SLIDER_EXCLUDED.has(n))
 
-export const sgSrc = n => `/gallery/surya-ghar/sg-${String(n).padStart(2, '0')}.jpg`
+export const sgSrc = n => `/gallery/surya-ghar/sg-${String(n).padStart(2, '0')}.webp`

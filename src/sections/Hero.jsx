@@ -246,7 +246,7 @@ export default function Hero() {
             {/* The keyword tag is the page's <h1>; the slogan below is visual only.
                 Inline font styles undo the global h1 rule so it still looks like a tag. */}
             <h1 ref={tagRef} className="section-tag" style={{ marginBottom: '1.1rem', fontFamily: 'Inter, sans-serif', fontSize: '0.72rem', fontWeight: 600, letterSpacing: '0.2em', lineHeight: 1.5 }}>
-              Solar Company in Sirsa, Haryana
+              Solar EPC Company · Haryana &amp; Rajasthan
             </h1>
 
             <p ref={h1Ref} className="hero-h1" style={{

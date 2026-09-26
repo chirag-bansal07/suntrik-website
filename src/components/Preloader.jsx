@@ -11,6 +11,8 @@ import SuntrikLogo from './SuntrikLogo'
 export default function Preloader() {
   const [done, setDone] = useState(() => {
     if (typeof window === 'undefined') return true
+    // Phones skip the intro: it hides the page for 1.65 s on slow mobile loads
+    if (window.matchMedia('(max-width: 768px)').matches) return true
     return sessionStorage.getItem('suntrik-intro') === '1'
   })
 

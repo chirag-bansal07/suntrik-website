@@ -61,7 +61,7 @@ export default function KusumPage() {
                 <strong style={{ color: '#10B981' }}>PM-KUSUM</strong> solarises Indian agriculture: Component A lets farmers earn by selling solar power to the DISCOM, and Component C solarises grid-connected pumps with net-metering. Suntrik handles it end to end — application to commissioning.
               </p>
               <div className="kusum-hero-stats" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.6rem', marginBottom: '2.5rem' }}>
-                {[{ v: '34,800 MW', l: 'Target by March 2026' }, { v: '₹34,422 Cr', l: 'Central Outlay' }, { v: '30%', l: 'Central Financial Assistance' }, { v: '35 Lakh', l: 'Grid-Connected Pumps (Comp. C)' }].map(s => (
+                {[{ v: '34,800 MW', l: 'National Target' }, { v: '₹34,422 Cr', l: 'Central Outlay' }, { v: '30%', l: 'Central Aid (Comp. C)' }, { v: '35 Lakh', l: 'Grid-Connected Pumps (Comp. C)' }].map(s => (
                   <div key={s.l} style={{ textAlign: 'center', padding: '0.7rem 0.5rem', background: 'rgba(16,185,129,0.07)', border: '1px solid rgba(16,185,129,0.18)', borderRadius: 10, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                     <div style={{ fontFamily: 'Space Grotesk', fontWeight: 900, fontSize: '1.15rem', color: '#10B981', lineHeight: 1.1, whiteSpace: 'nowrap' }}>{s.v}</div>
                     <div style={{ fontSize: '0.6rem', color: 'var(--text-muted)', marginTop: 4, lineHeight: 1.3 }}>{s.l}</div>
@@ -205,7 +205,8 @@ export default function KusumPage() {
       {/* ── FAQs ── */}
       <div style={{ padding: '4rem 0', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
         <div className="container" style={{ maxWidth: 800 }}>
-          <h2 style={{ fontSize: 'clamp(1.4rem, 3vw, 2rem)', fontWeight: 800, marginBottom: '2rem', textAlign: 'center' }}>Frequently Asked Questions</h2>
+          <h2 style={{ fontSize: 'clamp(1.4rem, 3vw, 2rem)', fontWeight: 800, marginBottom: '0.75rem', textAlign: 'center' }}>Frequently Asked Questions</h2>
+          <p style={{ textAlign: 'center', color: 'var(--text-secondary)', marginBottom: '2rem' }}>How the subsidy and income work for each component: <Link to="/blog/pm-kusum-component-a-c-explained" style={{ color: '#10B981' }}>PM-KUSUM Component A &amp; C explained (2026)</Link></p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
             {FAQS.map(f => (
               <div key={f.q} style={{ padding: '1.25rem 1.5rem', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(16,185,129,0.1)', borderRadius: 10 }}>
