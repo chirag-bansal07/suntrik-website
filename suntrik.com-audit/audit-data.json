@@ -1,0 +1,95 @@
+{
+  "summary": {
+    "health_score": 72,
+    "audit_date": "2026-09-26",
+    "business_type": "Local service business (hybrid) — solar EPC, Sirsa, Haryana",
+    "local_seo_score": 50,
+    "top_findings": [
+      "Blog posts thin (342-414 words) and stale (newest April 2024), anonymous author",
+      "/blog does not link to posts in HTML; posts have 1-3 internal links",
+      "Homepage and /solar-company-sirsa share the same H1",
+      "NAP mismatch: JustDial phone/email differ from website",
+      "Unverified claims still published (80 MWp, 150 MW+, 1,000+ clients, ISO)"
+    ],
+    "quick_wins": [
+      "Blog cards as real links",
+      "Distinct homepage H1/title",
+      "JobPosting schema for 5 roles",
+      "Security headers in vercel.json",
+      "Blog titles to 60 chars or fewer"
+    ]
+  },
+  "categories": [
+    {
+      "name": "Technical SEO", "weight": 0.22, "score": 88,
+      "what_works": ["Pre-rendered HTML on all 11 URLs", "Unique self-canonicals", "Sitemap with lastmod", "Real 404s", "HTTPS + HSTS", "Single www host"],
+      "findings": [
+        {"title": "Security headers missing", "severity": "Medium", "description": "Only HSTS is sent", "recommendation": "Add X-Content-Type-Options, Referrer-Policy, X-Frame-Options, Permissions-Policy"},
+        {"title": "Two-hop redirect chains from apex", "severity": "Low", "description": "suntrik.com/x/ -> www/x/ -> www/x", "recommendation": "Accept; keep internal links clean"},
+        {"title": "/favicon.ico 404", "severity": "Low", "description": "Direct requests 404", "recommendation": "Add favicon.ico"}
+      ]
+    },
+    {
+      "name": "Content Quality", "weight": 0.23, "score": 58,
+      "what_works": ["Scheme pages 983-1,360 words with FAQs", "Named directors, attributed reviews, named projects", "Sirsa page 728 unique words"],
+      "findings": [
+        {"title": "Thin blog posts", "severity": "High", "description": "414/395/342 words vs 1,500 gate", "recommendation": "Expand to 1,200-1,800 words"},
+        {"title": "Stale blog", "severity": "High", "description": "Newest post 2024-04-10", "recommendation": "2 posts/month; refresh guides with updated date"},
+        {"title": "Anonymous authors", "severity": "High", "description": "Suntrik Editorial / Team Suntrik", "recommendation": "Named author with bio"},
+        {"title": "C&I page below gate", "severity": "Medium", "description": "419 words vs 800", "recommendation": "Add worked example and comparison"},
+        {"title": "Unverified claims", "severity": "Medium", "description": "80 MWp, 150 MW+, 1,000+ clients, ISO, India's Most Trusted", "recommendation": "Keep only documented claims"}
+      ]
+    },
+    {
+      "name": "On-Page SEO", "weight": 0.20, "score": 70,
+      "what_works": ["One H1 per page", "Unique titles and descriptions", "Full nav/footer linking"],
+      "findings": [
+        {"title": "Blog posts not linked from /blog", "severity": "High", "description": "Cards open a modal without href", "recommendation": "Use Link to /blog/slug"},
+        {"title": "Duplicate H1 home vs Sirsa", "severity": "High", "description": "Both 'Solar Company in Sirsa, Haryana'", "recommendation": "Differentiate homepage H1/title"},
+        {"title": "Long blog titles", "severity": "Medium", "description": "72-80 characters", "recommendation": "60 characters or fewer"},
+        {"title": "Weak contextual links", "severity": "Medium", "description": "Scheme pages and guides do not cross-link", "recommendation": "2-3 in-body links per page"}
+      ]
+    },
+    {
+      "name": "Schema / Structured Data", "weight": 0.10, "score": 75,
+      "what_works": ["Organization", "LocalBusiness with sameAs/areaServed", "WebSite", "FAQPage x3", "BlogPosting x3", "BreadcrumbList x10"],
+      "findings": [
+        {"title": "No JobPosting", "severity": "Medium", "description": "5 roles on /careers", "recommendation": "JobPosting per role"},
+        {"title": "LocalBusiness lacks geo and hours", "severity": "Medium", "description": "", "recommendation": "Add geo + openingHoursSpecification matching GBP"},
+        {"title": "No Service schema; Organization as author", "severity": "Low", "description": "", "recommendation": "Service on scheme pages; Person author"}
+      ]
+    },
+    {
+      "name": "Performance (CWV)", "weight": 0.10, "score": 78,
+      "what_works": ["Desktop 97", "CLS ~0 on all pages", "Mobile 84-93 on inner pages"],
+      "findings": [
+        {"title": "Mobile LCP above 2.5 s", "severity": "Medium", "description": "Lab LCP 2.9-4.4 s; homepage 78", "recommendation": "Lazy-load below-fold sections; skip intro on mobile"}
+      ]
+    },
+    {
+      "name": "AI Search Readiness", "weight": 0.10, "score": 62,
+      "what_works": ["All AI crawlers get full HTML (200)", "FAQ and step blocks extractable"],
+      "findings": [
+        {"title": "Weak authority signals", "severity": "High", "description": "No bylines, no source links", "recommendation": "Named authors, cite government sources"},
+        {"title": "Thin brand footprint", "severity": "Medium", "description": "No LinkedIn company page, Bing Places, Apple", "recommendation": "Create listings"}
+      ]
+    },
+    {
+      "name": "Images", "weight": 0.05, "score": 72,
+      "what_works": ["Alt on 115/115 images", "83 lazy-loaded", "Key images WebP"],
+      "findings": [
+        {"title": "Gallery JPGs heavy", "severity": "Medium", "description": "45 JPGs, 8.8 MB, 12 over 200 KB", "recommendation": "WebP at display size"},
+        {"title": "Missing dimensions", "severity": "Low", "description": "90/115 img without width/height", "recommendation": "Add dimensions"}
+      ]
+    }
+  ],
+  "action_plan": {
+    "phases": [
+      {"name": "Phase 1: Critical Fixes", "timeframe": "Week 1", "items": ["Blog card links", "Distinct homepage H1", "Align NAP on listings", "Verify GBP", "Named authors", "Remove unverified claims"]},
+      {"name": "Phase 2: High-Impact Improvements", "timeframe": "Weeks 2-3", "items": ["Expand guides", "JobPosting schema", "geo + hours", "Security headers", "Gallery WebP", "C&I content", "Blog titles + cross-links"]},
+      {"name": "Phase 3: Content & Authority", "timeframe": "Month 2", "items": ["Mobile LCP work", "Citations: Bing, Apple, IndiaMART, LinkedIn", "Case-study pages", "2 posts per month"]},
+      {"name": "Phase 4: Monitoring & Iteration", "timeframe": "Ongoing", "items": ["Monthly Search Console review", "Review requests after each install", "Quarterly content refresh"]}
+    ]
+  },
+  "artifacts": {"findings_dir": "findings/", "screenshots_dir": "screenshots/"}
+}
