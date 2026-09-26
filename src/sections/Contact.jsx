@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
 
 const contactInfo = [
-  { icon: '📍', label: 'Head Office',  value: 'Rania Bazar, Sirsa, Haryana 125055' },
+  { icon: '📍', label: 'Head Office',  value: 'Rania Bazar, B Block, Subhash Chowk, Sirsa, Haryana 125055 (Mon–Sat 10 am–7 pm)' },
   { icon: '🏢', label: 'Jaipur Office', value: '#601 Elemental Mall, DCM, Ajmer Road, Jaipur 302201' },
   { icon: '📞', label: 'Phone',   value: '+91 75037 39000' },
   { icon: '✉️', label: 'Email',   value: 'info@suntrik.com' },

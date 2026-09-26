@@ -4,7 +4,9 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { SIRSA_FAQS as FAQS } from '../data/faqs'
 
-const MAPS_URL = 'https://www.google.com/maps/search/?api=1&query=Suntrik+Solutions+Rania+Bazar+Sirsa+Haryana'
+// Google Business Profile listing ("Suntrik Solutions")
+const MAPS_URL = 'https://maps.google.com/?cid=3598524479219070442'
+const MAP_EMBED = 'https://maps.google.com/maps?q=29.5311993,75.0242521&z=16&output=embed'
 
 const SERVICES = [
   { icon: '🏠', title: 'Home Rooftop Solar (PM Surya Ghar)', desc: 'Grid-tied rooftop systems for Sirsa homes with up to ₹78,000 central subsidy. We handle the national portal, DHBVN net metering and the subsidy claim.', to: '/schemes/surya-ghar', cta: 'PM Surya Ghar details' },
@@ -90,12 +92,15 @@ export default function SirsaPage() {
             <h2 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: '1rem' }}>Visit Our Sirsa Office</h2>
             <address style={{ fontStyle: 'normal', color: 'var(--text-secondary)', lineHeight: 1.8 }}>
               <strong style={{ color: 'var(--text-primary)' }}>Suntrik Green Energy Pvt. Ltd.</strong><br />
-              Rania Bazar, near Red Cross Office<br />
+              Rania Bazar, B Block, Subhash Chowk<br />
               Sirsa, Haryana 125055<br />
+              Open Monday–Saturday, 10 am–7 pm (closed Sunday)<br />
               Phone / WhatsApp: <a href="tel:+917503739000" style={{ color: 'var(--brand-orange)', textDecoration: 'underline' }}>+91 75037 39000</a><br />
               Email: <a href="mailto:info@suntrik.com" style={{ color: 'var(--brand-orange)', textDecoration: 'underline' }}>info@suntrik.com</a>
             </address>
             <a href={MAPS_URL} target="_blank" rel="noopener noreferrer" className="btn-outline" style={{ display: 'inline-block', marginTop: '1.2rem', textDecoration: 'none' }}>Open in Google Maps</a>
+            <iframe title="Suntrik office location on Google Maps" src={MAP_EMBED} loading="lazy" referrerPolicy="no-referrer-when-downgrade"
+              style={{ display: 'block', width: '100%', height: 240, border: 0, borderRadius: 10, marginTop: '1.2rem' }} />
           </div>
           <figure style={{ ...card, margin: 0 }}>
             <h2 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: '1rem' }}>What Sirsa Customers Say</h2>
@@ -103,6 +108,10 @@ export default function SirsaPage() {
               “Best vendor in Sirsa for solar installation and other services. Smooth and hassle free process. Best quality products used.”
             </blockquote>
             <figcaption style={{ color: 'var(--text-muted)', fontSize: '0.85rem', marginTop: '0.8rem' }}>— Abhishek Sharma, Sirsa (Google review)</figcaption>
+            <p style={{ color: 'var(--text-secondary)', marginTop: '1.2rem', lineHeight: 1.7 }}>
+              Rated 4.9 out of 5 from 35 Google reviews as of September 2026.{' '}
+              <a href={MAPS_URL} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--brand-orange)' }}>Read all reviews or write one on Google</a>.
+            </p>
           </figure>
         </div>
       </div>

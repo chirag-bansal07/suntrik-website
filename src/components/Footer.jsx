@@ -118,7 +118,7 @@ export default function Footer() {
           marginBottom: '2rem',
         }} className="address-grid">
           {[
-            { city: 'Head Office — Sirsa', line1: 'Rania Bazar, Sirsa', line2: 'Haryana 125055', to: '/solar-company-sirsa' },
+            { city: 'Head Office — Sirsa', line1: 'Rania Bazar, B Block, Subhash Chowk', line2: 'Sirsa, Haryana 125055 · Mon–Sat 10 am–7 pm', to: '/solar-company-sirsa' },
             { city: 'Jaipur Office',       line1: '#601 Elemental Mall, DCM', line2: 'Ajmer Road, Jaipur 302201' },
           ].map(a => (
             <div key={a.city}>

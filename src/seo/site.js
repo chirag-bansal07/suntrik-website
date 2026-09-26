@@ -22,7 +22,7 @@ export const BUSINESS = {
   email: 'info@suntrik.com',
   foundingDate: '2018',
   address: {
-    streetAddress: 'Rania Bazar',
+    streetAddress: 'Rania Bazar, B Block, Subhash Chowk',
     addressLocality: 'Sirsa',
     addressRegion: 'Haryana',
     postalCode: '125055',
@@ -36,8 +36,13 @@ export const BUSINESS = {
     addressCountry: 'IN',
   },
   areaServed: ['Sirsa', 'Hisar', 'Fatehabad', 'Bathinda', 'Haryana', 'Rajasthan', 'Punjab'],
-  // Official profiles. Add the Google Business Profile URL once it is claimed.
+  // From the Google Business Profile ("Suntrik Solutions", Solar Energy Company) — keep in sync with it
+  gbpUrl: 'https://maps.google.com/?cid=3598524479219070442',
+  geo: { latitude: 29.5311993, longitude: 75.0242521 },
+  hours: { days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'], opens: '10:00', closes: '19:00' },
+  // Official profiles
   sameAs: [
+    'https://maps.google.com/?cid=3598524479219070442',
     'https://www.facebook.com/suntriksolutions/',
     'https://www.instagram.com/suntriksolutions/',
     'https://www.justdial.com/Sirsa-Haryana/Suntrik-Solutions-Near-Red-Cross-Office-Rania-Bazar/9999P1666-1666-190220063002-A3Z7_BZDET',
@@ -186,8 +191,10 @@ function localBusiness() {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
     '@id': `${SITE_URL}/#business`,
-    name: BUSINESS.name,
-    alternateName: BUSINESS.alternateName,
+    // The Sirsa storefront is listed as "Suntrik Solutions" on Google Business Profile,
+    // JustDial, Facebook and Instagram — use that name here so the entities match.
+    name: BUSINESS.alternateName,
+    alternateName: BUSINESS.name,
     parentOrganization: { '@id': `${SITE_URL}/#organization` },
     url: `${SITE_URL}/`,
     image: abs(DEFAULT_IMAGE),
@@ -197,6 +204,9 @@ function localBusiness() {
     email: BUSINESS.email,
     priceRange: '₹₹',
     address: postal(BUSINESS.address),
+    geo: { '@type': 'GeoCoordinates', ...BUSINESS.geo },
+    hasMap: BUSINESS.gbpUrl,
+    openingHoursSpecification: [{ '@type': 'OpeningHoursSpecification', dayOfWeek: BUSINESS.hours.days, opens: BUSINESS.hours.opens, closes: BUSINESS.hours.closes }],
     areaServed: BUSINESS.areaServed.map(name => ({ '@type': 'Place', name })),
     department: [{
       '@type': 'LocalBusiness',

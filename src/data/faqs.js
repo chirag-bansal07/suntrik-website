@@ -18,7 +18,7 @@ export const KUSUM_FAQS = [
 ]
 
 export const SIRSA_FAQS = [
-  { q: 'Where is Suntrik\'s office in Sirsa?', a: 'Our head office is at Rania Bazar, near the Red Cross Office, Sirsa, Haryana 125055. Call or WhatsApp +91 75037 39000 to book a visit or a free site survey.' },
+  { q: 'Where is Suntrik\'s office in Sirsa?', a: 'Our head office is at Rania Bazar, B Block, Subhash Chowk, Sirsa, Haryana 125055, open Monday to Saturday, 10 am to 7 pm. Call or WhatsApp +91 75037 39000 to book a visit or a free site survey.' },
   { q: 'Can I get the PM Surya Ghar subsidy for rooftop solar in Sirsa?', a: 'Yes. Any Sirsa household with its own DHBVN residential connection and a suitable roof can apply. The central subsidy is up to ₹78,000 for a 3 kW system, credited to your bank account after commissioning. Suntrik handles the portal registration, DHBVN net-metering approval and the subsidy claim.' },
   { q: 'Which areas around Sirsa do you install in?', a: 'We install across Sirsa district and neighbouring Hisar, Fatehabad and Bathinda, and take up larger commercial and PM-KUSUM projects across Haryana and Rajasthan.' },
   { q: 'Do you help farmers in Sirsa with PM-KUSUM?', a: 'Yes. We handle PM-KUSUM Component A ground-mount plants and Component C pump solarisation — application, HAREDA coordination, installation, DISCOM inspection and subsidy follow-up.' },
