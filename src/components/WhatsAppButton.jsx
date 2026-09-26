@@ -66,7 +66,9 @@ export default function WhatsAppButton() {
         .wa-fab:hover .wa-fab-tip { opacity: 1; transform: translateY(-50%) translateX(0); }
         @media (prefers-reduced-motion: reduce) { .wa-fab-ring { animation: none; } }
         @media (max-width: 600px) {
-          .wa-fab { left: 1rem; bottom: 1rem; width: 54px; height: 54px; }
+          /* Bottom-right on phones: page copy is left-aligned, so the button sits over less text */
+          .wa-fab { left: auto; right: 1rem; bottom: calc(1rem + env(safe-area-inset-bottom)); width: 52px; height: 52px; }
+          .wa-fab-icon { width: 30px; height: 30px; }
           .wa-fab-tip { display: none; }
         }
       `}</style>

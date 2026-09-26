@@ -243,18 +243,21 @@ export default function Hero() {
         <div style={{ maxWidth: 1320, margin: '0 auto', width: '100%' }}>
           <div style={{ maxWidth: 700 }}>
 
-            <div ref={tagRef} className="section-tag" style={{ marginBottom: '1.1rem' }}>
-              Solar Company · Sirsa, Haryana
-            </div>
+            {/* The keyword tag is the page's <h1>; the slogan below is visual only.
+                Inline font styles undo the global h1 rule so it still looks like a tag. */}
+            <h1 ref={tagRef} className="section-tag" style={{ marginBottom: '1.1rem', fontFamily: 'Inter, sans-serif', fontSize: '0.72rem', fontWeight: 600, letterSpacing: '0.2em', lineHeight: 1.5 }}>
+              Solar Company in Sirsa, Haryana
+            </h1>
 
-            <h1 ref={h1Ref} className="hero-h1" style={{
+            <p ref={h1Ref} className="hero-h1" style={{
+              fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, letterSpacing: '-0.02em',
               fontSize: 'clamp(2rem, 5vw, 4.3rem)',
               lineHeight: 1.07, marginBottom: '1.3rem',
               color: '#fff', textShadow: '0 2px 40px rgba(0,0,0,0.45)',
             }}>
               Engineering a&nbsp;<br />
               <span className="gradient-text">Cleaner Tomorrow</span>
-            </h1>
+            </p>
 
             <p ref={subRef} className="hero-sub" style={{
               fontSize: 'clamp(0.95rem, 1.75vw, 1.15rem)',

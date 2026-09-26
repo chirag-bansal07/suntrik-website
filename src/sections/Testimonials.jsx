@@ -158,7 +158,7 @@ export default function Testimonials() {
           {/* Controls */}
           <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginTop: '1.25rem', alignItems: 'center' }}>
             {[['‹', -1], ['›', 1]].map(([arrow, dir]) => (
-              <button key={arrow} onClick={() => go(dir)} style={navBtnStyle}
+              <button key={arrow} onClick={() => go(dir)} style={navBtnStyle} aria-label={dir < 0 ? 'Previous testimonial' : 'Next testimonial'}
                 onMouseEnter={e => { e.currentTarget.style.background = 'var(--brand-orange)'; e.currentTarget.style.color = '#fff' }}
                 onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'var(--brand-orange)' }}>
                 {arrow}
@@ -167,7 +167,7 @@ export default function Testimonials() {
           </div>
           <div style={{ display: 'flex', justifyContent: 'center', gap: '0.6rem', marginTop: '1rem' }}>
             {testimonials.map((_, i) => (
-              <button key={i} onClick={() => setActive(i)} style={{
+              <button key={i} onClick={() => setActive(i)} aria-label={`Show testimonial ${i + 1}`} aria-current={i === active} style={{
                 width: i === active ? 28 : 8, height: 8, borderRadius: 4,
                 background: i === active ? 'var(--brand-orange)' : 'rgba(255,107,26,0.2)',
                 border: 'none', cursor: 'pointer', transition: 'all 0.3s ease', padding: 0,

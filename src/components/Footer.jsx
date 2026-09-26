@@ -43,12 +43,10 @@ export default function Footer() {
             {/* Social icons */}
             <div style={{ display: 'flex', gap: '0.5rem' }}>
               {[
-                ['in', 'LinkedIn',  'https://linkedin.com'],
-                ['fb', 'Facebook',  'https://facebook.com'],
-                ['ig', 'Instagram', 'https://instagram.com'],
-                ['yt', 'YouTube',   'https://youtube.com'],
+                ['fb', 'Facebook',  'https://www.facebook.com/suntriksolutions/'],
+                ['ig', 'Instagram', 'https://www.instagram.com/suntriksolutions/'],
               ].map(([s, label, href]) => (
-                <a key={s} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
+                <a key={s} href={href} target="_blank" rel="noopener noreferrer" title={label}
                   style={{
                     width: 36, height: 36, borderRadius: 8,
                     border: '1px solid rgba(255,255,255,0.1)',
@@ -59,7 +57,7 @@ export default function Footer() {
                   }}
                   onMouseEnter={e => { e.currentTarget.style.color = 'var(--brand-orange)'; e.currentTarget.style.borderColor = 'rgba(255,107,26,0.4)' }}
                   onMouseLeave={e => { e.currentTarget.style.color = 'var(--text-muted)';   e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)' }}
-                >{s.toUpperCase()}</a>
+                ><span aria-hidden="true">{s.toUpperCase()}</span><span className="sr-only">Suntrik on {label}</span></a>
               ))}
             </div>
           </div>
@@ -120,12 +118,12 @@ export default function Footer() {
           marginBottom: '2rem',
         }} className="address-grid">
           {[
-            { city: 'Head Office — Sirsa', line1: 'Rania Bazar, Sirsa', line2: 'Haryana 125055' },
+            { city: 'Head Office — Sirsa', line1: 'Rania Bazar, Sirsa', line2: 'Haryana 125055', to: '/solar-company-sirsa' },
             { city: 'Jaipur Office',       line1: '#601 Elemental Mall, DCM', line2: 'Ajmer Road, Jaipur 302201' },
           ].map(a => (
             <div key={a.city}>
               <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--brand-orange)', marginBottom: '0.3rem', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                📍 {a.city}
+                📍 {a.to ? <Link to={a.to} style={{ color: 'inherit' }}>{a.city}</Link> : a.city}
               </div>
               <div style={{ fontSize: '0.8rem', color: 'var(--text-primary)', lineHeight: 1.6 }}>{a.line1}</div>
               <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary)' }}>{a.line2}</div>
@@ -140,11 +138,11 @@ export default function Footer() {
           flexWrap: 'wrap', gap: '1rem',
         }}>
           <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
-            © {new Date().getFullYear()} Suntrik Green Energy Pvt. Ltd. All rights reserved. · CIN: [on file] · ISO 9001 Certified
+            © {new Date().getFullYear()} Suntrik Green Energy Pvt. Ltd. All rights reserved. · ISO 9001 Certified
           </p>
           <div style={{ display: 'flex', gap: '1.5rem' }}>
-            {['Privacy Policy', 'Terms of Use', 'Sitemap'].map(l => (
-              <a key={l} href="#" style={{ fontSize: '0.78rem', color: 'var(--text-muted)', transition: 'color 0.2s', textDecoration: 'none' }}
+            {[['Sitemap', '/sitemap.xml']].map(([l, href]) => (
+              <a key={l} href={href} style={{ fontSize: '0.78rem', color: 'var(--text-muted)', transition: 'color 0.2s', textDecoration: 'none' }}
                 onMouseEnter={e => e.target.style.color = 'var(--text-secondary)'}
                 onMouseLeave={e => e.target.style.color = 'var(--text-muted)'}
               >{l}</a>

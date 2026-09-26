@@ -16,3 +16,11 @@ export const KUSUM_FAQS = [
   { q: 'Does Suntrik handle all the paperwork?', a: 'Yes. Suntrik manages everything — portal registration, DPR preparation, HAREDA coordination, installation, DISCOM inspection and net-metering, and CFA disbursement follow-up. You provide documents once.' },
   { q: 'Is maintenance covered after installation?', a: 'All Suntrik PM-KUSUM installations include a 5-year comprehensive AMC covering preventive maintenance, inverter health checks, cleaning schedules, and remote monitoring.' },
 ]
+
+export const SIRSA_FAQS = [
+  { q: 'Where is Suntrik\'s office in Sirsa?', a: 'Our head office is at Rania Bazar, near the Red Cross Office, Sirsa, Haryana 125055. Call or WhatsApp +91 75037 39000 to book a visit or a free site survey.' },
+  { q: 'Can I get the PM Surya Ghar subsidy for rooftop solar in Sirsa?', a: 'Yes. Any Sirsa household with its own DHBVN residential connection and a suitable roof can apply. The central subsidy is up to ₹78,000 for a 3 kW system, credited to your bank account after commissioning. Suntrik handles the portal registration, DHBVN net-metering approval and the subsidy claim.' },
+  { q: 'Which areas around Sirsa do you install in?', a: 'We install across Sirsa district and neighbouring Hisar, Fatehabad and Bathinda, and take up larger commercial and PM-KUSUM projects across Haryana and Rajasthan.' },
+  { q: 'Do you help farmers in Sirsa with PM-KUSUM?', a: 'Yes. We handle PM-KUSUM Component A ground-mount plants and Component C pump solarisation — application, HAREDA coordination, installation, DISCOM inspection and subsidy follow-up.' },
+  { q: 'How do I get a solar quotation in Sirsa?', a: 'Call or WhatsApp +91 75037 39000, or use the contact form. Our engineer visits your site, checks the roof and electricity bill, and gives you a detailed quote with the post-subsidy cost — free of charge.' },
+]

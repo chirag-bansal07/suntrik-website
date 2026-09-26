@@ -7,7 +7,7 @@
  * and Instagram listings — name, address and phone must match everywhere.
  */
 import { POSTS, getPost } from '../data/blog'
-import { SURYA_GHAR_FAQS, KUSUM_FAQS } from '../data/faqs'
+import { SURYA_GHAR_FAQS, KUSUM_FAQS, SIRSA_FAQS } from '../data/faqs'
 
 export const SITE_URL = 'https://www.suntrik.com'
 export const SITE_NAME = 'Suntrik Green Energy'
@@ -35,8 +35,12 @@ export const BUSINESS = {
     addressCountry: 'IN',
   },
   areaServed: ['Sirsa', 'Hisar', 'Fatehabad', 'Bathinda', 'Haryana', 'Rajasthan', 'Punjab'],
-  // Add the real profile URLs (GBP, JustDial, Facebook, Instagram) once aligned.
-  sameAs: [],
+  // Official profiles. Add the Google Business Profile URL once it is claimed.
+  sameAs: [
+    'https://www.facebook.com/suntriksolutions/',
+    'https://www.instagram.com/suntriksolutions/',
+    'https://www.justdial.com/Sirsa-Haryana/Suntrik-Solutions-Near-Red-Cross-Office-Rania-Bazar/9999P1666-1666-190220063002-A3Z7_BZDET',
+  ],
 }
 
 // Static routes, in sitemap order. `lastmod` = date the page content last changed.
@@ -45,8 +49,16 @@ const ROUTES = {
     name: 'Home',
     title: 'Solar Company in Sirsa, Haryana | Suntrik Green Energy',
     description: 'Suntrik Green Energy (Suntrik Solutions), Rania Bazar, Sirsa — rooftop solar, PM Surya Ghar subsidy, PM-KUSUM and commercial solar EPC across Haryana & Rajasthan.',
-    lastmod: '2026-09-25',
+    lastmod: '2026-09-26',
     priority: '1.0',
+  },
+  '/solar-company-sirsa': {
+    name: 'Solar Company in Sirsa',
+    title: 'Solar Company in Sirsa — Rooftop, PM Surya Ghar & KUSUM | Suntrik',
+    description: 'Suntrik, Rania Bazar, Sirsa: rooftop solar with up to ₹78,000 PM Surya Ghar subsidy, PM-KUSUM for farmers and commercial solar. Free site survey — +91 75037 39000.',
+    lastmod: '2026-09-26',
+    priority: '0.9',
+    faqs: SIRSA_FAQS,
   },
   '/projects': {
     name: 'Projects',

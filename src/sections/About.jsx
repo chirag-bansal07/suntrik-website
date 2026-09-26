@@ -62,6 +62,7 @@ export default function About() {
     >
       {/* ── Suntrik logo orbit ── */}
       <motion.div
+        className="about-orbit"
         style={{ y: orbY, position: 'absolute', top: '-12%', right: '-7%', zIndex: 0, pointerEvents: 'none' }}
         aria-hidden
       >
@@ -103,7 +104,7 @@ export default function About() {
             background: 'radial-gradient(circle, rgba(255,184,48,0.32) 0%, rgba(255,107,26,0.12) 45%, transparent 72%)',
             filter: 'blur(14px)', animation: 'aSunPulse 5s ease-in-out infinite',
           }} />
-          <div style={{ position: 'relative', filter: 'drop-shadow(0 0 18px rgba(255,107,26,0.45))' }}>
+          <div className="about-orbit-logo" style={{ position: 'relative', filter: 'drop-shadow(0 0 18px rgba(255,107,26,0.45))' }}>
             <SuntrikLogo width={160} />
           </div>
         </div>
@@ -271,6 +272,9 @@ export default function About() {
         @media(max-width:860px){
           .about-txt-cols { grid-template-columns:1fr !important; }
           .about-mid-cols { grid-template-columns:1fr !important; }
+          /* Single column: the orbit sits behind the copy, so drop the logo and dim the rings to keep text readable */
+          .about-orbit { opacity: 0.35; }
+          .about-orbit-logo { display: none; }
         }
       `}</style>
     </section>

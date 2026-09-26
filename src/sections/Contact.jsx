@@ -176,8 +176,8 @@ export default function Contact() {
 
                 {/* Service type */}
                 <div>
-                  <label style={labelStyle}>Service Required</label>
-                  <select name="service" value={form.service} onChange={change} style={{ ...inputStyle, colorScheme: 'dark', cursor: 'pointer' }}>
+                  <label htmlFor="contact-service" style={labelStyle}>Service Required</label>
+                  <select id="contact-service" name="service" value={form.service} onChange={change} style={{ ...inputStyle, colorScheme: 'dark', cursor: 'pointer' }}>
                     {serviceTypes.map(t => <option key={t} value={t} style={{ background: '#0d1320', color: '#fff' }}>{t}</option>)}
                   </select>
                 </div>
@@ -227,8 +227,9 @@ const inputStyle  = {
 function Field({ label, name, type = 'text', value, onChange, placeholder, required }) {
   return (
     <div>
-      <label style={labelStyle}>{label}</label>
+      <label htmlFor={`contact-${name}`} style={labelStyle}>{label}</label>
       <input
+        id={`contact-${name}`}
         type={type} name={name} value={value} onChange={onChange}
         placeholder={placeholder} required={required}
         style={inputStyle}

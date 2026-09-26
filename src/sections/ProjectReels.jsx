@@ -9,9 +9,9 @@ import { Link } from 'react-router-dom'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
 
 const REELS = [
-  { name: 'Girghichiya', cap: '3.98 MWp', src: '/reels/girghichiya.mp4', poster: '/reels/girghichiya.jpg' },
-  { name: 'Bhojasar',    cap: '8.48 MWp', src: '/reels/bhojasar.mp4',    poster: '/reels/bhojasar.jpg',  featured: true },
-  { name: 'Rampura',     cap: '6.56 MWp', src: '/reels/rampura.mp4',     poster: '/reels/rampura.jpg' },
+  { name: 'Girghichiya', cap: '3.98 MWp', src: '/reels/girghichiya.mp4', poster: '/reels/girghichiya.webp' },
+  { name: 'Bhojasar',    cap: '8.48 MWp', src: '/reels/bhojasar.mp4',    poster: '/reels/bhojasar.webp',  featured: true },
+  { name: 'Rampura',     cap: '6.56 MWp', src: '/reels/rampura.mp4',     poster: '/reels/rampura.webp' },
 ]
 
 function Reel({ r, inView, delay }) {

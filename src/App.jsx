@@ -35,6 +35,7 @@ const CareersPage   = lazy(() => import('./pages/CareersPage'))
 const BlogPage      = lazy(() => import('./pages/BlogPage'))
 const BlogPostPage  = lazy(() => import('./pages/BlogPostPage'))
 const NotFoundPage  = lazy(() => import('./pages/NotFoundPage'))
+const SirsaPage     = lazy(() => import('./pages/SirsaPage'))
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -110,6 +111,7 @@ export function AppRoutes() {
         <Route path="/schemes/surya-ghar" element={<SuryaGharPage />} />
         <Route path="/schemes/ci"         element={<CIPage />} />
         <Route path="/careers"            element={<CareersPage />} />
+        <Route path="/solar-company-sirsa" element={<SirsaPage />} />
         <Route path="/blog"               element={<BlogPage />} />
         <Route path="/blog/:slug"         element={<BlogPostPage />} />
         <Route path="*"                   element={<NotFoundPage />} />
